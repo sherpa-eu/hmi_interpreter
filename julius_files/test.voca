@@ -1,0 +1,82 @@
+% NS_B
+<s>           sil
+
+% NS_E
+</s>          sil
+
+
+% ACTION_MOVE
+GO         g ow
+MOVE       m uw v
+
+% ACTION_VISIBILITY
+LOOK       l uh k
+
+% ACTION_SCAN
+SCAN       s k eh n
+
+% ACTION_SCAN_AREA
+SCANAREA     s k eh n eh r iy aa 
+
+% PROP_THE
+THE         tu do
+
+% SPATIAL_FOUR
+LEFT       l eh f t
+RIGHT      r ay t
+
+% SPATIAL_N
+LEFT       l eh f t
+RIGHT      r ay t
+BEHIND     b ih hh ay n d
+
+
+% OBJECT_N
+ROCK       r aa k
+TREE       t r iy
+TREES      t r iy z
+BRIDGE     b r ih jh
+VICTIM     v ih k t ih m
+
+% OBJECT_VICTIM
+VICTIM     v ih k t ih m
+VICTIM    v ih k t ih m z
+  
+
+% PROP_TO
+TO        t uw
+
+% PROP_FOR
+FOR       f aa r
+AT        ae t
+
+% AGENT_NAME
+DONKEY  d ah n k ey
+RMAX    aa r m ae k s
+REDWASP    r ae d w aa s p
+GREENWASP  g r iy n w aa s p
+ALBATROSS  aa l ba
+
+% ACTION_STOP
+STOP    s t aa p
+
+% PROP_AROUND
+AROUND er aw n d
+
+% ACTION_TAKE_OFF
+TAKEOFF   t ey k ao f
+
+% PROP_THAT
+THAT       dh ae t
+
+% ACTION_TAKE_PICTURE
+TAKEPICTURE   p ih k ch er
+
+% ACTION_SHOW_PICTURE
+SHOWPICTURE   sh ow
+
+% ACTION_CHARGE
+CHARGE        ch aa r jh
+
+% ACTION_MOUNT
+MOUNT       m ow nt

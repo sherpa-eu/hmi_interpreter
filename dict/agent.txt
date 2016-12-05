@@ -1,0 +1,6 @@
+redwasp
+greenwasp
+albatross
+donkey
+hawk
+rmax

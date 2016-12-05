@@ -1,0 +1,12 @@
+0	[<s>]	sil
+1	[</s>]	sil
+2	[GO]	g ow
+2	[MOVE]	m uw v
+3	[LOOK]	l uh k
+4	[SCAN]	s k eh n
+5	[SCANAREA]	s k eh n eh r iy aa
+6	[LEFT]	l eh f t
+6	[RIGHT]	r ay t
+12	[DONKEY]	d ah n k ey
+12	[RMAX]	aa r m ae k s
+15	[STOP]	s t aa p

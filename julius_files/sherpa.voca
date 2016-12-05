@@ -1,0 +1,58 @@
+% NS_B
+<s>           sil
+
+% NS_E
+</s>          sil
+
+
+% ACTION_MOVE
+GO              g ow
+MOVE            m uw v
+
+% ACTION_VISIBILITY
+LOOK            l uh k
+
+% ACTION_SCAN
+SCAN            s k eh n
+
+% ACTION_SCAN_AREA
+SCANAREA     s k eh n eh r iy aa 
+
+% SPATIAL_FOUR
+LEFT       l eh f t
+RIGHT      r ay t
+
+% SPATIAL_N
+
+% OBJECT_N
+
+% OBJECT_VICTIM
+  
+% PROP_TO
+
+% PROP_FOR
+
+% AGENT_NAME
+DONKEY  d ah n k ey
+RMAX    aa r m ae k s
+
+% ACTION_CHARGE_AGENT
+
+% PROP_THE
+
+% ACTION_STOP
+STOP        s t aa p
+
+% PROP_AROUND
+
+% ACTION_TAKE_OFF
+
+% PROP_THAT
+
+% ACTION_TAKE_PICTURE
+
+% ACTION_SHOW_PICTURE
+
+% ACTION_CHARGE
+
+% ACTION_MOUNT
