@@ -7,8 +7,12 @@ from std_msgs.msg import String
 from geometry_msgs.msg import Point
 import sys
 
-
-def create_hmi_msgs(goal):
+desigs = ""
+pose  = ""
+def create_hmi_msgs(goal, agent):
+    global desigs
+    print agent
+    print goal
     desig = Desig()
     desigs = []
     goal = goal.split(" 0 ")
@@ -21,7 +25,7 @@ def create_hmi_msgs(goal):
         if len(goal) == 1:                                 #Go to tree
             goal = goal[0].split(" ")
             desig.action_type.data = goal[0]
-            desig.actor.data = "red"
+            desig.actor.data = agent
             desig.instructor.data = "busy-genius"
             desig.viewpoint.data = "busy-genius"
             propkey.object_relation.data = goal[1]
@@ -40,7 +44,7 @@ def create_hmi_msgs(goal):
         else:
             goal1 = goal[0].split(" ")                    #Go to tree to rock
             desig.action_type.data = goal1[0]
-            desig.actor.data = "red"
+            desig.actor.data = agent
             desig.instructor.data = "busy-genius"
             desig.viewpoint.data = "busy-genius"
             propkey.object_relation.data = goal1[1]
@@ -75,7 +79,7 @@ def create_hmi_msgs(goal):
         if len(goal1) == 1:  
             goal1 = goal1[0].split(" ")                                 #Go to tree
             desig.action_type.data = goal1[0]
-            desig.actor.data = "red"
+            desig.actor.data = agent
             desig.instructor.data = "busy-genius"
             desig.viewpoint.data = "busy-genius"
             propkey.object_relation.data = goal1[1]
@@ -94,7 +98,7 @@ def create_hmi_msgs(goal):
         else:
             goal3 = goal1[0].split(" ")                                             #Go right to tree
             desig.action_type.data = goal3[0]
-            desig.actor.data = "red"
+            desig.actor.data = agent
             desig.instructor.data = "busy-genius"
             desig.viewpoint.data = "busy-genius"
             propkey.object_relation.data = goal3[1]
@@ -128,7 +132,7 @@ def create_hmi_msgs(goal):
         if len(goal2) == 1:                                                    #take-picture
             goal2 = goal2[0].split(" ")
             desig.action_type.data = goal2[0]
-            desig.actor.data = "red"
+            desig.actor.data = agent
             desig.instructor.data = "busy-genius"
             desig.viewpoint.data = "busy-genius"
             propkey = Propkey()
@@ -154,7 +158,7 @@ def create_hmi_msgs(goal):
             propkey2 = Propkey()
             propkeys = []
             desig.action_type.data = goal1[0]
-            desig.actor.data = "red"
+            desig.actor.data = agent
             desig.instructor.data = "busy-genius"
             desig.viewpoint.data = "busy-genius"
             propkey2.object_relation.data = goal1[1]
@@ -187,36 +191,70 @@ def create_hmi_msgs(goal):
             desigs.append(desig)
             desig = Desig()
     
+   # print desigs
+    
+def call_main_server(req):
+    #     #print "teeest1"
+    #     #print req.goal
+    # create client for ros_parser
+    print "teeest1"
+    rospy.wait_for_service("ros_parser")
+    result = "Did not work!"
+    try:
+        ros_parser = rospy.ServiceProxy("ros_parser",text_parser)
+        print req.goal
+        resp1 = ros_parser(req.goal)
+        #print "teeest"
+        #print resp1
+        result = resp1.result
+        # CREATE POSE CLIENT
+        print "toi toi toi"
+      
+        # GENERATE the CRAM CLIENT
+        #return "Okay everything went well"
+    except rospy.ServiceException, e:
+        print"Service call failed: %s"%e
+
+    rospy.wait_for_service("add_agent_name")
+    print "teeeeest --asasasasa--"
+    agent = "Did not work!"
+    try:
+        add_agent_name = rospy.ServiceProxy("add_agent_name",text_parser)
+        print "get"
+        resp2 = add_agent_name("get")
+        agent = resp2.result
+        #create_hmi_msgs(resp1.result)
+        # GENERATE the CRAM CLIENT
+        #return "Okay everything went well"
+    except rospy.ServiceException, e:
+        print"Service call failed: %s"%e
+
+    print "teeeeest --sadsada--"
+    create_hmi_msgs(resp1.result, agent)
     print desigs
-    
-# def call_main_server(req):
-#     #print "teeest1"
-#     #print req.goal
-#     #rospy.wait_for_service("ros_parser")
-#     result = "Did not work!"
-#     try:
-#         ros_parser = rospy.ServiceProxy("ros_parser",text_parser)
-#         resp1 = ros_parser(req.goal)
-#         #print "teeest"
-#         #print resp1
-#         result = resp1.result
-#     except rospy.ServiceException, e:
-#         print"Service call failed: %s"%e
-    
-#     create_hmi_msgs(resp1.result)
 #     return text_parserResponse(req.goal)
 
-def call_main_server(data):
-    rospy.loginfo("Main_server heard %s", data.data)
-    # client speechToText
+#def call_main_server(data):
+ #   rospy.loginfo("Main_server heard %s", data.data)
+    # server speechToText
     # client ros_parser
     # create_hmi_msgs
 
+# def check_pose_client():
+#     rospy.wait_for_service("pointing_gesture")
+#     try:
+#        pointing_gesture = rospy.ServiceProxy("pointing_gesture",--pointing-gesture-service)
+#        resp1 = pointing_gesture(--string is asking -- )
+#        print resp1.sum -- getting the resuklt and storing in pose
+#        pose = resp1.sum
+#     except rospy.ServiceException, e:
+#         print "Service call failed: %s"%e
+
 def start_main_server():
     rospy.init_node("start_main_server")
-    rospy.Subscriber("/recognizer/output", String, call_main_server)
-    #s = rospy.Service("main_server", text_parser, call_main_server)
-    print "Main server is up!"
+    #rospy.Subscriber("/recognizer/output", String, call_main_server)
+    s = rospy.Service("main_server", text_parser, call_main_server)
+    print "Main server is up and waiting for speech!"
     rospy.spin()
 
 

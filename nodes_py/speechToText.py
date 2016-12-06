@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 """
 Getting Input from a speech recognizer and checking it
 based on the Verb Order Description-Structure
@@ -34,8 +33,8 @@ description=''
 order=''
 pointer=''
 speech_output = ""
-
-
+agentname=""
+agent=''
 # def callTheService(speech_output):
 #      rospy.wait_for_service("callInstruction")
 #      try:
@@ -47,6 +46,28 @@ speech_output = ""
 #           print "Service call failes %s"%e
 
 
+def call_main_server(data):
+     rospy.wait_for_service("main_server")
+     try: 
+          main_server = rospy.ServiceProxy("main_server", text_parser)
+          resp1 = main_server(speech_output)
+          result = resp1.result
+          return result
+     except rospy.ServiceException, e:
+          print "Service call failed: %s"%e
+     
+
+def add_agent_method(agent):
+     rospy.wait_for_service("add_agent_name")
+     print "in the agent server"
+     try: 
+          add_agent_name = rospy.ServiceProxy("add_agent_name", text_parser)
+          resp1 = add_agent_name(agent)
+          return resp1.result
+     except rospy.ServiceException, e:
+          print "Service call failed: %s"%e
+          
+
 def start_server():
      rospy.init_node('speechToText_Node')
      action_param = "~action"
@@ -54,9 +75,9 @@ def start_server():
      description_param = "~description"
      property_param = "~property"
      pointer_param = "~pointer"
-     
-     if rospy.has_param(action_param) and rospy.has_param(order_param) and rospy.has_param(description_param) and rospy.has_param(pointer_param) and rospy.has_param(property_param):
-          start_recognizer(action_param, order_param, description_param, pointer_param, property_param)
+     agent_param = "~agent"
+     if rospy.has_param(action_param) and rospy.has_param(order_param) and rospy.has_param(description_param) and rospy.has_param(pointer_param) and rospy.has_param(property_param) and rospy.has_param(agent_param) :
+          start_recognizer(action_param, order_param, description_param, pointer_param, property_param, agent_param)
      else:
           rospy.logwarn("action and order and description parameters need to be set to start recognizer.")
           
@@ -67,7 +88,8 @@ def subscriberCB(data):
      file_description = open(description,'r')
      file_property = open(property,'r')
      file_pointer = open(pointer,'r')
-     speech_input = data.goal
+     file_agent = open(agentfile,'r')
+     speech_input = data.data
      speech_input = speech_input.lower()
      #speech_input = re.sub(' to ', ' ', speech_input)
      speech_input = re.sub(' the ', ' ', speech_input)
@@ -78,9 +100,21 @@ def subscriberCB(data):
      read_description = file_description.read()
      read_property = file_property.read()
      read_pointer = file_pointer.read()
+     read_agent = file_agent.read()
      speech_output = ""
-     print speech
+     agent = "robot"
+     # print speech
+     
      if len(speech) >= 1:
+          if speech[0] in read_agent:
+               if speech[0] == "redwasp":
+                    splitter = speech[0].split('dw')
+                    agent = add_agent_method(splitter[0]+"d"+"-"+"w"+splitter[1])
+               elif speech[0] == "greenwasp":
+                    splitter = speech[0].split('nw')
+                    add_agent_method(splitter[0]+"n"+"-"+"w"+splitter[1])
+               else:
+                    add_agent_method(speech[0])
           if speech[0] in read_action:
                if speech[0] == "takepicture":
                     splitter = speech[0].split('ep')
@@ -123,16 +157,10 @@ def subscriberCB(data):
           if len(speech) >= 8:
                if speech[7] in read_description or speech[7] in read_pointer or speech[7] in read_order or speech[7] in read_property:
                     speech_output = speech_output + " "+ speech[7]
-
-     rospy.wait_for_service("ros_parser")
-     try: 
-          ros_parser = rospy.ServiceProxy("ros_parser", text_parser)
-          resp1 = ros_parser(speech_output)
-          result = resp1.result
-          return result
-     except rospy.ServiceException, e:
-          print "Service call failed: %s"%e
-     
+    
+     if speech_output != "":
+          result = call_main_server(speech_output)
+          
     # print "result of ros_parser: "
     # print result
 
@@ -146,12 +174,13 @@ def subscriberCB(data):
         # rospy.spin()
      
      
-def start_recognizer(action_param, order_param, description_param, pointer_param, property_param):
+def start_recognizer(action_param, order_param, description_param, pointer_param, property_param, agent_param):
      global action
      global order
      global description
      global property
      global pointer
+     global agentfile
 
      rospy.loginfo("Starting recognizer... ")
      action = rospy.get_param(action_param)
@@ -159,9 +188,11 @@ def start_recognizer(action_param, order_param, description_param, pointer_param
      description = rospy.get_param(description_param)
      property = rospy.get_param(property_param)
      pointer = rospy.get_param(pointer_param)
-    # rospy.init_node("speechToText_server")
-     s = rospy.Service("speechToText", text_parser, subscriberCB)
-     print "Ready for speechToText"
+     agentfile = rospy.get_param(agent_param)
+     # rospy.init_node("speechToText_server")
+     # s = rospy.Service("speechToText", text_parser, subscriberCB)
+     rospy.Subscriber("speechToText", String, subscriberCB)
+     print "Ready for speechToText with Subscriber"
      rospy.spin()
 
      # service server
