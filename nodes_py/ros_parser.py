@@ -8,6 +8,7 @@ value = ""
 
 def parsing(res):
     global value
+    print res
     result = res.split(" ")
     value = ""
     print "resilt: "
@@ -37,9 +38,18 @@ def parsing(res):
    
 
     new_result = res.split(" and ")
-    if len(new_result) > 0:
+    if len(new_result) == 1:
         resume = new_result[0].split(" ")
-        if len(resume) == 2:
+        print "RESYNE------> "
+        print resume
+        if len(resume) == 1:
+            if resume[0] == "stop":
+                value = resume[0] + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[0] == "follow-me":
+                value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +"null"
+            elif resume[0] == "go-there" or resume[0] == "move-there":
+                value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +"null"
+        elif len(resume) == 2:
             if resume[1] == "picture":
                 value = resume[0]+ "-picture" + " null " + "null" + " " + "false" + " " +"null"
             elif resume[1] == "area" or resume[1] == "region":
@@ -50,15 +60,32 @@ def parsing(res):
                 value = resume[0]+ "-robot" + " null " + "null" + " " + "false" + " " +"null"
             elif resume[1] == "off":
                 value = resume[0]+ "-off" + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[0] == "follow":
+                value = resume[0]+ "-me" + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[0] == "look-for" or resume[0] == "search-for":
+                value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +resume[1]
             else:
                 action = resume[0]
                 spatial = resume[1]
                 value = action+" "+ spatial + " null" + " " + "false" + " " +"null"
         elif len(resume) == 3:
-            action = resume[0]
-            spatial = resume[1]
-            object = resume[2]
-            value = action+" "+ spatial + " null" + " " + "false" + " " +object
+            print "3333------> "
+            print resume
+            if resume[0] == "look" and resume[1] == "for":
+                action = resume[0]+"-for"
+                spatial = "null"
+                object = resume[2]
+                value = action+" "+ spatial + " null" + " " + "false" + " " +object
+            elif resume[0] == "search" and resume[1] == "for":
+                action = resume[0]+"-for"
+                spatial = "null"
+                object = resume[2]
+                value = action+" "+ spatial + " null" + " " + "false" + " " +object
+            else:
+                action = resume[0]
+                spatial = resume[1]
+                object = resume[2]
+                value = action+" "+ spatial + " null" + " " + "false" + " " +object
         elif len(resume) == 4:
             action = resume[0]
             spatial = resume[1]
@@ -125,7 +152,7 @@ def parsing(res):
                 
             value = action+" "+spatial+" "+shape+" "+pointing+" "+object+" 1 "+spatial2+" "+shape2+" "+pointing2+" "+object2
     
-    if len(new_result) > 1:
+    if len(new_result) >= 2:
         renew = new_result[1].split(" ")
         if len(renew) == 2:
             if renew[1] == "picture":

@@ -195,17 +195,13 @@ def create_hmi_msgs(goal, agent, pose):
    # print desigs
     
 def call_main_server(req):
-    #     #print "teeest1"
-    #     #print req.goal
     # create client for ros_parser
     rospy.wait_for_service("ros_parser")
     result = "Did not work!"
     try:
         ros_parser = rospy.ServiceProxy("ros_parser",text_parser)
-        print req.goal
         resp1 = ros_parser(req.goal)
         #print "teeest"
-        #print resp1
         result = resp1.result
         # CREATE POSE CLIENT      
         # GENERATE the CRAM CLIENT
@@ -217,7 +213,6 @@ def call_main_server(req):
     agent = "Did not work!"
     try:
         add_agent_name = rospy.ServiceProxy("add_agent_name",text_parser)
-        print "get"
         resp2 = add_agent_name("get")
         agent = resp2.result
         #create_hmi_msgs(resp1.result)
@@ -244,16 +239,16 @@ def call_main_server(req):
 
     create_hmi_msgs(resp1.result, agent, pose)
     print desigs
-
-    rospy.wait_for_service("service_cram_reasoning")
-    result = "Did not work!"
-    try:
-        service_cram_reasoning = rospy.ServiceProxy("service_cram_reasoning",HMIDesig)
-        resp2 = service_cram_reasoning(desigs)
-        return resp2.result
-        #return "Okay everything went well"
-    except rospy.ServiceException, e:
-        print"Service call failed: %s"%e
+  
+    # rospy.wait_for_service("service_cram_reasoning")
+    # result = "Did not work!"
+    # try:
+    #     service_cram_reasoning = rospy.ServiceProxy("service_cram_reasoning",HMIDesig)
+    #     resp2 = service_cram_reasoning(desigs)
+    #     return resp2.result
+    #     #return "Okay everything went well"
+    # except rospy.ServiceException, e:
+    #     print"Service call failed: %s"%e
 
 
 #     return text_parserResponse(req.goal)

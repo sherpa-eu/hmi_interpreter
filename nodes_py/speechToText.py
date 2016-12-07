@@ -105,14 +105,13 @@ def subscriberCB(data):
      agent = "robot"
      # print speech
      
+     pub = rospy.Publisher('display_text', String, queue_size=10)
+     pub.publish(data)
+
      if len(speech) >= 1:
           if speech[0] in read_agent:
-               if speech[0] == "redwasp":
-                    splitter = speech[0].split('dw')
-                    agent = add_agent_method(splitter[0]+"d"+"-"+"w"+splitter[1])
-               elif speech[0] == "greenwasp":
-                    splitter = speech[0].split('nw')
-                    add_agent_method(splitter[0]+"n"+"-"+"w"+splitter[1])
+               if speech[0] == "red" or speech[0] == "blue":
+                    agent = add_agent_method(speech[0]+"-wasp")
                else:
                     add_agent_method(speech[0])
           if speech[0] in read_action:
@@ -128,6 +127,9 @@ def subscriberCB(data):
                elif speech[0] == "takeoff":
                     splitter = speech[0].split('eo')
                     speech_output = splitter[0]+"e"+" "+"o"+splitter[1]
+               elif speech[0] == "followme":
+                    splitter = speech[0].split('wm')
+                    speech_output = splitter[0]+"w"+" "+"m"+splitter[1]
                elif speech[0] == "scanarea":
                     splitter = speech[0].split('na')
                     speech_output = splitter[0]+"n"+" "+"a"+splitter[1]
@@ -137,7 +139,13 @@ def subscriberCB(data):
                else:
                     speech_output = speech[0]
           if len(speech) >= 2:
-               if speech[1] in read_order:
+               if speech[1] == "there":
+                    speech_output = speech_output + "-" + speech[1]
+               elif speech[1] == "me":
+                    speech_output = speech_output + "-" + speech[1]
+               elif speech[1] == "for":
+                    speech_output = speech_output + "-" + speech[1]
+               elif speech[1] in read_order:
                     speech_output = speech_output + " "+ speech[1]
           if len(speech) >= 3:
                if speech[2] in read_description or speech[2] in read_pointer or speech[2] in read_order or speech[2] in read_property:
@@ -191,7 +199,7 @@ def start_recognizer(action_param, order_param, description_param, pointer_param
      agentfile = rospy.get_param(agent_param)
      # rospy.init_node("speechToText_server")
      # s = rospy.Service("speechToText", text_parser, subscriberCB)
-     rospy.Subscriber("speechToText", String, subscriberCB)
+     rospy.Subscriber("recognizer/output", String, subscriberCB)
      print "Ready for speechToText with Subscriber"
      rospy.spin()
 
