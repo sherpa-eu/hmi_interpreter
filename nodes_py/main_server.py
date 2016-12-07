@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 
-from instructor_mission.srv import *
-from instructor_mission.msg import *
+from hmi_interpreter.srv import *
+from hmi_interpreter.msg import *
 import rospy
 from std_msgs.msg import String
+from geometry_msgs.msg import Pose
 from geometry_msgs.msg import Point
 import sys
 
 desigs = ""
 pose  = ""
-def create_hmi_msgs(goal, agent):
+def create_hmi_msgs(goal, agent, pose):
     global desigs
     print agent
     print goal
@@ -34,9 +35,9 @@ def create_hmi_msgs(goal, agent):
             propkey.object_size.data = goal[2]
             propkey.object_num.data = "null"
             propkey.flag.data = goal[3]
-            propkey.pointing_gesture.x = 0.0
-            propkey.pointing_gesture.y = 0.0
-            propkey.pointing_gesture.z = 0.0
+            propkey.pointing_gesture.x = pose.position.x
+            propkey.pointing_gesture.y = pose.position.y
+            propkey.pointing_gesture.z = pose.position.z
             propkeys.append(propkey)
             propkey = Propkey()
             desig.propkeys = propkeys
@@ -53,9 +54,9 @@ def create_hmi_msgs(goal, agent):
             propkey.object_size.data = goal1[2]
             propkey.object_num.data = "null"
             propkey.flag.data = goal1[3]
-            propkey.pointing_gesture.x = 0.0
-            propkey.pointing_gesture.y = 0.0
-            propkey.pointing_gesture.z = 0.0
+            propkey.pointing_gesture.x = pose.position.x
+            propkey.pointing_gesture.y = pose.position.y
+            propkey.pointing_gesture.z = pose.position.z
             propkeys.append(propkey)
             propkey = Propkey()
             goal2 = goal[1].split(" ")
@@ -65,9 +66,9 @@ def create_hmi_msgs(goal, agent):
             propkey.object_size.data = goal2[1]
             propkey.object_num.data = "null"
             propkey.flag.data = goal2[2]
-            propkey.pointing_gesture.x = 0.0
-            propkey.pointing_gesture.y = 0.0
-            propkey.pointing_gesture.z = 0.0
+            propkey.pointing_gesture.x = pose.position.x
+            propkey.pointing_gesture.y = pose.position.y
+            propkey.pointing_gesture.z = pose.position.z
             propkeys.append(propkey)
             propkey = Propkey()
             propkeys.reverse()
@@ -88,9 +89,9 @@ def create_hmi_msgs(goal, agent):
             propkey.object_size.data = goal1[2]
             propkey.object_num.data = "null"
             propkey.flag.data = goal1[3]
-            propkey.pointing_gesture.x = 0.0
-            propkey.pointing_gesture.y = 0.0
-            propkey.pointing_gesture.z = 0.0
+            propkey.pointing_gesture.x = pose.position.x
+            propkey.pointing_gesture.y = pose.position.y
+            propkey.pointing_gesture.z = pose.position.z
             propkeys.append(propkey)
             desig.propkeys = propkeys
             desigs.append(desig)
@@ -107,9 +108,9 @@ def create_hmi_msgs(goal, agent):
             propkey.object_size.data = goal3[2]
             propkey.object_num.data = "null"
             propkey.flag.data = goal3[3]
-            propkey.pointing_gesture.x = 0.0
-            propkey.pointing_gesture.y = 0.0
-            propkey.pointing_gesture.z = 0.0
+            propkey.pointing_gesture.x = pose.position.x
+            propkey.pointing_gesture.y = pose.position.y
+            propkey.pointing_gesture.z = pose.position.z
             propkeys.append(propkey)
             propkey = Propkey()
             goal2 = goal1[1].split(" ")
@@ -119,9 +120,9 @@ def create_hmi_msgs(goal, agent):
             propkey.object_size.data = goal2[1]
             propkey.object_num.data = "null"
             propkey.flag.data = goal2[2]
-            propkey.pointing_gesture.x = 0.0
-            propkey.pointing_gesture.y = 0.0
-            propkey.pointing_gesture.z = 0.0
+            propkey.pointing_gesture.x = pose.position.x
+            propkey.pointing_gesture.y = pose.position.y
+            propkey.pointing_gesture.z = pose.position.z
             propkeys.append(propkey)
             propkeys.reverse()
             desig.propkeys = propkeys
@@ -142,9 +143,9 @@ def create_hmi_msgs(goal, agent):
             propkey.object_size.data = goal2[2]
             propkey.object_num.data = "null"
             propkey.flag.data = goal2[3]
-            propkey.pointing_gesture.x = 0.0
-            propkey.pointing_gesture.y = 0.0
-            propkey.pointing_gesture.z = 0.0
+            propkey.pointing_gesture.x = pose.position.x
+            propkey.pointing_gesture.y = pose.position.y
+            propkey.pointing_gesture.z = pose.position.z
             propkeys = []
             propkeys.append(propkey)
             desig.propkeys = propkeys
@@ -167,9 +168,9 @@ def create_hmi_msgs(goal, agent):
             propkey2.object_size.data = goal1[2]
             propkey2.object_num.data = "null"
             propkey2.flag.data = goal1[3]
-            propkey2.pointing_gesture.x = 0.0
-            propkey2.pointing_gesture.y = 0.0
-            propkey2.pointing_gesture.z = 0.0
+            propkey2.pointing_gesture.x = pose.position.x
+            propkey2.pointing_gesture.y = pose.position.y
+            propkey2.pointing_gesture.z = pose.position.z
             propkeys.append(propkey2)
             propkey2 = Propkey()
             propkeys2 = []
@@ -182,9 +183,9 @@ def create_hmi_msgs(goal, agent):
             propkey2.object_size.data = goal4[1]
             propkey2.object_num.data = "null"
             propkey2.flag.data = goal4[2]
-            propkey2.pointing_gesture.x = 0.0
-            propkey2.pointing_gesture.y = 0.0
-            propkey2.pointing_gesture.z = 0.0
+            propkey2.pointing_gesture.x = pose.position.x
+            propkey2.pointing_gesture.y = pose.position.y
+            propkey2.pointing_gesture.z = pose.position.z
             propkeys.append(propkey2)
             propkeys.reverse()
             desig.propkeys = propkeys
@@ -197,7 +198,6 @@ def call_main_server(req):
     #     #print "teeest1"
     #     #print req.goal
     # create client for ros_parser
-    print "teeest1"
     rospy.wait_for_service("ros_parser")
     result = "Did not work!"
     try:
@@ -207,16 +207,13 @@ def call_main_server(req):
         #print "teeest"
         #print resp1
         result = resp1.result
-        # CREATE POSE CLIENT
-        print "toi toi toi"
-      
+        # CREATE POSE CLIENT      
         # GENERATE the CRAM CLIENT
         #return "Okay everything went well"
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
 
     rospy.wait_for_service("add_agent_name")
-    print "teeeeest --asasasasa--"
     agent = "Did not work!"
     try:
         add_agent_name = rospy.ServiceProxy("add_agent_name",text_parser)
@@ -229,9 +226,36 @@ def call_main_server(req):
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
 
-    print "teeeeest --sadsada--"
-    create_hmi_msgs(resp1.result, agent)
+    rospy.wait_for_service("pointing_server")
+    pose = "Did not work!"
+    try:
+        pointing_server = rospy.ServiceProxy("pointing_server",pointer)
+        print "get"
+        string = String()
+        posy = Pose()
+        string.data = "get"
+        resp2 = pointing_server(string,posy)
+        pose = resp2.result
+        #create_hmi_msgs(resp1.result)
+        # GENERATE the CRAM CLIENT
+        #return "Okay everything went well"
+    except rospy.ServiceException, e:
+        print"Service call failed: %s"%e
+
+    create_hmi_msgs(resp1.result, agent, pose)
     print desigs
+
+    rospy.wait_for_service("service_cram_reasoning")
+    result = "Did not work!"
+    try:
+        service_cram_reasoning = rospy.ServiceProxy("service_cram_reasoning",HMIDesig)
+        resp2 = service_cram_reasoning(desigs)
+        return resp2.result
+        #return "Okay everything went well"
+    except rospy.ServiceException, e:
+        print"Service call failed: %s"%e
+
+
 #     return text_parserResponse(req.goal)
 
 #def call_main_server(data):

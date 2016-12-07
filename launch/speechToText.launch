@@ -11,4 +11,6 @@
   <node name="ros_parser" pkg="hmi_interpreter" type="ros_parser.py"/>
   <node name="main_server" pkg="hmi_interpreter" type="main_server.py"/>
   <node name="agent_server" pkg="hmi_interpreter" type="agent_server.py"/>
+  <node name="pointing_sub" pkg="hmi_interpreter" type="pointing_sub.py"/>
+  <node name="pointing_server" pkg="hmi_interpreter" type="pointing_server.py"/>
 </launch>
