@@ -1,6 +1,4 @@
-redwasp
-greenwasp
-albatross
+red
+blue
 donkey
 hawk
-rmax

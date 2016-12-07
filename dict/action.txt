@@ -2,7 +2,11 @@ go
 fly
 move
 land
+charge
+scan
 follow
+look
+search
 takeoff
 takepicture
 scanarea
@@ -11,4 +15,4 @@ stop
 takewasp
 comeback
 chargerobot
-
+followme
