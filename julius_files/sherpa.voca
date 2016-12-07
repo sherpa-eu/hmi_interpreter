@@ -11,48 +11,99 @@ MOVE            m uw v
 
 % ACTION_VISIBILITY
 LOOK            l uh k
+SEARCH          s er ch
 
 % ACTION_SCAN
 SCAN            s k eh n
 
+% AREA
+AREA    eh r iy aa
+
+% FOREST
+FOREST    f ao r ah s t
+
 % ACTION_SCAN_AREA
 SCANAREA     s k eh n eh r iy aa 
+SCANFOREST   s k eh n f ao r ah s t
 
 % SPATIAL_FOUR
 LEFT       l eh f t
 RIGHT      r ay t
 
+% DIRECTION_THERE
+THERE    dh eh r
+
 % SPATIAL_N
+LEFT       l eh f t
+RIGHT      r ay t
+
+% AROUND     
+AROUND    er aw n d 
 
 % OBJECT_N
+TREE      t r iy
+BRIDGE    b r ih jh 
+TUNNEL    t ah n ae l
+FOREST    f ao r ah s t
+LAKE      l ey k
+ROAD      r ow d
+
+% OBJECT_KITE
+KITE      k ay t
+
 
 % OBJECT_VICTIM
-  
+VICTIM      v ih k t ih m
+VICTIMS      v ih k t ih m z
+
 % PROP_TO
+TO      t uw
 
 % PROP_FOR
+FOR    f ao r
 
 % AGENT_NAME
+RED   r eh d 
+BLUE   b l uw
+
+% AGENT_NAME_ADD
 DONKEY  d ah n k ey
-RMAX    aa r m ae k s
+HAWK     hh ao k
 
-% ACTION_CHARGE_AGENT
+% WASP
+WASP    w aa s p
 
-% PROP_THE
+% ACTION_CHARGE
+CHARGE   ch aa r jh
 
 % ACTION_STOP
 STOP        s t aa p
 
-% PROP_AROUND
-
 % ACTION_TAKE_OFF
+TAKEOFF    t ey k ao f
 
 % PROP_THAT
+THAT       dh ae t
 
 % ACTION_TAKE_PICTURE
+TAKEPICTURE  t ey k aa p ih k ch er
 
-% ACTION_SHOW_PICTURE
+% ACTION_SHOW
+SHOW       sh ow
 
-% ACTION_CHARGE
+% PICTURE
+PICTURE  p ih k ch er
 
-% ACTION_MOUNT
+% WORD_CUSS
+
+% SWITCH
+SWITCH    s w ih ch 
+
+% COMEBACK
+COMEBACK    k ah m b ae k 
+
+% FOLLOW
+FOLLOW   f aa l ow
+
+%ME
+ME      m iy
