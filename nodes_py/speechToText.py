@@ -199,7 +199,7 @@ def start_recognizer(action_param, order_param, description_param, pointer_param
      agentfile = rospy.get_param(agent_param)
      # rospy.init_node("speechToText_server")
      # s = rospy.Service("speechToText", text_parser, subscriberCB)
-     rospy.Subscriber("recognizer/output", String, subscriberCB)
+     rospy.Subscriber("internal/recognizer/output", String, subscriberCB)
      print "Ready for speechToText with Subscriber"
      rospy.spin()
 
