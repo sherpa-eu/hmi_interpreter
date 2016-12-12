@@ -30,12 +30,14 @@ SCANFOREST   s k eh n f ao r ah s t
 LEFT       l eh f t
 RIGHT      r ay t
 
+
 % DIRECTION_THERE
 THERE    dh eh r
 
 % SPATIAL_N
 LEFT       l eh f t
 RIGHT      r ay t
+
 
 % AROUND     
 AROUND    er aw n d 
@@ -69,6 +71,7 @@ BLUE   b l uw
 % AGENT_NAME_ADD
 DONKEY  d ah n k ey
 HAWK     hh ao k
+ALBATROSS   ae l b l aa t r aa s
 
 % WASP
 WASP    w aa s p
