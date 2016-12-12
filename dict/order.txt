@@ -11,3 +11,4 @@ behind
 to
 up
 down
+straight
