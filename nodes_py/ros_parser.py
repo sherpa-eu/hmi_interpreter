@@ -49,6 +49,8 @@ def parsing(res):
                 value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +"null"
             elif resume[0] == "go-there" or resume[0] == "move-there":
                 value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +"null"
+            #elif resume[0] == "go-straight" or resume[0] == "go-ahead" or "move-straight" or resume[0] == "move-ahead":
+                #value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +"null"
         elif len(resume) == 2:
             if resume[1] == "picture":
                 value = resume[0]+ "-picture" + " null " + "null" + " " + "false" + " " +"null"
@@ -81,6 +83,8 @@ def parsing(res):
                 spatial = "null"
                 object = resume[2]
                 value = action+" "+ spatial + " null" + " " + "false" + " " +object
+            elif resume[0] == "scan" and resume[1] == "that":
+                value = "scan"+" "+ "null" + " null" + " " + "true" + " " +resume[2]
             else:
                 action = resume[0]
                 spatial = resume[1]

@@ -12,21 +12,16 @@ checker="false"
 
 
 def func(event):
-   print "return "
    e1.delete("end-1c",END)
    show_entry_fields()
 
 def publisher_callback(data):
-   pub = rospy.Publisher('/internal/recognizer/output', String, queue_size=10)
-   print "publisher"
-   print data.data
-   print "checker: "
-   print checker
-
    if checker == "true":
       if data.data != "SWITCH":
          result = data.data
          #result.replace("\n","")
+         window.insert(INSERT,'Genius:  ','hcolor')
+         window.insert(END,result.upper()+'\n','hnbcolor')
          string = String()
          string.data = result.upper()
          pub.publish(result)
@@ -34,7 +29,6 @@ def publisher_callback(data):
          change_image_field()
 
 def change_image_field():
-   print "field"
    global checker
    if checker == "false":
       checker = "true"
@@ -51,11 +45,10 @@ def show_entry_fields():
       entry_text = e1.get("1.0","end-1c")
       e1.delete("1.0","end-1c")
       window.insert(INSERT,'Genius:  ','hcolor')
-      window.insert(END,entry_text+'\n','hnbcolor')
+      window.insert(END,entry_text.upper()+'\n','hnbcolor')
       entry_text.replace("\n","")
       string = String()
       string.data = entry_text.upper()
-      pub = rospy.Publisher('/internal/recognizer/output', String, queue_size=10)
       pub.publish(string)
 
 
@@ -94,12 +87,12 @@ if __name__ == "__main__":
    b1.config(image=off)
    mis = PhotoImage(file=path+"/speaker_on.png")
    on = mis.subsample(5,5)
-   
+   pub = rospy.Publisher('/internal/recognizer/output', String, queue_size=10)
+
    master.bind('<Return>',func)
    Button(master, text='Quit', font=('Arial', 12,'bold', 'italic'), foreground='#ff8000',command=master.quit).grid(row=5, column=1,sticky=W, padx=16)
    Button(master, text='Enter', font=('Arial', 12,'bold', 'italic'),command=show_entry_fields).grid(row=1, column=0, sticky=W, pady=4, padx=4)
    rospy.Subscriber("recognizer/output", String, publisher_callback)
-   print "subscriber"
    mainloop( )
    #rospy.spin()
    

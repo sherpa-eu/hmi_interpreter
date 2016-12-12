@@ -10,6 +10,7 @@ import sys
 
 desigs = ""
 pose  = ""
+pub =''
 def create_hmi_msgs(goal, agent, pose):
     global desigs
     print agent
@@ -238,7 +239,7 @@ def call_main_server(req):
         print"Service call failed: %s"%e
 
     create_hmi_msgs(resp1.result, agent, pose)
-    print desigs
+    pub.publish(desigs[0])
   
     # rospy.wait_for_service("service_cram_reasoning")
     # result = "Did not work!"
@@ -270,7 +271,9 @@ def call_main_server(req):
 #         print "Service call failed: %s"%e
 
 def start_main_server():
+    global pub
     rospy.init_node("start_main_server")
+    pub = rospy.Publisher('/internal_output', Desig, queue_size=10)
     #rospy.Subscriber("/recognizer/output", String, call_main_server)
     s = rospy.Service("main_server", text_parser, call_main_server)
     print "Main server is up and waiting for speech!"

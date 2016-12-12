@@ -93,6 +93,7 @@ def subscriberCB(data):
      speech_input = speech_input.lower()
      #speech_input = re.sub(' to ', ' ', speech_input)
      speech_input = re.sub(' the ', ' ', speech_input)
+     speech_input = re.sub(' a ', ' ', speech_input)
      speech_input = re.sub(' of ', ' ', speech_input)
      speech = speech_input.split(' ')
      read_action = file_action.read()
@@ -145,6 +146,10 @@ def subscriberCB(data):
                     speech_output = speech_output + "-" + speech[1]
                elif speech[1] == "for":
                     speech_output = speech_output + "-" + speech[1]
+               elif speech[1] == "picture":
+                    speech_output = speech_output + " " + speech[1]
+               elif speech[1] in read_pointer:
+                    speech_output = speech_output + " "+ speech[1]
                elif speech[1] in read_order:
                     speech_output = speech_output + " "+ speech[1]
           if len(speech) >= 3:

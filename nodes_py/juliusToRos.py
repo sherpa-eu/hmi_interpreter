@@ -12,8 +12,8 @@ from std_msgs.msg import String
 def callJulius(port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect(('127.0.0.1', port))
-    print "port"
-    print port
+   # print "port"
+   # print port
     p = Popen(['julius', '-C', '../julius_files/sherpa.jconf','-input','mic'], stdout= s, stderr= s)
 
 def recognizer():
