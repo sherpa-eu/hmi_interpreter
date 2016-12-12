@@ -17,18 +17,18 @@ def func(event):
    show_entry_fields()
 
 def publisher_callback(data):
+   pub = rospy.Publisher('/internal/recognizer/output', String, queue_size=10)
    print "publisher"
+   print data.data
+   print "checker: "
+   print checker
+
    if checker == "true":
       if data.data != "SWITCH":
          result = data.data
-         print result
-         print "mittig"
-         result.replace("\n","")
-         print result
-         print "result: "
+         #result.replace("\n","")
          string = String()
-         string.data = result
-         pub = rospy.Publisher('/internal/recognizer/output', String, queue_size=10)
+         string.data = result.upper()
          pub.publish(result)
       else:
          change_image_field()
@@ -38,17 +38,12 @@ def change_image_field():
    global checker
    if checker == "false":
       checker = "true"
-      b1.config(image=on)    
+      b1.config(image=on)
    else:
       checker = "false"
       b1.config(image=off)
 
 def show_entry_fields():
-   print "show"
-   print len(e1.get("1.0","0.0"))
-   print len(e1.get("0.0",END))
-   print len(e1.get("end-1c",END))
-   print len(e1.get("1.0", "end-1c"))
    if len(e1.get("1.0", "end-1c")) == 0 or  len(e1.get("1.0", "end-1c")) == 1:
       window.insert(INSERT,'Please give a command!\n','rotcolor')
       e1.delete("1.0","end-1c")
@@ -57,12 +52,9 @@ def show_entry_fields():
       e1.delete("1.0","end-1c")
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,entry_text+'\n','hnbcolor')
-      print entry_text
-      print "mittig"
       entry_text.replace("\n","")
-      print entry_text
       string = String()
-      string.data = entry_text
+      string.data = entry_text.upper()
       pub = rospy.Publisher('/internal/recognizer/output', String, queue_size=10)
       pub.publish(string)
 
@@ -107,7 +99,7 @@ if __name__ == "__main__":
    Button(master, text='Quit', font=('Arial', 12,'bold', 'italic'), foreground='#ff8000',command=master.quit).grid(row=5, column=1,sticky=W, padx=16)
    Button(master, text='Enter', font=('Arial', 12,'bold', 'italic'),command=show_entry_fields).grid(row=1, column=0, sticky=W, pady=4, padx=4)
    rospy.Subscriber("recognizer/output", String, publisher_callback)
- 
+   print "subscriber"
    mainloop( )
-  # rospy.spin()
+   #rospy.spin()
    
