@@ -241,18 +241,17 @@ def call_main_server(req):
     create_hmi_msgs(resp1.result, agent, pose)
     pub.publish(desigs[0])
   
-    # rospy.wait_for_service("service_cram_reasoning")
-    # result = "Did not work!"
-    # try:
-    #     service_cram_reasoning = rospy.ServiceProxy("service_cram_reasoning",HMIDesig)
-    #     resp2 = service_cram_reasoning(desigs)
-    #     return resp2.result
-    #     #return "Okay everything went well"
-    # except rospy.ServiceException, e:
-    #     print"Service call failed: %s"%e
+    rospy.wait_for_service("service_hmi_cram")
+    result = "Did not work!"
+    try:
+        service_hmi_cram = rospy.ServiceProxy("service_hmi_cram",HMIDesig)
+        resp2 = service_hmi_cram(desigs)
+        return resp2.result
+        #     #return "Okay everything went well"
+    except rospy.ServiceException, e:
+        print"Service call failed: %s"%e
 
-
-#     return text_parserResponse(req.goal)
+   # return text_parserResponse(req.goal)
 
 #def call_main_server(data):
  #   rospy.loginfo("Main_server heard %s", data.data)

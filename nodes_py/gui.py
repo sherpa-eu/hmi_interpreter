@@ -16,15 +16,25 @@ def func(event):
    show_entry_fields()
 
 def publisher_callback(data):
+   print data.data
    if checker == "true":
       if data.data != "SWITCH":
          result = data.data
-         #result.replace("\n","")
+         if result == "COMEBACK":
+            result="COME BACK"
+         elif result == "TAKEPICTURE":
+            result = "TAKE PICTURE"
+         elif result == "SCANFOREST":
+            result = "SCAN FOREST"
+         elif result == "SCANAREA":
+            result = "SCAN AREA"
+         elif result == "TAKEOFF":
+            result="TAKE OFF"
          window.insert(INSERT,'Genius:  ','hcolor')
          window.insert(END,result.upper()+'\n','hnbcolor')
          string = String()
          string.data = result.upper()
-         pub.publish(result)
+         pub.publish(data.data.upper())
       else:
          change_image_field()
 
@@ -44,9 +54,20 @@ def show_entry_fields():
    else:
       entry_text = e1.get("1.0","end-1c")
       e1.delete("1.0","end-1c")
+      result = entry_text.upper() 
+      if result == "COMEBACK":
+         result = "COME BACK"
+      elif result == "TAKEPICTURE":
+         result="TAKE PICTURE"
+      elif result == "SCANFOREST":
+         result="SCAN FOREST"
+      elif result == "SCANAREA":
+         result="SCAN AREA"
+      elif result == "TAKEOFF":
+         result="TAKE OFF"
       window.insert(INSERT,'Genius:  ','hcolor')
-      window.insert(END,entry_text.upper()+'\n','hnbcolor')
-      entry_text.replace("\n","")
+      window.insert(END,result+'\n','hnbcolor')
+      result.replace("\n","")
       string = String()
       string.data = entry_text.upper()
       pub.publish(string)

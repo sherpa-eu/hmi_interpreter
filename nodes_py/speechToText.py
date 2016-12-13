@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 """
 Getting Input from a speech recognizer and checking it
 based on the Verb Order Description-Structure
@@ -107,38 +108,178 @@ def subscriberCB(data):
      # print speech
      
      pub = rospy.Publisher('display_text', String, queue_size=10)
-     pub.publish(data)
+     pub.publish(data.data)
+     print "speech: "
+     print speech
+     speech_and = speech_input.split('and ')
+     if len(speech_and) == 1:
+          if len(speech) >= 1:
+               if speech[0] in read_agent:
+                    if speech[0] == "red" or speech[0] == "blue":
+                         agent = add_agent_method(speech[0]+"-wasp")
+                    else:
+                         add_agent_method(speech[0])
+               if speech[0] in read_action:
+                    if speech[0] == "takepicture":
+                         splitter = speech[0].split('ep')
+                         speech_output = splitter[0]+"e"+" "+"p"+splitter[1]
+                    elif speech[0] == "showpicture":
+                         splitter = speech[0].split('wp')
+                         speech_output = splitter[0]+"w"+" "+"p"+splitter[1]
+                    elif speech[0] == "chargerobot":
+                         splitter = speech[0].split('er')
+                         speech_output = splitter[0]+"e"+" "+"r"+splitter[1]
+                    elif speech[0] == "takeoff":
+                         splitter = speech[0].split('eo')
+                         speech_output = splitter[0]+"e"+" "+"o"+splitter[1]
+                    elif speech[0] == "followme":
+                         splitter = speech[0].split('wm')
+                         speech_output = splitter[0]+"w"+" "+"m"+splitter[1]
+                    elif speech[0] == "scanarea":
+                         splitter = speech[0].split('na')
+                         speech_output = splitter[0]+"n"+" "+"a"+splitter[1]
+                    elif speech[0] == "comeback":
+                         splitter = speech[0].split('eb')
+                         speech_output = splitter[0]+"e"+" "+"b"+splitter[1]
+                    else:
+                         speech_output = speech[0]
+          if len(speech) >= 2:
+               if speech[1] == "there":
+                    speech_output = speech_output + "-" + speech[1]
+               elif speech[1] == "me":
+                    speech_output = speech_output + "-" + speech[1]
+               elif speech[1] == "for":
+                    speech_output = speech_output + "-" + speech[1]
+               elif speech[1] == "picture":
+                    speech_output = speech_output + " " + speech[1]
+               elif speech[1] in read_pointer:
+                    speech_output = speech_output + " "+ speech[1]
+               elif speech[1] in read_order:
+                    speech_output = speech_output + " "+ speech[1]
+          if len(speech) >= 3:
+               if speech[2] in read_description or speech[2] in read_pointer or speech[2] in read_order or speech[2] in read_property:
+                    speech_output = speech_output + " "+ speech[2]
+          if len(speech) >= 4:
+               if speech[3] in read_description or speech[3] in read_pointer or speech[3] in read_order or speech[3] in read_property:
+                    speech_output = speech_output + " "+ speech[3]
+          if len(speech) >= 5:
+               if speech[4] in read_description or speech[4] in read_pointer or speech[4] in read_order or speech[4] in read_property:
+                    speech_output = speech_output + " "+ speech[4]
+          if len(speech) >= 6:
+               if speech[5] in read_description or speech[5] in read_pointer or speech[5] in read_order or speech[5] in read_property:
+                    speech_output = speech_output + " "+ speech[5]
+          if len(speech) >= 7:
+               if speech[6] in read_description or speech[6] in read_pointer or speech[6] in read_order or speech[6] in read_property:
+                    speech_output = speech_output + " "+ speech[6]
+          if len(speech) >= 8:
+               if speech[7] in read_description or speech[7] in read_pointer or speech[7] in read_order or speech[7] in read_property:
+                    speech_output = speech_output + " "+ speech[7]
+     else:
+          speech = speech_and[0].split(" ")
+          if len(speech) >= 1:
+               if speech[0] in read_agent:
+                    if speech[0] == "red" or speech[0] == "blue":
+                         agent = add_agent_method(speech[0]+"-wasp")
+                    else:
+                         add_agent_method(speech[0])
+               if speech[0] in read_action:
+                    if speech[0] == "takepicture":
+                         splitter = speech[0].split('ep')
+                         speech_output = splitter[0]+"e"+" "+"p"+splitter[1]
+                    elif speech[0] == "showpicture":
+                         splitter = speech[0].split('wp')
+                         speech_output = splitter[0]+"w"+" "+"p"+splitter[1]
+                    elif speech[0] == "chargerobot":
+                         splitter = speech[0].split('er')
+                         speech_output = splitter[0]+"e"+" "+"r"+splitter[1]
+                    elif speech[0] == "takeoff":
+                         splitter = speech[0].split('eo')
+                         speech_output = splitter[0]+"e"+" "+"o"+splitter[1]
+                    elif speech[0] == "followme":
+                         splitter = speech[0].split('wm')
+                         speech_output = splitter[0]+"w"+" "+"m"+splitter[1]
+                    elif speech[0] == "scanarea":
+                         splitter = speech[0].split('na')
+                         speech_output = splitter[0]+"n"+" "+"a"+splitter[1]
+                    elif speech[0] == "comeback":
+                         splitter = speech[0].split('eb')
+                         speech_output = splitter[0]+"e"+" "+"b"+splitter[1]
+                    else:
+                         speech_output = speech[0]
+          if len(speech) >= 2:
+               if speech[1] == "there":
+                    speech_output = speech_output + "-" + speech[1]
+               elif speech[1] == "me":
+                    speech_output = speech_output + "-" + speech[1]
+               elif speech[1] == "for":
+                    speech_output = speech_output + "-" + speech[1]
+               elif speech[1] == "picture":
+                    speech_output = speech_output + " " + speech[1]
+               elif speech[1] in read_pointer:
+                    speech_output = speech_output + " "+ speech[1]
+               elif speech[1] in read_order:
+                    speech_output = speech_output + " "+ speech[1]
+          if len(speech) >= 3:
+               if speech[2] in read_description or speech[2] in read_pointer or speech[2] in read_order or speech[2] in read_property:
+                    speech_output = speech_output + " "+ speech[2]
+          if len(speech) >= 4:
+               if speech[3] in read_description or speech[3] in read_pointer or speech[3] in read_order or speech[3] in read_property:
+                    speech_output = speech_output + " "+ speech[3]
+          if len(speech) >= 5:
+               if speech[4] in read_description or speech[4] in read_pointer or speech[4] in read_order or speech[4] in read_property:
+                    speech_output = speech_output + " "+ speech[4]
+          if len(speech) >= 6:
+               if speech[5] in read_description or speech[5] in read_pointer or speech[5] in read_order or speech[5] in read_property:
+                    speech_output = speech_output + " "+ speech[5]
+          if len(speech) >= 7:
+               if speech[6] in read_description or speech[6] in read_pointer or speech[6] in read_order or speech[6] in read_property:
+                    speech_output = speech_output + " "+ speech[6]
+          if len(speech) >= 8:
+               if speech[7] in read_description or speech[7] in read_pointer or speech[7] in read_order or speech[7] in read_property:
+                    speech_output = speech_output + " "+ speech[7]  
+     
+          speech_output_1 = speech_output
+          speech_output = ""
+          speech = speech_and[1].split(" ")
+          pub = rospy.Publisher('display_text', String, queue_size=10)
+          stri = String()
+          stri.data = speech_and[1]
+          pub.publish(stri)
 
-     if len(speech) >= 1:
-          if speech[0] in read_agent:
-               if speech[0] == "red" or speech[0] == "blue":
-                    agent = add_agent_method(speech[0]+"-wasp")
-               else:
-                    add_agent_method(speech[0])
-          if speech[0] in read_action:
-               if speech[0] == "takepicture":
-                    splitter = speech[0].split('ep')
-                    speech_output = splitter[0]+"e"+" "+"p"+splitter[1]
-               elif speech[0] == "showpicture":
-                    splitter = speech[0].split('wp')
-                    speech_output = splitter[0]+"w"+" "+"p"+splitter[1]
-               elif speech[0] == "chargerobot":
-                    splitter = speech[0].split('er')
-                    speech_output = splitter[0]+"e"+" "+"r"+splitter[1]
-               elif speech[0] == "takeoff":
-                    splitter = speech[0].split('eo')
-                    speech_output = splitter[0]+"e"+" "+"o"+splitter[1]
-               elif speech[0] == "followme":
-                    splitter = speech[0].split('wm')
-                    speech_output = splitter[0]+"w"+" "+"m"+splitter[1]
-               elif speech[0] == "scanarea":
-                    splitter = speech[0].split('na')
-                    speech_output = splitter[0]+"n"+" "+"a"+splitter[1]
-               elif speech[0] == "comeback":
-                    splitter = speech[0].split('eb')
-                    speech_output = splitter[0]+"e"+" "+"b"+splitter[1]
-               else:
-                    speech_output = speech[0]
+          if len(speech) >= 1:
+               if speech[0] in read_agent:
+                    if speech[0] == "red" or speech[0] == "blue":
+                         agent = add_agent_method(speech[0]+"-wasp")
+                    else:
+                         add_agent_method(speech[0])
+               if speech[0] in read_action:
+                    if speech[0] == "takepicture":
+                         splitter = speech[0].split('ep')
+                         speech_output = splitter[0]+"e"+" "+"p"+splitter[1]
+                    elif speech[0] == "showpicture":
+                         splitter = speech[0].split('wp')
+                         speech_output = splitter[0]+"w"+" "+"p"+splitter[1]
+                    elif speech[0] == "chargerobot":
+                         splitter = speech[0].split('er')
+                         speech_output = splitter[0]+"e"+" "+"r"+splitter[1]
+                    elif speech[0] == "takeoff":
+                         splitter = speech[0].split('eo')
+                         speech_output = splitter[0]+"e"+" "+"o"+splitter[1]
+                    elif speech[0] == "followme":
+                         splitter = speech[0].split('wm')
+                         speech_output = splitter[0]+"w"+" "+"m"+splitter[1]
+                    elif speech[0] == "scanarea":
+                         splitter = speech[0].split('na')
+                         speech_output = splitter[0]+"n"+" "+"a"+splitter[1]
+                    elif speech[0] == "comeback":
+                         splitter = speech[0].split('eb')
+                         speech_output = splitter[0]+"e"+" "+"b"+splitter[1]
+                    else:
+                         speech_output = speech[0]
+          pub = rospy.Publisher('display_text', String, queue_size=10)
+          stri = String()
+          stri.data = speech_output
+          pub.publish(stri)
           if len(speech) >= 2:
                if speech[1] == "there":
                     speech_output = speech_output + "-" + speech[1]
@@ -171,6 +312,13 @@ def subscriberCB(data):
                if speech[7] in read_description or speech[7] in read_pointer or speech[7] in read_order or speech[7] in read_property:
                     speech_output = speech_output + " "+ speech[7]
     
+          speech_output = speech_output_1 +"and "+speech_output
+     
+     pub = rospy.Publisher('display_text', String, queue_size=10)
+     stri = String()
+     stri.data = speech_output
+     pub.publish(stri)
+
      if speech_output != "":
           result = call_main_server(speech_output)
           

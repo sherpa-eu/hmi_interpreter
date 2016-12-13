@@ -8,11 +8,8 @@ value = ""
 
 def parsing(res):
     global value
-    print res
     result = res.split(" ")
     value = ""
-    print "resilt: "
-    print result
     # if result[1] == "picture":
     #     action = result[0]+"-picture"
     #     shape = "null"
@@ -40,8 +37,7 @@ def parsing(res):
     new_result = res.split(" and ")
     if len(new_result) == 1:
         resume = new_result[0].split(" ")
-        print "RESYNE------> "
-        print resume
+       
         if len(resume) == 1:
             if resume[0] == "stop":
                 value = resume[0] + " null " + "null" + " " + "false" + " " +"null"
@@ -71,8 +67,7 @@ def parsing(res):
                 spatial = resume[1]
                 value = action+" "+ spatial + " null" + " " + "false" + " " +"null"
         elif len(resume) == 3:
-            print "3333------> "
-            print resume
+         
             if resume[0] == "look" and resume[1] == "for":
                 action = resume[0]+"-for"
                 spatial = "null"
@@ -157,81 +152,234 @@ def parsing(res):
             value = action+" "+spatial+" "+shape+" "+pointing+" "+object+" 1 "+spatial2+" "+shape2+" "+pointing2+" "+object2
     
     if len(new_result) >= 2:
-        renew = new_result[1].split(" ")
-        if len(renew) == 2:
-            if renew[1] == "picture":
-                value = value+" 0 "+renew[0]+"-picture"+" null "+"null"+" false "+"null"
-            elif renew[1] == "area" or renew[1] == "region":
-                value = value+" 0 "+renew[0]+"-area"+" null "+"null"+" false "+"null"
-
-            elif renew[1] == "back":
-                value = value+" 0 "+renew[0]+"-back"+" null "+"null"+" false "+"null"
+        resume = new_result[0].split(" ")
+     
+        if len(resume) == 1:
+            if resume[0] == "stop":
+                value = resume[0] + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[0] == "follow-me":
+                value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +"null"
+            elif resume[0] == "go-there" or resume[0] == "move-there":
+                value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +"null"
+            #elif resume[0] == "go-straight" or resume[0] == "go-ahead" or "move-straight" or resume[0] == "move-ahead":
+                #value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +"null"
+        elif len(resume) == 2:
+            if resume[1] == "picture":
+                value = resume[0]+ "-picture" + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[1] == "area" or resume[1] == "region":
+                value = resume[0]+ "-area" + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[1] == "back":
+                value = resume[0]+ "-back" + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[1] == "robot":
+                value = resume[0]+ "-robot" + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[1] == "off":
+                value = resume[0]+ "-off" + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[0] == "follow":
+                value = resume[0]+ "-me" + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[0] == "look-for" or resume[0] == "search-for":
+                value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +resume[1]
             else:
-                value = value+" 0 "+renew[0]+" "+renew[1]+" null "+"false"+" null"
-        elif len(renew) == 3:
-            value = value+" 0 "+renew[0]+" "+renew[1]+" "+"null"+" false "+renew[2]
-        elif len(renew) == 4:
-            action = "null"
-            spatial="null"
-            pointing="null"
-            object="null"
-            action = renew[0]
-            spatial = renew[1]
-            object = renew[3]
-            shape = "null"
-            if renew[2] == "that":
-                pointing = "true"
-                value = value+" 0 "+action+" "+spatial+" "+shape+" "+pointing+" "+object
-
-            elif renew[2] == "big" or renew[2] == "small":
-                shape = renew[2]
-                value = value+" 0 "+action+" "+spatial+" "+shape+" "+pointing+" "+object
+                action = resume[0]
+                spatial = resume[1]
+                value = action+" "+ spatial + " null" + " " + "false" + " " +"null"
+        elif len(resume) == 3:
+       
+            if resume[0] == "look" and resume[1] == "for":
+                action = resume[0]+"-for"
+                spatial = "null"
+                object = resume[2]
+                value = action+" "+ spatial + " null" + " " + "false" + " " +object
+            elif resume[0] == "search" and resume[1] == "for":
+                action = resume[0]+"-for"
+                spatial = "null"
+                object = resume[2]
+                value = action+" "+ spatial + " null" + " " + "false" + " " +object
+            elif resume[0] == "scan" and resume[1] == "that":
+                value = "scan"+" "+ "null" + " null" + " " + "true" + " " +resume[2]
             else:
-                value = value+" 0 "+action+" "+renew[1]+" null "+"false"+" null "+"1 "+renew[2]+" null "+"false "+renew[3]
-        elif len(renew) == 5: #Go to rock right tree or Go right to big/small/that rock
+                action = resume[0]
+                spatial = resume[1]
+                object = resume[2]
+                value = action+" "+ spatial + " null" + " " + "false" + " " +object
+        elif len(resume) == 4:
             action = resume[0]
-            if renew[3] == "big" or renew[3] == "small":
-                value = value+" 0 "+action+" "+renew[1]+" "+"null"+" false null"+" 1 "+renew[2]+" "+renew[3]+" "+"false "+renew[4]
-            elif renew[3] == "that":
-                value = value+" 0 "+action+" "+renew[1]+" "+"null"+" true null"+" 1 "+renew[2]+" "+"null"+" "+"true "+renew[4]
-            else:
-                value = value+" 0 "+action+" "+renew[1]+" "+"null"+" false "+renew[2]+" 1 "+renew[3]+" "+"null"+" "+"false "+renew[4]
-        elif len(renew) == 6: #Go to tree left big rock or Go to big tree left rock
-            action=renew[0]
-            spatial = renew[1]
-            if renew[2] == "big" or renew[2] == "small":
-                shape = renew[2]
-                value = value+" 0 "+action+" "+spatial+" "+shape+" "+"false"+ " "+renew[3]+" 1 "+renew[4]+" "+"null"+" "+"false "+renew[5]
-            elif renew[2] == "that":
+            spatial = resume[1]
+            if resume[2] == "to" or resume[2] == "right" or resume[2] == "left" or resume[2] == "behind" or resume[2] == "close" or resume[2] == "front" or resume[2] == "back" or resume[2] == "next":
+                spatial2 = resume[2]
+                object = resume[3]
+                value = action + " "+ spatial+ " "+ "null"+" "+"false"+" null"+" 1 "+spatial2+ " "+"null"+" "+"false"+" "+object
+            elif resume[2] == "big" or resume[2] == "small":
+                value = action + " "+ spatial+ " "+ resume[2]+" "+"false "+resume[3]               
+            elif resume[2] == "that":
+                value = action + " "+ spatial+ " "+ "null"+" "+"true "+resume[3]
+
+        elif len(resume) == 5:
+            action = resume[0]
+            spatial = resume[1]
+            if resume[2] == "to" or resume[2] == "right" or resume[2] == "left" or resume[2] == "behind" or resume[2] == "close" or resume[2] == "front" or resume[2] == "back" or resume[2] == "next":
+                spatial2 = resume[2]
+                object = resume[4]
+                if resume[3] == "big" or resume[3] == "small":
+                    shape = resume[3]
+                    pointing = "false"
+                else:
+                    shape = "null"
+                    pointing = "true"
+                value = action+" "+spatial+" "+"null"+" "+"false"+ " "+"null"+" 1 "+ spatial2+ " "+shape+" "+pointing+" "+object
+            elif resume[3] == "to" or resume[3] == "right" or resume[3] == "left" or resume[3] == "behind" or resume[3] == "close" or resume[3] == "front" or resume[3] == "back" or resume[3] == "next":
+                value = action+" "+resume[1]+" "+"null"+" "+"false"+" "+resume[2]+" 1 "+resume[3]+ " null "+"false"+" "+resume[4]
+        elif len(resume) == 6: #Go to big tree next rock or Go to tree next big rock
+            action=resume[0]
+            spatial = resume[1]
+            if resume[2] == "big" or resume[2] == "small":
+                shape = resume[2]
+                value = action+" "+spatial+" "+shape+" "+"false"+ " "+resume[3]+" 1 "+resume[4]+" "+"null"+" "+"false "+resume[5]
+            elif resume[2] == "that":
                 pointing = "true"
-                value =  value+" 0 "+action+" "+spatial+" "+"null"+" "+"true"+ " "+renew[3]+" 1 "+renew[4]+" "+"null"+" "+"false "+renew[5]
+                value = action+" "+spatial+" "+"null"+" "+"true"+ " "+resume[3]+" 1 "+resume[4]+" "+"null"+" "+"false "+resume[5]
             
-            if renew[4] == "big" or renew[4] == "small":
-                shape2 = renew[4]
-                value =  value+" 0 "+action+" "+spatial+" "+"null"+" "+"false"+ " "+renew[2]+" 1 "+renew[3]+" "+shape2+" "+"false "+renew[5]
-            elif renew[4] == "that":
-                value =  value+" 0 "+action+" "+spatial+" "+"null"+" "+"false"+ " "+renew[2]+" 1 "+renew[3]+" "+"null"+" "+"true "+renew[5]
-        elif len(renew) == 7:
-            action=renew[0]
-            spatial = renew[1]
-            spatial2 = renew[4]
-            object = renew[3]
-            object2 =renew[6]
+            if resume[4] == "big" or resume[4] == "small":
+                shape2 = resume[4]
+                value = action+" "+spatial+" "+"null"+" "+"false"+ " "+resume[2]+" 1 "+resume[3]+" "+shape2+" "+"false "+resume[5]
+            elif resume[4] == "that":
+                value = action+" "+spatial+" "+"null"+" "+"false"+ " "+resume[2]+" 1 "+resume[3]+" "+"null"+" "+"true "+resume[5]
+                                
+            
+        elif len(resume) == 7: #Go to big tree next big rock
+            action=resume[0]
+            spatial = resume[1]
+            spatial2 = resume[4]
+            object = resume[3]
+            object2 =resume[6]
             shape = "null"
             shape2 = "null"
             pointing = "false"
             pointing2 = "false"
-            if renew[2] == "big" or renew[2] == "small":
-                shape = renew[2]
-            elif renew[2] == "that":
+            if resume[2] == "big" or resume[2] == "small":
+                shape = resume[2]
+            elif resume[2] == "that":
                 pointing = "true"
 
-            if renew[5] == "big" or renew[5] == "small":
-                shape2 = renew[5]
-            elif renew[5] == "that":
+            if resume[5] == "big" or resume[5] == "small":
+                shape2 = resume[5]
+            elif resume[5] == "that":
                 pointing2 = "true"
-                
-            value =  value+" 0 "+action+" "+spatial+" "+shape+" "+pointing+" "+object+" 1 "+spatial2+" "+shape2+" "+pointing2+" "+object2
+        value_1 = value
+        ########################################################################################################
+        ########################################################################################################
+        resume = new_result[1].split(" ")
+  
+        if len(resume) == 1:
+            if resume[0] == "stop":
+                value = value_1+" 0 "+resume[0] + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[0] == "follow-me":
+                value = value_1+" 0 "+resume[0]+" "+ "null" + " null" + " " + "false" + " " +"null"
+            elif resume[0] == "go-there" or resume[0] == "move-there":
+                value = value_1+" 0 "+resume[0]+" "+ "null" + " null" + " " + "false" + " " +"null"
+            #elif resume[0] == "go-straight" or resume[0] == "go-ahead" or "move-straight" or resume[0] == "move-ahead":
+                #value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +"null"
+        elif len(resume) == 2:
+            if resume[1] == "picture":
+                value = value_1+" 0 "+resume[0]+ "-picture" + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[1] == "area" or resume[1] == "region":
+                value = value_1+" 0 "+resume[0]+ "-area" + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[1] == "back":
+                value = value_1+" 0 "+resume[0]+ "-back" + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[1] == "robot":
+                value = value_1+" 0 "+resume[0]+ "-robot" + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[1] == "off":
+                value = value_1+" 0 "+resume[0]+ "-off" + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[0] == "follow":
+                value = value_1+" 0 "+resume[0]+ "-me" + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[0] == "look-for" or resume[0] == "search-for":
+                value = value_1+" 0 "+resume[0]+" "+ "null" + " null" + " " + "false" + " " +resume[1]
+            else:
+                action = resume[0]
+                spatial = resume[1]
+                value = value_1+" 0 "+action+" "+ spatial + " null" + " " + "false" + " " +"null"
+        elif len(resume) == 3:
+     
+            if resume[0] == "look" and resume[1] == "for":
+                action = resume[0]+"-for"
+                spatial = "null"
+                object = resume[2]
+                value = value_1+" 0 "+action+" "+ spatial + " null" + " " + "false" + " " +object
+            elif resume[0] == "search" and resume[1] == "for":
+                action = resume[0]+"-for"
+                spatial = "null"
+                object = resume[2]
+                value = value_1+" 0 "+action+" "+ spatial + " null" + " " + "false" + " " +object
+            elif resume[0] == "scan" and resume[1] == "that":
+                value = value_1+" 0 "+"scan"+" "+ "null" + " null" + " " + "true" + " " +resume[2]
+            else:
+                action = resume[0]
+                spatial = resume[1]
+                object = resume[2]
+                value = value_1+" 0 "+action+" "+ spatial + " null" + " " + "false" + " " +object
+        elif len(resume) == 4:
+            action = resume[0]
+            spatial = resume[1]
+            if resume[2] == "to" or resume[2] == "right" or resume[2] == "left" or resume[2] == "behind" or resume[2] == "close" or resume[2] == "front" or resume[2] == "back" or resume[2] == "next":
+                spatial2 = resume[2]
+                object = resume[3]
+                value = value_1+" 0 "+action + " "+ spatial+ " "+ "null"+" "+"false"+" null"+" 1 "+spatial2+ " "+"null"+" "+"false"+" "+object
+            elif resume[2] == "big" or resume[2] == "small":
+                value = value_1+" 0 "+action + " "+ spatial+ " "+ resume[2]+" "+"false "+resume[3]               
+            elif resume[2] == "that":
+                value = value_1+" 0 "+action + " "+ spatial+ " "+ "null"+" "+"true "+resume[3]
+
+        elif len(resume) == 5:
+            action = resume[0]
+            spatial = resume[1]
+            if resume[2] == "to" or resume[2] == "right" or resume[2] == "left" or resume[2] == "behind" or resume[2] == "close" or resume[2] == "front" or resume[2] == "back" or resume[2] == "next":
+                spatial2 = resume[2]
+                object = resume[4]
+                if resume[3] == "big" or resume[3] == "small":
+                    shape = resume[3]
+                    pointing = "false"
+                else:
+                    shape = "null"
+                    pointing = "true"
+                value = value_1+" 0 "+action+" "+spatial+" "+"null"+" "+"false"+ " "+"null"+" 1 "+ spatial2+ " "+shape+" "+pointing+" "+object
+            elif resume[3] == "to" or resume[3] == "right" or resume[3] == "left" or resume[3] == "behind" or resume[3] == "close" or resume[3] == "front" or resume[3] == "back" or resume[3] == "next":
+                value = value_1+" 0 "+action+" "+resume[1]+" "+"null"+" "+"false"+" "+resume[2]+" 1 "+resume[3]+ " null "+"false"+" "+resume[4]
+        elif len(resume) == 6: #Go to big tree next rock or Go to tree next big rock
+            action=resume[0]
+            spatial = resume[1]
+            if resume[2] == "big" or resume[2] == "small":
+                shape = resume[2]
+                value = value_1+" 0 "+action+" "+spatial+" "+shape+" "+"false"+ " "+resume[3]+" 1 "+resume[4]+" "+"null"+" "+"false "+resume[5]
+            elif resume[2] == "that":
+                pointing = "true"
+                value = value_1+" 0 "+action+" "+spatial+" "+"null"+" "+"true"+ " "+resume[3]+" 1 "+resume[4]+" "+"null"+" "+"false "+resume[5]
+            
+            if resume[4] == "big" or resume[4] == "small":
+                shape2 = resume[4]
+                value = value_1+" 0 "+action+" "+spatial+" "+"null"+" "+"false"+ " "+resume[2]+" 1 "+resume[3]+" "+shape2+" "+"false "+resume[5]
+            elif resume[4] == "that":
+                value = value_1+" 0 "+action+" "+spatial+" "+"null"+" "+"false"+ " "+resume[2]+" 1 "+resume[3]+" "+"null"+" "+"true "+resume[5]
+                                
+            
+        elif len(resume) == 7: #Go to big tree next big rock
+            action=resume[0]
+            spatial = resume[1]
+            spatial2 = resume[4]
+            object = resume[3]
+            object2 =resume[6]
+            shape = "null"
+            shape2 = "null"
+            pointing = "false"
+            pointing2 = "false"
+            if resume[2] == "big" or resume[2] == "small":
+                shape = resume[2]
+            elif resume[2] == "that":
+                pointing = "true"
+
+            if resume[5] == "big" or resume[5] == "small":
+                shape2 = resume[5]
+            elif resume[5] == "that":
+                pointing2 = "true"
+            value =  value_1+" 0 "+action+" "+spatial+" "+shape+" "+pointing+" "+object+" 1 "+spatial2+" "+shape2+" "+pointing2+" "+object2
     print value
 
     
