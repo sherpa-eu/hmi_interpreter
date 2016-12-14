@@ -8,13 +8,14 @@ import os
 import string
 from math import floor
 from std_msgs.msg import String
+import rospkg
+
+path=''
 
 def callJulius(port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect(('127.0.0.1', port))
-   # print "port"
-   # print port
-    p = Popen(['julius', '-C', '../julius_files/sherpa.jconf','-input','mic'], stdout= s, stderr= s)
+    p = Popen(['julius', '-C',rospack.get_path('hmi_interpreter')+'/julius_files/sherpa.jconf','-input','mic'], stdout= s, stderr= s)
 
 def recognizer():
     pub = rospy.Publisher('/recognizer/output',String, queue_size=10)
@@ -34,9 +35,9 @@ def recognizer():
         data = conn.recv(4096)
         if data.find("sentence1") >= 0:
             data=data[data.find("sentence1")+15:data.find(" </s>")]
+            if data == "GO A HEAD":
+                data = "GO AHEAD"
             msg.data = data
-        
-            
             pub.publish(msg)
 
     s.close()
@@ -45,4 +46,6 @@ def recognizer():
 
 
 if __name__ == '__main__':
+    rospack = rospkg.RosPack()
+    path = rospack.get_path('hmi_interpreter')
     recognizer()

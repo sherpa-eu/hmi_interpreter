@@ -16,7 +16,7 @@
   <node name="main_server" pkg="hmi_interpreter" type="main_server.py"/>
  
   
-  <!--node name="juliusToRos" pkg="hmi_interpreter" type="juliusToRos.py"/-->
+  <node name="juliusToRos" pkg="hmi_interpreter" type="juliusToRos.py"/>
   
  
 </launch>

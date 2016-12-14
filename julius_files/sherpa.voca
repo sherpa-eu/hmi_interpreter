@@ -26,10 +26,18 @@ FOREST    f ao r ah s t
 SCANAREA     s k eh n eh r iy aa 
 SCANFOREST   s k eh n f ao r ah s t
 
+
+
 % SPATIAL_FOUR
 LEFT       l eh f t
 RIGHT      r ay t
 
+%A
+A         eh
+A         ah
+
+%HEAD
+HEAD      hh eh d
 
 % DIRECTION_THERE
 THERE    dh eh r
@@ -37,7 +45,7 @@ THERE    dh eh r
 % SPATIAL_N
 LEFT       l eh f t
 RIGHT      r ay t
-
+BEHIND     b iy t ay n d
 
 % AROUND     
 AROUND    er aw n d 
@@ -49,6 +57,7 @@ TUNNEL    t ah n ae l
 FOREST    f ao r ah s t
 LAKE      l ey k
 ROAD      r ow d
+ROCK      r aa k
 
 % OBJECT_KITE
 KITE      k ay t
@@ -71,7 +80,7 @@ BLUE   b l uw
 % AGENT_NAME_ADD
 DONKEY  d ah n k ey
 HAWK     hh ao k
-ALBATROSS   ae l b l aa t r aa s
+
 
 % WASP
 WASP    w aa s p
@@ -110,3 +119,9 @@ FOLLOW   f aa l ow
 
 %ME
 ME      m iy
+
+% OF
+OF     ao f
+
+% LAND
+LAND  l ae n d
