@@ -57,7 +57,6 @@ def call_main_server(data):
      except rospy.ServiceException, e:
           print "Service call failed: %s"%e
      
-
 def add_agent_method(agent):
      rospy.wait_for_service("add_agent_name")
      print "in the agent server"
@@ -68,6 +67,15 @@ def add_agent_method(agent):
      except rospy.ServiceException, e:
           print "Service call failed: %s"%e
           
+
+def add_viewpoint(viewpoint):
+     rospy.wait_for_service("add_viewpoint")
+     print "in the agent server"
+     try: 
+          add_viewpoint = rospy.ServiceProxy("add_viewpoint", text_parser)
+          resp1 = add_viewpoint(viewpoint)
+     except rospy.ServiceException, e:
+          print "Service call failed: %s"%e
 
 def start_server():
      rospy.init_node('speechToText_Node')
@@ -159,6 +167,11 @@ def subscriberCB(data):
           if len(speech) >= 3:
                if speech[2] in read_description or speech[2] in read_pointer or speech[2] in read_order or speech[2] in read_property:
                     speech_output = speech_output + " "+ speech[2]
+               elif speech[2] == "your":
+                    add_viewpoint("yes")# get agent-name-server
+                    speech_input = re.sub(' your ', ' ', speech_input)
+                    speech = speech_input.split(' ')
+                    speech_output = speech[0]+" "+speech[2]#speech_output + " "+ speech[2]
           if len(speech) >= 4:
                if speech[3] in read_description or speech[3] in read_pointer or speech[3] in read_order or speech[3] in read_property:
                     speech_output = speech_output + " "+ speech[3]
@@ -222,6 +235,11 @@ def subscriberCB(data):
           if len(speech) >= 3:
                if speech[2] in read_description or speech[2] in read_pointer or speech[2] in read_order or speech[2] in read_property:
                     speech_output = speech_output + " "+ speech[2]
+               elif speech[2] == "your":
+                    add_viewpoint("yes")# get agent-name-server
+                    speech_input = re.sub(' your ', ' ', speech_input)
+                    speech = speech_input.split(' ')
+                    speech_output = speech[0]+" "+speech[2]#speech_output + " "+ speech[2]
           if len(speech) >= 4:
                if speech[3] in read_description or speech[3] in read_pointer or speech[3] in read_order or speech[3] in read_property:
                     speech_output = speech_output + " "+ speech[3]

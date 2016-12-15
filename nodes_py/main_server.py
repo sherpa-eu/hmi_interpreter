@@ -11,7 +11,7 @@ import sys
 desigs = ""
 pose  = ""
 pub =''
-def create_hmi_msgs(goal, agent, pose):
+def create_hmi_msgs(goal, agent, viewpoint, pose):
     global desigs
     print agent
     print goal
@@ -29,7 +29,10 @@ def create_hmi_msgs(goal, agent, pose):
             desig.action_type.data = goal[0]
             desig.actor.data = agent
             desig.instructor.data = "busy-genius"
-            desig.viewpoint.data = "busy-genius"
+            if viewpoint == "yes":
+                desig.viewpoint.data = agent
+            else:
+                desig.viewpoint.data = "busy-genius"
             propkey.object_relation.data = goal[1]
             propkey.object.data = goal[4]
             propkey.object_color.data = "null"
@@ -48,7 +51,11 @@ def create_hmi_msgs(goal, agent, pose):
             desig.action_type.data = goal1[0]
             desig.actor.data = agent
             desig.instructor.data = "busy-genius"
-            desig.viewpoint.data = "busy-genius"
+            if viewpoint == "yes":
+                desig.viewpoint.data = agent
+            else:
+                desig.viewpoint.data = "busy-genius"
+          
             propkey.object_relation.data = goal1[1]
             propkey.object.data = goal1[4]
             propkey.object_color.data = "null"
@@ -83,7 +90,11 @@ def create_hmi_msgs(goal, agent, pose):
             desig.action_type.data = goal1[0]
             desig.actor.data = agent
             desig.instructor.data = "busy-genius"
-            desig.viewpoint.data = "busy-genius"
+            if viewpoint == "yes":
+                desig.viewpoint.data = agent
+            else:
+                desig.viewpoint.data = "busy-genius"
+        
             propkey.object_relation.data = goal1[1]
             propkey.object.data = goal1[4]
             propkey.object_color.data = "null"
@@ -102,7 +113,11 @@ def create_hmi_msgs(goal, agent, pose):
             desig.action_type.data = goal3[0]
             desig.actor.data = agent
             desig.instructor.data = "busy-genius"
-            desig.viewpoint.data = "busy-genius"
+            if viewpoint == "yes":
+                desig.viewpoint.data = agent
+            else:
+                desig.viewpoint.data = "busy-genius"
+         
             propkey.object_relation.data = goal3[1]
             propkey.object.data = goal3[4]
             propkey.object_color.data = "null"
@@ -136,7 +151,10 @@ def create_hmi_msgs(goal, agent, pose):
             desig.action_type.data = goal2[0]
             desig.actor.data = agent
             desig.instructor.data = "busy-genius"
-            desig.viewpoint.data = "busy-genius"
+            if viewpoint == "yes":
+                desig.viewpoint.data = agent
+            else:
+                desig.viewpoint.data = "busy-genius"
             propkey = Propkey()
             propkey.object_relation.data = goal2[1]
             propkey.object.data = goal2[4]
@@ -162,7 +180,10 @@ def create_hmi_msgs(goal, agent, pose):
             desig.action_type.data = goal1[0]
             desig.actor.data = agent
             desig.instructor.data = "busy-genius"
-            desig.viewpoint.data = "busy-genius"
+            if viewpoint == "yes":
+                desig.viewpoint.data = agent
+            else:
+                desig.viewpoint.data = "busy-genius"
             propkey2.object_relation.data = goal1[1]
             propkey2.object.data = goal1[4]
             propkey2.object_color.data = "null"
@@ -222,6 +243,18 @@ def call_main_server(req):
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
 
+    rospy.wait_for_service("add_viewpoint")
+    viewpoint = "Did not work!"
+    try:
+        add_viewpoint = rospy.ServiceProxy("add_viewpoint",text_parser)
+        resp2 = add_viewpoint("get")
+        viewpoint = resp2.result
+        #create_hmi_msgs(resp1.result)
+        # GENERATE the CRAM CLIENT
+        #return "Okay everything went well"
+    except rospy.ServiceException, e:
+        print"Service call failed: %s"%e
+
     rospy.wait_for_service("pointing_server")
     pose = "Did not work!"
     try:
@@ -238,7 +271,7 @@ def call_main_server(req):
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
 
-    create_hmi_msgs(resp1.result, agent, pose)
+    create_hmi_msgs(resp1.result, agent, viewpoint, pose)
     pub.publish(desigs[0])
   
     rospy.wait_for_service("service_hmi_cram")

@@ -37,6 +37,8 @@ def recognizer():
             data=data[data.find("sentence1")+15:data.find(" </s>")]
             if data == "GO A HEAD":
                 data = "GO AHEAD"
+            elif data == "GOLEFT":
+                data = "GO LEFT"
             msg.data = data
             pub.publish(msg)
 
