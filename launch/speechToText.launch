@@ -14,7 +14,7 @@
   <node name="gui" pkg="hmi_interpreter" type="gui.py"/>
   <node name="pointing_sub" pkg="hmi_interpreter" type="pointing_sub.py"/>
   <node name="main_server" pkg="hmi_interpreter" type="main_server.py"/>
- 
+   <node name="viewpoint_server" pkg="hmi_interpreter" type="viewpoint_server.py"/>
   
   <node name="juliusToRos" pkg="hmi_interpreter" type="juliusToRos.py"/>
   
