@@ -6,8 +6,9 @@
 
 
 % ACTION_MOVE
-GO              g ow
 MOVE            m uw v
+GO              g ow
+
 
 % ACTION_VISIBILITY
 LOOK            l uh k
@@ -18,6 +19,7 @@ SCAN            s k eh n
 
 % AREA
 AREA    eh r iy aa
+
 
 % FOREST
 FOREST    f ao r ah s t
@@ -31,13 +33,7 @@ SCANFOREST   s k eh n f ao r ah s t
 % SPATIAL_FOUR
 LEFT       l eh f t
 RIGHT      r ay t
-
-%A
-A         eh
-A         ah
-
-%HEAD
-HEAD      hh eh d
+STRAIGHT   s t r ay t
 
 % DIRECTION_THERE
 THERE    dh eh r
@@ -58,6 +54,7 @@ FOREST    f ao r ah s t
 LAKE      l ey k
 ROAD      r ow d
 ROCK      r aa k
+HOUSE     hh aw  s
 
 % OBJECT_KITE
 KITE      k ay t
@@ -125,3 +122,10 @@ OF     ao f
 
 % LAND
 LAND  l ae n d
+
+% IN_FRONT
+INFRONT    ih n f r aa n t
+
+% YOUR
+YOUR       y  uh r
+
