@@ -45,6 +45,8 @@ def parsing(res):
                 value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +"null"
             elif resume[0] == "go-there" or resume[0] == "move-there":
                 value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +"null"
+            elif resume[0] == "land":
+                value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +"null"
             #elif resume[0] == "go-straight" or resume[0] == "go-ahead" or "move-straight" or resume[0] == "move-ahead":
                 #value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +"null"
         elif len(resume) == 2:
