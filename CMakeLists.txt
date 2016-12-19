@@ -53,6 +53,7 @@ add_message_files(
    FILES
    Propkey.msg
    Desig.msg
+   protocol_dialogue.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -61,6 +62,7 @@ add_service_files(
    text_parser.srv
    HMIDesig.srv
    pointer.srv
+   call_cmd.srv
 )
 ## Generate actions in the 'action' folder
 # add_action_files(
