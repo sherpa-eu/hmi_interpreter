@@ -2,8 +2,8 @@
 from Tkinter import *
 import rospy
 from std_msgs.msg import String
-from instructor_mission.msg import protocol_dialogue
-from instructor_mission.srv import call_cmd
+from hmi_interpreter.msg import protocol_dialogue
+from hmi_interpreter.srv import call_cmd
 import time
 import sys
 import rospkg
