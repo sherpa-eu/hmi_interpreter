@@ -5,48 +5,37 @@
 3	[LOOK]	l uh k
 3	[SEARCH]	s er ch
 4	[SCAN]	s k eh n
-5	[AREA]	eh r iy aa
-6	[FOREST]	f ao r ah s t
-7	[SCANAREA]	s k eh n eh r iy aa
-7	[SCANFOREST]	s k eh n f ao r ah s t
-8	[LEFT]	l eh f t
-8	[RIGHT]	r ay t
-8	[STRAIGHT]	s t r ay t
-9	[THERE]	dh eh r
-10	[LEFT]	l eh f t
-10	[RIGHT]	r ay t
-10	[BEHIND]	b iy t ay n d
-11	[AROUND]	er aw n d
-12	[TREE]	t r iy
-12	[BRIDGE]	b r ih jh
-12	[TUNNEL]	t ah n ae l
-12	[FOREST]	f ao r ah s t
-12	[LAKE]	l ey k
-12	[ROAD]	r ow d
-12	[ROCK]	r aa k
-12	[HOUSE]	hh aw s
-13	[KITE]	k ay t
-14	[VICTIM]	v ih k t ih m
-14	[VICTIMS]	v ih k t ih m z
-15	[TO]	t uw
-16	[FOR]	f ao r
-17	[RED]	r eh d
-17	[BLUE]	b l uw
-18	[DONKEY]	d ah n k ey
-18	[HAWK]	hh ao k
-19	[WASP]	w aa s p
-20	[CHARGE]	ch aa r jh
-21	[STOP]	s t aa p
-22	[TAKEOFF]	t ey k ao f
-23	[THAT]	dh ae t
-24	[TAKEPICTURE]	t ey k aa p ih k ch er
-25	[SHOW]	sh ow
-26	[PICTURE]	p ih k ch er
-28	[SWITCH]	s w ih ch
-29	[COMEBACK]	k ah m b ae k
-30	[FOLLOW]	f aa l ow
-31	[ME]	m iy
-32	[OF]	ao f
-33	[LAND]	l ae n d
-34	[INFRONT]	ih n f r aa n t
-35	[YOUR]	y uh r
+5	[LEFT]	l eh f t
+5	[RIGHT]	r ay t
+5	[STRAIGHT]	s t r ay t
+6	[THERE]	dh eh r
+7	[LEFT]	l eh f t
+7	[RIGHT]	r ay t
+7	[BEHIND]	b iy t ay n d
+7	[AROUND]	er aw n d
+8	[TREE]	t r iy
+8	[BRIDGE]	b r ih jh
+8	[TUNNEL]	t ah n ae l
+8	[FOREST]	f ao r ah s t
+8	[LAKE]	l ey k
+8	[ROAD]	r ow d
+8	[ROCK]	r aa k
+8	[HOUSE]	hh aw s
+9	[KITE]	k ay t
+10	[VICTIM]	v ih k t ih m
+10	[VICTIMS]	v ih k t ih m z
+11	[TO]	t uw
+12	[FOR]	f ao r
+13	[RED]	r eh d
+13	[BLUE]	b l uw
+14	[DONKEY]	d ah n k ey
+14	[HAWK]	hh ao k
+15	[WASP]	w aa s p
+16	[STOP]	s t aa p
+17	[THAT]	dh ae t
+18	[TAKEPICTURE]	t ey k aa p ih k ch er
+19	[SWITCH]	s w ih ch
+20	[COMEBACK]	k ah m b ae k
+21	[OF]	ao f
+22	[INFRONT]	ih n f r aa n t
+23	[YOUR]	y uh r

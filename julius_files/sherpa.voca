@@ -17,19 +17,6 @@ SEARCH          s er ch
 % ACTION_SCAN
 SCAN            s k eh n
 
-% AREA
-AREA    eh r iy aa
-
-
-% FOREST
-FOREST    f ao r ah s t
-
-% ACTION_SCAN_AREA
-SCANAREA     s k eh n eh r iy aa 
-SCANFOREST   s k eh n f ao r ah s t
-
-
-
 % SPATIAL_FOUR
 LEFT       l eh f t
 RIGHT      r ay t
@@ -42,8 +29,6 @@ THERE    dh eh r
 LEFT       l eh f t
 RIGHT      r ay t
 BEHIND     b iy t ay n d
-
-% AROUND     
 AROUND    er aw n d 
 
 % OBJECT_N
@@ -82,14 +67,8 @@ HAWK     hh ao k
 % WASP
 WASP    w aa s p
 
-% ACTION_CHARGE
-CHARGE   ch aa r jh
-
 % ACTION_STOP
 STOP        s t aa p
-
-% ACTION_TAKE_OFF
-TAKEOFF    t ey k ao f
 
 % PROP_THAT
 THAT       dh ae t
@@ -97,31 +76,14 @@ THAT       dh ae t
 % ACTION_TAKE_PICTURE
 TAKEPICTURE  t ey k aa p ih k ch er
 
-% ACTION_SHOW
-SHOW       sh ow
-
-% PICTURE
-PICTURE  p ih k ch er
-
-% WORD_CUSS
-
 % SWITCH
 SWITCH    s w ih ch 
 
 % COMEBACK
 COMEBACK    k ah m b ae k 
 
-% FOLLOW
-FOLLOW   f aa l ow
-
-%ME
-ME      m iy
-
 % OF
 OF     ao f
-
-% LAND
-LAND  l ae n d
 
 % IN_FRONT
 INFRONT    ih n f r aa n t
