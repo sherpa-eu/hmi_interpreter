@@ -7,16 +7,57 @@ from hmi_interpreter.srv import call_cmd
 import time
 import sys
 import rospkg
+import thread
 
+thread1 = ""
+thread2 ="2"
+res = ""
 checker="false"
 
+def compare_thread(data,var):
+   global thread1
+   global thread2
+
+   print "thread1"
+   print thread1
+   print "thread2"
+   print thread2
+   if thread1 != thread2:
+      print "waiting"
+   else:
+      thread1 = "1"
+      thread2 = "2"
+      change_image_field()
+      pub.publish(data)
+     # client_sending(res.capitalize())
+
+def sleeping_time(res, delay):
+   global thread2
+   time.sleep(delay)
+   print "delay"
+   thread2 = res 
+   thread.start_new_thread(compare_thread, (res,1,))
+
+def execute_tasks(res, delay):
+   time.sleep(delay)
+   change_image_field()
+   pub.publish(string)
+  # client_sending(res.capitalize())
 
 def func(event):
    e1.delete("end-1c",END)
    show_entry_fields()
 
-def publisher_callback(data):
+def callback_thread(data,y):
+   print "callback"
    print data.data
+   global res 
+   global thread1
+   res = String()
+   if checker == "false" and data.data == "ON":
+      change_image_field()
+      return
+      
    if checker == "true":
       if data.data != "SWITCH":
          result = data.data
@@ -30,15 +71,28 @@ def publisher_callback(data):
             result = "SCAN AREA"
          elif result == "TAKEOFF":
             result="TAKE OFF"
-         window.insert(INSERT,'Genius:  ','hcolor')
-         window.insert(END,result.upper()+'\n','hnbcolor')
          string = String()
          string.data = result.upper()
-         pub.publish(data.data.upper())
+         if result.upper() == "ROBOTS":
+            result = "ROBOT"
+         window.insert(INSERT,'Genius:  ','hcolor')
+         window.insert(END,result.upper()+'\n','hnbcolor')
+         if result.upper() == "HAWK" or result.upper() == "RED WASP" or result.upper() == "BLUE WASP" or result.upper() == "DONKEY" or result.upper() == "ROBOTS"or result.upper() == "ROBOT": 
+            pub.publish(string)
+            return
+         res = string.data
+         thread1 = res
+         thread.start_new_thread(sleeping_time, (res,3,))
+         thread.start_new_thread(compare_thread, (res,1,))
       else:
          change_image_field()
 
+def publisher_callback(data):
+   thread.start_new_thread(callback_thread, (data, 1,))       
+  
+
 def change_image_field():
+   print "change_image_field"
    global checker
    if checker == "false":
       checker = "true"
@@ -70,7 +124,8 @@ def show_entry_fields():
       result.replace("\n","")
       string = String()
       string.data = entry_text.upper()
-      pub.publish(string)
+      pub.publish(data.data.upper())
+
 
 
 if __name__ == "__main__":

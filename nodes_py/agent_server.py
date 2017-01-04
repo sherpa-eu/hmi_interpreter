@@ -25,6 +25,8 @@ def call_agent_name(req):
         agent = req.goal
         print "agent123: "
         print agent
+        if agent == "ROBOTS" or agent == "robots":
+            agent = "robot"
         return text_parserResponse(agent)
     else:
         print "agent456: "

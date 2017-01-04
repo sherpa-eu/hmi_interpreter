@@ -1,10 +1,9 @@
 0	[<s>]	sil
 1	[</s>]	sil
-2	[MOVE]	m uw v
 2	[GO]	g ow
 3	[LOOK]	l uh k
 3	[SEARCH]	s er ch
-4	[SCAN]	s k eh n
+4	[SCANAREA]	s k eh n eh r iy aa
 5	[LEFT]	l eh f t
 5	[RIGHT]	r ay t
 5	[STRAIGHT]	s t r ay t
@@ -39,3 +38,5 @@
 21	[OF]	ao f
 22	[INFRONT]	ih n f r aa n t
 23	[YOUR]	y uh r
+24	[ROBOTS]	r ow b aa t
+25	[ON]	aa n

@@ -6,7 +6,6 @@
 
 
 % ACTION_MOVE
-MOVE            m uw v
 GO              g ow
 
 
@@ -14,8 +13,8 @@ GO              g ow
 LOOK            l uh k
 SEARCH          s er ch
 
-% ACTION_SCAN
-SCAN            s k eh n
+% ACTION_SCAN_AREA
+SCANAREA            s k eh n eh r iy aa
 
 % SPATIAL_FOUR
 LEFT       l eh f t
@@ -59,7 +58,7 @@ FOR    f ao r
 RED   r eh d 
 BLUE   b l uw
 
-% AGENT_NAME_ADD
+% AGENT_NAME_ROBOT
 DONKEY  d ah n k ey
 HAWK     hh ao k
 
@@ -91,3 +90,8 @@ INFRONT    ih n f r aa n t
 % YOUR
 YOUR       y  uh r
 
+% ROBOTS
+ROBOTS      r ow b aa t
+
+% ON
+ON        aa n
