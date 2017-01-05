@@ -54,7 +54,8 @@ def callback_thread(data,y):
    global res 
    global thread1
    res = String()
-   if checker == "false" and data.data == "ON":
+   if checker == "false" and data.data == "TURNON":
+      checker == "false"
       change_image_field()
       return
       
@@ -119,12 +120,16 @@ def show_entry_fields():
          result="SCAN AREA"
       elif result == "TAKEOFF":
          result="TAKE OFF"
+      print "result"
+      print result
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
+      if result == "ROBOT":
+         result = "ROBOTS"
       result.replace("\n","")
       string = String()
       string.data = entry_text.upper()
-      pub.publish(data.data.upper())
+      pub.publish(result.upper())
 
 
 

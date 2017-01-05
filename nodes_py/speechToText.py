@@ -101,6 +101,7 @@ def subscriberCB(data):
      speech_input = data.data
      speech_input = speech_input.lower()
      #speech_input = re.sub(' to ', ' ', speech_input)
+     speech_input = re.sub('next to', 'next', speech_input)
      speech_input = re.sub(' the ', ' ', speech_input)
      speech_input = re.sub(' a ', ' ', speech_input)
      speech_input = re.sub(' of ', ' ', speech_input)
