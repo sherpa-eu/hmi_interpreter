@@ -14,10 +14,13 @@ desigs = ""
 pose  = ""
 pub =''
 def create_hmi_msgs(goal, agent, viewpoint, pose):
+    print "create_hmi_msgs"
     global desigs
     print "agent"
     print agent
     print goal
+    print "pose"
+    print pose
     desig = Desig()
     desigs = []
     goal = goal.split(" 0 ")
@@ -256,6 +259,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose):
 def call_main_server(req):
     # create client for ros_parser
     print "call_main_server"
+    print req.goal
     rospy.wait_for_service("ros_parser")
     result = "Did not work!"
     try:
@@ -269,6 +273,7 @@ def call_main_server(req):
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
 
+    print result
     rospy.wait_for_service("add_agent_name")
     agent = "Did not work!"
     try:
@@ -302,26 +307,26 @@ def call_main_server(req):
         posy = Pose()
         string.data = "get"
         resp2 = pointing_server(string,posy)
+        print resp2.result
         posy = resp2.result
         #create_hmi_msgs(resp1.result)
         # GENERATE the CRAM CLIENT
         #return "Okay everything went well"
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
-    posy = Pose()
     
     create_hmi_msgs(resp1.result, agent, viewpoint, posy)
     pub.publish(desigs[0])
   
-    # rospy.wait_for_service("service_hmi_cram")
-    # result = "Did not work!"
-    # try:
-    #     service_hmi_cram = rospy.ServiceProxy("service_hmi_cram",HMIDesig)
-    #     resp2 = service_hmi_cram(desigs)
-    #     return resp2.result
-    #     #     #return "Okay everything went well"
-    # except rospy.ServiceException, e:
-    #     print"Service call failed: %s"%e
+    rospy.wait_for_service("service_hmi_cram")
+    result = "Did not work!"
+    try:
+        service_hmi_cram = rospy.ServiceProxy("service_hmi_cram",HMIDesig)
+        resp2 = service_hmi_cram(desigs)
+        return resp2.result
+        #     #return "Okay everything went well"
+    except rospy.ServiceException, e:
+        print"Service call failed: %s"%e
 
  
 def start_main_server():

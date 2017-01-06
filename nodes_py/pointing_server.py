@@ -9,6 +9,7 @@ pose=Pose()
 
 def set_pointer(req):
     global pose
+   
     print "Returning: "
     multi = req.pointing
     if req.action.data == "set":

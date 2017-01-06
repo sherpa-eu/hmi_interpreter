@@ -58,6 +58,8 @@ def callback_thread(data,y):
       checker == "false"
       change_image_field()
       return
+   elif data.data == "TURNON":
+      return
       
    if checker == "true":
       if data.data != "SWITCH":
@@ -83,7 +85,7 @@ def callback_thread(data,y):
             return
          res = string.data
          thread1 = res
-         thread.start_new_thread(sleeping_time, (res,3,))
+         thread.start_new_thread(sleeping_time, (res,5,))
          thread.start_new_thread(compare_thread, (res,1,))
       else:
          change_image_field()
