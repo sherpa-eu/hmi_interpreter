@@ -29,12 +29,14 @@ def call_client(pose):
         print "Service call failed: %s"%e
 
 def subscriberCB(data):
+    print "data: "
+    print data
     posy = data.pose
-    result = call_client(posy)
+    result = call_client(data)
     
 def start_function():
     rospy.init_node("start_pointing_sub")
-    rospy.Subscriber("busy_genius_left_hand", PoseStamped, subscriberCB)
+    rospy.Subscriber("/busy_genius/right_hand", PoseStamped, subscriberCB)
     print "Ready for start_function with Subscriber"
     rospy.spin()
 
