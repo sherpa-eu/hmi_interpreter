@@ -10,29 +10,6 @@ def parsing(res):
     global value
     result = res.split(" ")
     value = ""
-    # if result[1] == "picture":
-    #     action = result[0]+"-picture"
-    #     shape = "null"
-    #     spatial = "null"
-    #     pointing = "false"
-    #     object = "null"
-    #     value = action + " " + spatial + " " + shape + " " + pointing + " " +object
-    # elif len(result) == 2:
-    #     print "und nun?"
-    #     if result[1] == "area" or result[1] == "region":
-    #         action = "scan-area"
-    #         spatial = "null"
-    #     elif result[1] == "back":
-    #         action = "come-back"
-    #         spatial = "null"
-    #     elif result[1] == "off":
-    #         action = "take-off"
-    #         spatial = "null"
-    #     else:
-    #         action = result[0]
-    #         spatial = result[1]
-    #     value = action + " " + spatial + " " + "null" + " " + "false" + " " +"null"
-   
 
     new_result = res.split(" and ")
     if len(new_result) == 1:
@@ -66,6 +43,8 @@ def parsing(res):
                 value = resume[0]+ "-me" + " null " + "null" + " " + "false" + " " +"null"
             elif resume[0] == "look-for" or resume[0] == "search-for":
                 value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +resume[1]
+            elif resume[0] == "mount":
+                value = resume[0]+" "+"null "+"null "+"false "+resume[1]
             else:
                 action = resume[0]
                 spatial = resume[1]
@@ -82,10 +61,16 @@ def parsing(res):
                 spatial = "null"
                 object = resume[2]
                 value = action+" "+ spatial + " null" + " " + "false" + " " +object
+            elif resume[0] == "scan":
+                value = "scan"+"-"+resume[1]+"-"+resume[2]+" "+"null "+"null "+"false "+"null"
             else:
                 action = resume[0]
                 spatial = resume[1]
                 object = resume[2]
+                if resume[1] == "right" or resume[1] == "left":
+                    spatial = resume[1]+"-of"
+                elif resume[1] == "next":
+                    spatial = resume[1]+"-to"
                 value = action+" "+ spatial + " null" + " " + "false" + " " +object
         elif len(resume) == 4:
             action = resume[0]

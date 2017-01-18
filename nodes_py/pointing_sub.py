@@ -34,7 +34,7 @@ def subscriberCB(data):
     
 def start_function():
     rospy.init_node("start_pointing_sub")
-    rospy.Subscriber("pointing_gesture", PoseStamped, subscriberCB)
+    rospy.Subscriber("busy_genius_left_hand", PoseStamped, subscriberCB)
     print "Ready for start_function with Subscriber"
     rospy.spin()
 

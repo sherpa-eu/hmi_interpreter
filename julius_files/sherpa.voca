@@ -13,8 +13,11 @@ GO              g ow
 LOOK            l uh k
 SEARCH          s er ch
 
-% ACTION_SCAN_AREA
-SCANAREA            s k eh n eh r iy aa
+% ACTION_SCAN
+SCAN            s k eh n
+
+% AREA
+AREA            eh r iy aa
 
 % SPATIAL_FOUR
 LEFT       l eh f t
@@ -76,6 +79,12 @@ THAT       dh ae t
 % ACTION_TAKE_PICTURE
 TAKEPICTURE  t ey k aa p ih k ch er
 
+% ACTION_SHOW
+SHOW          sh ow
+
+% PICTURE
+PICTURE       p ih k ch er
+
 % SWITCH
 SWITCH    s w ih ch 
 
@@ -94,5 +103,12 @@ YOUR       y  uh r
 % ROBOTS
 ROBOTS      r ow b aa t
 
-% TURNON
-TURNON        t eh r eh n ae n
+% ON
+ON   aa n
+
+% LAND
+LAND     l ae n d
+TAKEOFF  t ey k ah f
+
+% MOUNT
+MOUNT    m ow n t

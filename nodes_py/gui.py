@@ -50,17 +50,17 @@ def func(event):
 
 def callback_thread(data,y):
    print "callback"
-   print data.data
+   #print data.data
    global res 
    global thread1
    res = String()
-   if checker == "false" and data.data == "TURNON":
+   if checker == "false" and data.data == "TURNON" or checker == "false" and data.data == "ON" or checker == "false" and data.data == "SWITCH ON":
       checker == "false"
       change_image_field()
       return
-   elif data.data == "TURNON":
+   elif data.data == "TURNON" or data.data == "ON" or data.data == "SWITCH ON":
       return
-      
+   #print data.data   
    if checker == "true":
       if data.data != "SWITCH":
          result = data.data
@@ -68,23 +68,27 @@ def callback_thread(data,y):
             result="COME BACK"
          elif result == "TAKEPICTURE":
             result = "TAKE PICTURE"
-         elif result == "SCANFOREST":
-            result = "SCAN FOREST"
-         elif result == "SCANAREA":
-            result = "SCAN AREA"
          elif result == "TAKEOFF":
             result="TAKE OFF"
+         elif result == "MOUNT RED WASP":
+            result ="MOUNT RED-WASP"
+         elif result == "MOUNT BLUE WASP":
+            result="MOUNT BLUE-WASP"
          string = String()
          string.data = result.upper()
          if result.upper() == "ROBOTS":
             result = "ROBOT"
          window.insert(INSERT,'Genius:  ','hcolor')
          window.insert(END,result.upper()+'\n','hnbcolor')
-         if result.upper() == "HAWK" or result.upper() == "RED WASP" or result.upper() == "BLUE WASP" or result.upper() == "DONKEY" or result.upper() == "ROBOTS"or result.upper() == "ROBOT": 
-            pub.publish(string)
+         print "result"
+         print result
+         if result.upper() == "HAWK" or result.upper() == "RED WASP" or result.upper() == "BLUE WASP" or result.upper() == "DONKEY" or result.upper() == "ROBOT": 
+            pub.publish(result.upper())
             return
          res = string.data
          thread1 = res
+         publisher = rospy.Publisher('display_text', String, queue_size=10)
+         publisher.publish(res)
          thread.start_new_thread(sleeping_time, (res,5,))
          thread.start_new_thread(compare_thread, (res,1,))
       else:
@@ -126,11 +130,13 @@ def show_entry_fields():
       print result
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
-      if result == "ROBOT":
-         result = "ROBOTS"
+      if result == "ROBOTS":
+         result = "ROBOT"
       result.replace("\n","")
       string = String()
       string.data = entry_text.upper()
+      publisher = rospy.Publisher('display_text', String, queue_size=10)
+      publisher.publish(result.upper())
       pub.publish(result.upper())
 
 

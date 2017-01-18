@@ -1,5 +1,0 @@
-red
-blue
-donkey
-hawk
-robots

@@ -1,13 +1,5 @@
 <launch>
-  <node name="speechToText" pkg="hmi_interpreter" type="speechToText.py">
-    <param name="action" value="$(find hmi_interpreter)/dict/action.txt"/>
-    <param name="order" value="$(find hmi_interpreter)/dict/order.txt"/>
-    <param name="description" value="$(find hmi_interpreter)/dict/description.txt"/>
-    <param name="property" value="$(find hmi_interpreter)/dict/property.txt"/>
-    <param name="pointer" value="$(find hmi_interpreter)/dict/pointer.txt"/>
-    <param name="agent" value="$(find hmi_interpreter)/dict/agent.txt"/>
-  </node>
-
+  <node name="speechToText" pkg="hmi_interpreter" type="speechToText.py"/>
   <node name="ros_parser" pkg="hmi_interpreter" type="ros_parser.py"/>
   <node name="pointing_server" pkg="hmi_interpreter" type="pointing_server.py"/>
   <node name="agent_server" pkg="hmi_interpreter" type="agent_server.py"/>
