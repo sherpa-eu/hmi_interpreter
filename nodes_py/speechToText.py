@@ -75,7 +75,7 @@ def subscriberCB(data):
      speech_and = speech_input.split('and ')
      if len(speech_and) >= 1:
           if speech[0] == "red" or speech[0] == "blue":
-               agent = add_agent_method(speech[0]+"-wasp")
+               agent = add_agent_method(speech[0]+"_wasp")
           elif speech[0] == "hawk" or speech[0] == "donkey" or speech[0] == "robot":
                add_agent_method(speech[0])
           else:

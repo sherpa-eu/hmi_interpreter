@@ -5,6 +5,7 @@ from hmi_interpreter.msg import *
 import rospy
 from std_msgs.msg import String
 from geometry_msgs.msg import Pose
+from geometry_msgs.msg import PoseStamped
 from geometry_msgs.msg import Point
 from geometry_msgs.msg import Quaternion
 
@@ -34,11 +35,11 @@ def create_hmi_msgs(goal, agent, viewpoint, pose):
             goal = goal[0].split(" ")
             desig.action_type.data = goal[0]
             desig.actor.data = agent
-            desig.instructor.data = "busy-genius"
+            desig.instructor.data = "busy_genius"
             if viewpoint == "yes":
                 desig.viewpoint.data = agent
             else:
-                desig.viewpoint.data = "busy-genius"
+                desig.viewpoint.data = "busy_genius"
             propkey.object_relation.data = goal[1]
             propkey.object.data = goal[4]
             propkey.object_color.data = "null"
@@ -61,11 +62,11 @@ def create_hmi_msgs(goal, agent, viewpoint, pose):
             goal1 = goal[0].split(" ")                    #Go to tree to rock
             desig.action_type.data = goal1[0]
             desig.actor.data = agent
-            desig.instructor.data = "busy-genius"
+            desig.instructor.data = "busy_genius"
             if viewpoint == "yes":
                 desig.viewpoint.data = agent
             else:
-                desig.viewpoint.data = "busy-genius"
+                desig.viewpoint.data = "busy_genius"
           
             propkey.object_relation.data = goal1[1]
             propkey.object.data = goal1[4]
@@ -109,11 +110,11 @@ def create_hmi_msgs(goal, agent, viewpoint, pose):
             goal1 = goal1[0].split(" ")                                 #Go to tree
             desig.action_type.data = goal1[0]
             desig.actor.data = agent
-            desig.instructor.data = "busy-genius"
+            desig.instructor.data = "busy_genius"
             if viewpoint == "yes":
                 desig.viewpoint.data = agent
             else:
-                desig.viewpoint.data = "busy-genius"
+                desig.viewpoint.data = "busy_genius"
         
             propkey.object_relation.data = goal1[1]
             propkey.object.data = goal1[4]
@@ -136,11 +137,11 @@ def create_hmi_msgs(goal, agent, viewpoint, pose):
             goal3 = goal1[0].split(" ")                                             #Go right to tree
             desig.action_type.data = goal3[0]
             desig.actor.data = agent
-            desig.instructor.data = "busy-genius"
+            desig.instructor.data = "busy_genius"
             if viewpoint == "yes":
                 desig.viewpoint.data = agent
             else:
-                desig.viewpoint.data = "busy-genius"
+                desig.viewpoint.data = "busy_genius"
          
             propkey.object_relation.data = goal3[1]
             propkey.object.data = goal3[4]
@@ -178,11 +179,11 @@ def create_hmi_msgs(goal, agent, viewpoint, pose):
             goal2 = goal2[0].split(" ")
             desig.action_type.data = goal2[0]
             desig.actor.data = agent
-            desig.instructor.data = "busy-genius"
+            desig.instructor.data = "busy_genius"
             if viewpoint == "yes":
                 desig.viewpoint.data = agent
             else:
-                desig.viewpoint.data = "busy-genius"
+                desig.viewpoint.data = "busy_genius"
             propkey = Propkey()
             propkey.object_relation.data = goal2[1]
             propkey.object.data = goal2[4]
@@ -211,11 +212,11 @@ def create_hmi_msgs(goal, agent, viewpoint, pose):
             propkeys = []
             desig.action_type.data = goal1[0]
             desig.actor.data = agent
-            desig.instructor.data = "busy-genius"
+            desig.instructor.data = "busy_genius"
             if viewpoint == "yes":
                 desig.viewpoint.data = agent
             else:
-                desig.viewpoint.data = "busy-genius"
+                desig.viewpoint.data = "busy_genius"
             propkey2.object_relation.data = goal1[1]
             propkey2.object.data = goal1[4]
             propkey2.object_color.data = "null"
@@ -304,8 +305,10 @@ def call_main_server(req):
         pointing_server = rospy.ServiceProxy("pointing_server",pointer)
         print "pointing"
         string = String()
-        posy = Pose()
+        posy = PoseStamped()
         string.data = "get"
+        print "posy"
+        print posy
         resp2 = pointing_server(string,posy)
         print resp2.result
         posy = resp2.result

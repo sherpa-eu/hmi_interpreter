@@ -71,9 +71,9 @@ def callback_thread(data,y):
          elif result == "TAKEOFF":
             result="TAKE OFF"
          elif result == "MOUNT RED WASP":
-            result ="MOUNT RED-WASP"
+            result ="MOUNT RED_WASP"
          elif result == "MOUNT BLUE WASP":
-            result="MOUNT BLUE-WASP"
+            result="MOUNT BLUE_WASP"
          string = String()
          string.data = result.upper()
          if result.upper() == "ROBOTS":
