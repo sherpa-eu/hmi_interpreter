@@ -78,6 +78,7 @@ def callback_thread(data,y):
          string.data = result.upper()
          if result.upper() == "ROBOTS":
             result = "ROBOT"
+         window.delete("1.0", "end-1c")
          window.insert(INSERT,'Genius:  ','hcolor')
          window.insert(END,result.upper()+'\n','hnbcolor')
          print "result"
@@ -95,8 +96,10 @@ def callback_thread(data,y):
          change_image_field()
 
 def publisher_callback(data):
-   thread.start_new_thread(callback_thread, (data, 1,))       
-  
+   thread.start_new_thread(callback_thread, (data, 1,))    
+   
+def speaker_callback(data):
+   change_image_field()
 
 def change_image_field():
    print "change_image_field"
@@ -110,6 +113,7 @@ def change_image_field():
 
 def show_entry_fields():
    if len(e1.get("1.0", "end-1c")) == 0 or  len(e1.get("1.0", "end-1c")) == 1:
+      window.delete("1.0", "end-1c")
       window.insert(INSERT,'Please give a command!\n','rotcolor')
       e1.delete("1.0","end-1c")
    else:
@@ -128,6 +132,7 @@ def show_entry_fields():
          result="TAKE OFF"
       print "result"
       print result
+      window.delete("1.0", "end-1c")
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
       if result == "ROBOTS":
@@ -145,7 +150,7 @@ if __name__ == "__main__":
    rospy.init_node('gui_node', anonymous=True)
    master = Tk()
    master.title("Dialogue Interface")
-   window = Text(master, height=40, width=70)
+   window = Text(master, height=5, width=70)
    window.tag_configure('big', font=('Verdana',20,'bold'))
    scroll = Scrollbar(master, command=window.yview)
    window.tag_configure('big', font=('Verdana',20,'bold'))
@@ -182,6 +187,7 @@ if __name__ == "__main__":
    Button(master, text='Quit', font=('Arial', 12,'bold', 'italic'), foreground='#ff8000',command=master.quit).grid(row=5, column=1,sticky=W, padx=16)
    Button(master, text='Enter', font=('Arial', 12,'bold', 'italic'),command=show_entry_fields).grid(row=1, column=0, sticky=W, pady=4, padx=4)
    rospy.Subscriber("recognizer/output", String, publisher_callback)
+   rospy.Subscriber("/speaker_on", String, speaker_callback)
    mainloop( )
    #rospy.spin()
    
