@@ -18,23 +18,22 @@ def compare_thread(data,var):
    global thread1
    global thread2
 
-   print "thread1"
-   print thread1
-   print "thread2"
-   print thread2
    if thread1 != thread2:
       print "waiting"
    else:
-      thread1 = "1"
-      thread2 = "2"
-      change_image_field()
-      pub.publish(data)
+      if data.data != "NO":
+         thread1 = "1"
+         thread2 = "2"
+         change_image_field()
+         pub.publish(data)
+      else:
+         thread1 = ""
+         thread2 = "2"
      # client_sending(res.capitalize())
 
 def sleeping_time(res, delay):
    global thread2
    time.sleep(delay)
-   print "delay"
    thread2 = res 
    thread.start_new_thread(compare_thread, (res,1,))
 
@@ -49,8 +48,6 @@ def func(event):
    show_entry_fields()
 
 def callback_thread(data,y):
-   print "callback"
-   #print data.data
    global res 
    global thread1
    res = String()
@@ -60,7 +57,6 @@ def callback_thread(data,y):
       return
    elif data.data == "TURNON" or data.data == "ON" or data.data == "SWITCH ON":
       return
-   #print data.data   
    if checker == "true":
       if data.data != "SWITCH":
          result = data.data
@@ -81,8 +77,6 @@ def callback_thread(data,y):
          window.delete("1.0", "end-1c")
          window.insert(INSERT,'Genius:  ','hcolor')
          window.insert(END,result.upper()+'\n','hnbcolor')
-         print "result"
-         print result
          if result.upper() == "HAWK" or result.upper() == "RED WASP" or result.upper() == "BLUE WASP" or result.upper() == "DONKEY" or result.upper() == "ROBOT": 
             pub.publish(result.upper())
             return
@@ -102,7 +96,6 @@ def speaker_callback(data):
    change_image_field()
 
 def change_image_field():
-   print "change_image_field"
    global checker
    if checker == "false":
       checker = "true"
@@ -130,8 +123,6 @@ def show_entry_fields():
          result="SCAN AREA"
       elif result == "TAKEOFF":
          result="TAKE OFF"
-      print "result"
-      print result
       window.delete("1.0", "end-1c")
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
