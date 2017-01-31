@@ -190,7 +190,8 @@ def show_entry_fields():
       string.data = entry_text.upper()
       publisher = rospy.Publisher('display_text', String, queue_size=10)
       publisher.publish(result.upper())
-      pub.publish(result.upper())
+      if data != "NO":
+         pub.publish(result.upper())
 
 
 
