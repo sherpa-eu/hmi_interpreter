@@ -19,11 +19,6 @@ SCAN            s k eh n
 % AREA
 AREA            eh r iy aa
 
-% SPATIAL_FOUR
-LEFT       l eh f t
-RIGHT      r ay t
-STRAIGHT   s t r ay t
-
 % DIRECTION_THERE
 THERE    dh eh r
 
@@ -96,9 +91,6 @@ OF     ao f
 % IN_FRONT
 INFRONT    ih n f r aa n t
 
-% YOUR
-YOUR       y  uh r
-
 % ROBOTS
 ROBOTS      r ow b aa t
 
@@ -114,3 +106,6 @@ MOUNT    m ow n t
 
 % ACTION_NO
 NO    n ow
+
+%  AND
+AND  ae n d
