@@ -1,32 +1,84 @@
 #!/usr/bin/env python
+import roslib; roslib.load_manifest('hmi_interpreter')
 from Tkinter import *
+
 import rospy
 from std_msgs.msg import String
 from hmi_interpreter.msg import protocol_dialogue
-from hmi_interpreter.srv import call_cmd
+from hmi_interpreter.srv import *
 import time
 import sys
 import rospkg
 import thread
+from geometry_msgs.msg import *
+import tf
+import math
 
 thread1 = ""
 thread2 ="2"
 res = ""
 checker="false"
 
+def get_pointer(a,s):
+   listener = tf.TransformListener()
+   rate = rospy.Rate(10.0)
+   pose = PoseStamped()
+   while not rospy.is_shutdown():
+      try:
+         (trans_right,rot_right) = listener.lookupTransform('/map', '/busy_genius/right_hand', rospy.Time(0))
+         (trans_left,rot_left) = listener.lookupTransform('/map', '/busy_genius/left_hand', rospy.Time(0))
+         break
+      except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+         continue
+
+   print "please"
+   if trans_right[2] >= trans_left[2]:
+      pose.pose.position.x = trans_right[0]
+      pose.pose.position.y = trans_right[1]
+      pose.pose.position.z = trans_right[2]
+      pose.pose.orientation.x = rot_right[0]
+      pose.pose.orientation.y = rot_right[1]
+      pose.pose.orientation.z = rot_right[2]
+      pose.pose.orientation.w = rot_right[3]
+   else:
+      pose.pose.position.x = trans_left[0]
+      pose.pose.position.y = trans_left[1]
+      pose.pose.position.z = trans_left[2]
+      pose.pose.orientation.x = rot_left[0]
+      pose.pose.orientation.y = rot_left[1]
+      pose.pose.orientation.z = rot_left[2]
+      pose.pose.orientation.w = rot_left[3]
+
+   string = String()
+   string.data = "set"
+   rospy.wait_for_service('pointing_server')
+   try:
+      pointing_server = rospy.ServiceProxy("pointing_server", pointer)
+      resp1 = pointing_server(string,pose)
+      result = resp1.result
+      return result
+   except rospy.ServiceException, e:
+      print "Service call failed: %s"%e
+       
 def compare_thread(data,var):
    global thread1
    global thread2
-
+   print "--->data"
+   print data
    if thread1 != thread2:
       print "waiting"
    else:
-      if data.data != "NO":
+      if data != "NO":
          thread1 = "1"
          thread2 = "2"
+         string = String()
+         string.data = data
+         print data
+         print string
          change_image_field()
-         pub.publish(data)
+         pub.publish(string)
       else:
+         print "teeest"
          thread1 = ""
          thread2 = "2"
      # client_sending(res.capitalize())
@@ -77,6 +129,8 @@ def callback_thread(data,y):
          window.delete("1.0", "end-1c")
          window.insert(INSERT,'Genius:  ','hcolor')
          window.insert(END,result.upper()+'\n','hnbcolor')
+         if result=="GO THERE" or "THERE" in result:
+            thread.start_new_thread(get_pointer, (string.data,5,))
          if result.upper() == "HAWK" or result.upper() == "RED WASP" or result.upper() == "BLUE WASP" or result.upper() == "DONKEY" or result.upper() == "ROBOT": 
             pub.publish(result.upper())
             return
@@ -126,6 +180,9 @@ def show_entry_fields():
       window.delete("1.0", "end-1c")
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
+      print "teest"
+      if result == "GO THERE" or "THERE" in result:
+         thread.start_new_thread(get_pointer, (res,5,))
       if result == "ROBOTS":
          result = "ROBOT"
       result.replace("\n","")
