@@ -18,6 +18,19 @@ thread1 = ""
 thread2 ="2"
 res = ""
 checker="false"
+message="manu"
+change_field="false"
+
+def connect_to_julius(test,k):
+   print "connect_to_julius"
+   print test
+   rospy.wait_for_service('julius_server')
+   try:
+      julius_server=rospy.ServiceProxy('julius_server',text_parser)
+      resp1=julius_server(test)
+      return resp1.result
+   except rospy.ServiceException, e:
+      print "Service call failed: %s"%e
 
 def get_pointer(a,s):
    listener = tf.TransformListener()
@@ -30,8 +43,6 @@ def get_pointer(a,s):
          break
       except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
          continue
-
-   print "please"
    if trans_right[2] >= trans_left[2]:
       pose.pose.position.x = trans_right[0]
       pose.pose.position.y = trans_right[1]
@@ -63,8 +74,6 @@ def get_pointer(a,s):
 def compare_thread(data,var):
    global thread1
    global thread2
-   print "--->data"
-   print data
    if thread1 != thread2:
       print "waiting"
    else:
@@ -78,7 +87,6 @@ def compare_thread(data,var):
          change_image_field()
          pub.publish(string)
       else:
-         print "teeest"
          thread1 = ""
          thread2 = "2"
      # client_sending(res.capitalize())
@@ -107,21 +115,45 @@ def callback_thread(data,y):
       checker == "false"
       change_image_field()
       return
-   elif data.data == "TURNON" or data.data == "ON" or data.data == "SWITCH ON":
+   elif checker == "false" and data.data == "TURNON" or data.data == "ON" or data.data == "SWITCH ON":
+      print "teeest"
       return
    if checker == "true":
       if data.data != "SWITCH":
          result = data.data
-         if result == "COMEBACK":
-            result="COME BACK"
-         elif result == "TAKEPICTURE":
-            result = "TAKE PICTURE"
-         elif result == "TAKEOFF":
-            result="TAKE OFF"
-         elif result == "MOUNT RED WASP":
-            result ="MOUNT RED_WASP"
-         elif result == "MOUNT BLUE WASP":
-            result="MOUNT BLUE_WASP"
+         if "AND" in result:
+            result = result.split(" AND ")
+            if result[0] == "COMEBACK":
+               result="COME BACK"+" AND "+ result[1]
+            elif result[0] == "TAKEPICTURE":
+               result = "TAKE PICTURE"+" AND "+ result[1]
+            elif result[0] == "TAKEOFF":
+               result="TAKE OFF"+" AND "+ result[1]
+            elif result[0] == "MOUNT RED WASP":
+               result ="MOUNT RED_WASP"+" AND "+ result[1]
+            elif result[0] == "MOUNT BLUE WASP":
+               result="MOUNT BLUE_WASP"+" AND "+ result[1]
+            elif result[1] == "COMEBACK":
+               result=result[0]+" AND "+"COME BACK"
+            elif result[1] == "TAKEPICTURE":
+               result =result[0]+" AND "+ "TAKE PICTURE"
+            elif result[1] == "TAKEOFF":
+               result=result[0]+" AND "+"TAKE OFF"
+            elif result[1] == "MOUNT RED WASP":
+               result =result[0]+" AND "+"MOUNT RED_WASP"
+            elif result[1] == "MOUNT BLUE WASP":
+               result=result[0]+" AND "+"MOUNT BLUE_WASP"
+         else:
+            if result == "COMEBACK":
+               result="COME BACK"
+            elif result == "TAKEPICTURE":
+               result = "TAKE PICTURE"
+            elif result == "TAKEOFF":
+               result="TAKE OFF"
+            elif result == "MOUNT RED WASP":
+               result ="MOUNT RED_WASP"
+            elif result == "MOUNT BLUE WASP":
+               result="MOUNT BLUE_WASP"
          string = String()
          string.data = result.upper()
          if result.upper() == "ROBOTS":
@@ -129,7 +161,12 @@ def callback_thread(data,y):
          window.delete("1.0", "end-1c")
          window.insert(INSERT,'Genius:  ','hcolor')
          window.insert(END,result.upper()+'\n','hnbcolor')
-         if result=="GO THERE" or "THERE" in result:
+         if "MOVE" in result.upper():
+            result = result.upper()
+            result = result.split("MOVE")
+            result = "GO"+result[1]
+            string.data = result
+         elif result=="GO THERE" or "THERE" in result:
             thread.start_new_thread(get_pointer, (string.data,5,))
          if result.upper() == "HAWK" or result.upper() == "RED WASP" or result.upper() == "BLUE WASP" or result.upper() == "DONKEY" or result.upper() == "ROBOT": 
             pub.publish(result.upper())
@@ -147,7 +184,8 @@ def publisher_callback(data):
    thread.start_new_thread(callback_thread, (data, 1,))    
    
 def speaker_callback(data):
-   change_image_field()
+   if change_field == "true":
+      change_image_field()
 
 def change_image_field():
    global checker
@@ -157,6 +195,24 @@ def change_image_field():
    else:
       checker = "false"
       b1.config(image=off)
+
+def change_into_auto_none():
+   global change_field
+   global checker
+   if change_field == "false":
+      change_field = "true"
+      b2.config(image=auto)
+      checker = "false"
+      change_image_field()
+      thread.start_new_thread(connect_to_julius, ("true",1,))
+      print "one"
+   else:
+      change_field = "false"
+      checker = "true"
+      change_image_field()
+      b2.config(image=none)
+      thread.start_new_thread(connect_to_julius, ("false",1,))
+      print "two"
 
 def show_entry_fields():
    if len(e1.get("1.0", "end-1c")) == 0 or  len(e1.get("1.0", "end-1c")) == 1:
@@ -198,7 +254,7 @@ def show_entry_fields():
 if __name__ == "__main__":
    rospy.init_node('gui_node', anonymous=True)
    master = Tk()
-   master.title("Dialogue Interface")
+   master.title("HMI Dialogue Interface")
    window = Text(master, height=5, width=70)
    window.tag_configure('big', font=('Verdana',20,'bold'))
    scroll = Scrollbar(master, command=window.yview)
@@ -223,17 +279,25 @@ if __name__ == "__main__":
    path = path+"/img"
    #mic
    b1 = Button(master, command=change_image_field)
+   b2 = Button(master, command=change_into_auto_none)
+   
    e1.grid(row=1, column=0, pady=4, padx=4)
    b1.grid(row=4, column=1,sticky=W, pady=4, padx=4)
+   b2.grid(row=5, column=1,sticky=W, padx=40, pady=4)
+   none=PhotoImage(file=path+"/none.png")
+   b2_off = none.subsample(1,1)
+   b2.config(image=b2_off)
    mi = PhotoImage(file=path+"/speaker_off.png")
    off = mi.subsample(5,5)
    b1.config(image=off)
+   auto=PhotoImage(file=path+"/auto.png")
+   b2_on=auto.subsample(5,5)
    mis = PhotoImage(file=path+"/speaker_on.png")
    on = mis.subsample(5,5)
    pub = rospy.Publisher('/internal/recognizer/output', String, queue_size=10)
-
+   
    master.bind('<Return>',func)
-   Button(master, text='Quit', font=('Arial', 12,'bold', 'italic'), foreground='#ff8000',command=master.quit).grid(row=5, column=1,sticky=W, padx=16)
+   Button(master, text='Quit', font=('Arial', 12,'bold', 'italic'), foreground='#ff8000',command=master.quit).grid(row=5, column=0,sticky=W, padx=10)
    Button(master, text='Enter', font=('Arial', 12,'bold', 'italic'),command=show_entry_fields).grid(row=1, column=0, sticky=W, pady=4, padx=4)
    rospy.Subscriber("recognizer/output", String, publisher_callback)
    rospy.Subscriber("/speaker_on", String, speaker_callback)
