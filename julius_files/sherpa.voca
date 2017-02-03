@@ -19,6 +19,13 @@ SCAN            s k eh n
 % AREA
 AREA            eh r iy aa
 
+% MOVE
+MOVE            m uw v
+
+% SPATIAL_FOUR
+LEFT       l eh f t
+RIGHT      r ay t
+
 % DIRECTION_THERE
 THERE    dh eh r
 
@@ -109,3 +116,6 @@ NO    n ow
 
 %  AND
 AND  ae n d
+
+% YOUR
+YOUR       y  uh r
