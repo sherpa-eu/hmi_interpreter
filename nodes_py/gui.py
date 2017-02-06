@@ -111,17 +111,13 @@ def callback_thread(data,y):
    global res 
    global thread1
    res = String()
-   if checker == "false" and data.data == "TURNON" or checker == "false" and data.data == "ON" or checker == "false" and data.data == "SWITCH ON":
-      checker == "false"
+   if checker == "false":
       change_image_field()
       return
-   elif checker == "false" and data.data == "TURNON" or data.data == "ON" or data.data == "SWITCH ON":
-      print "teeest"
-      return
-   if checker == "true":
+   else:
       if data.data != "SWITCH":
          result = data.data
-         if "AND" in result:
+         if " AND " in result:
             result = result.split(" AND ")
             if result[0] == "COMEBACK":
                result="COME BACK"+" AND "+ result[1]
@@ -143,6 +139,10 @@ def callback_thread(data,y):
                result =result[0]+" AND "+"MOUNT RED_WASP"
             elif result[1] == "MOUNT BLUE WASP":
                result=result[0]+" AND "+"MOUNT BLUE_WASP"
+            elif result[0] == result[1]:
+               result = result[0]
+            else:
+               result=result[0]+" AND "+result[1]
          else:
             if result == "COMEBACK":
                result="COME BACK"
@@ -155,10 +155,12 @@ def callback_thread(data,y):
             elif result == "MOUNT BLUE WASP":
                result="MOUNT BLUE_WASP"
          string = String()
+         print "result"
+         print result
          string.data = result.upper()
          if result.upper() == "ROBOTS":
             result = "ROBOT"
-         window.delete("1.0", "end-1c")
+         window.delete("1.0","end-1c")
          window.insert(INSERT,'Genius:  ','hcolor')
          window.insert(END,result.upper()+'\n','hnbcolor')
          if "MOVE" in result.upper():
@@ -183,36 +185,42 @@ def callback_thread(data,y):
 def publisher_callback(data):
    thread.start_new_thread(callback_thread, (data, 1,))    
    
+#def speaker_callback(data):
+#   if change_field == "true":
+#      change_image_field()
+
 def speaker_callback(data):
-   if change_field == "true":
-      change_image_field()
+   change_field = "false"
+   change_image_field()
 
 def change_image_field():
    global checker
    if checker == "false":
       checker = "true"
       b1.config(image=on)
+      thread.start_new_thread(connect_to_julius, ("true",1,))
    else:
       checker = "false"
       b1.config(image=off)
-
-def change_into_auto_none():
-   global change_field
-   global checker
-   if change_field == "false":
-      change_field = "true"
-      b2.config(image=auto)
-      checker = "false"
-      change_image_field()
-      thread.start_new_thread(connect_to_julius, ("true",1,))
-      print "one"
-   else:
-      change_field = "false"
-      checker = "true"
-      change_image_field()
-      b2.config(image=none)
       thread.start_new_thread(connect_to_julius, ("false",1,))
-      print "two"
+
+# def change_into_auto_none():
+#    global change_field
+#    global checker
+#    if change_field == "false":
+#       change_field = "true"
+#       b2.config(image=auto)
+#       checker = "false"
+#       change_image_field()
+#       thread.start_new_thread(connect_to_julius, ("true",1,))
+#       print "one"
+#    else:
+#       change_field = "false"
+#       checker = "true"
+#       change_image_field()
+#       b2.config(image=none)
+#       thread.start_new_thread(connect_to_julius, ("false",1,))
+#       print "two"
 
 def show_entry_fields():
    if len(e1.get("1.0", "end-1c")) == 0 or  len(e1.get("1.0", "end-1c")) == 1:
@@ -279,19 +287,19 @@ if __name__ == "__main__":
    path = path+"/img"
    #mic
    b1 = Button(master, command=change_image_field)
-   b2 = Button(master, command=change_into_auto_none)
+  # b2 = Button(master, command=change_into_auto_none)
    
    e1.grid(row=1, column=0, pady=4, padx=4)
    b1.grid(row=4, column=1,sticky=W, pady=4, padx=4)
-   b2.grid(row=5, column=1,sticky=W, padx=40, pady=4)
-   none=PhotoImage(file=path+"/none.png")
-   b2_off = none.subsample(1,1)
-   b2.config(image=b2_off)
+  # b2.grid(row=5, column=1,sticky=W, padx=40, pady=4)
+#   none=PhotoImage(file=path+"/none.png")
+#   b2_off = none.subsample(1,1)
+#   b2.config(image=b2_off)
    mi = PhotoImage(file=path+"/speaker_off.png")
    off = mi.subsample(5,5)
    b1.config(image=off)
-   auto=PhotoImage(file=path+"/auto.png")
-   b2_on=auto.subsample(5,5)
+  # auto=PhotoImage(file=path+"/auto.png")
+ #  b2_on=auto.subsample(5,5)
    mis = PhotoImage(file=path+"/speaker_on.png")
    on = mis.subsample(5,5)
    pub = rospy.Publisher('/internal/recognizer/output', String, queue_size=10)

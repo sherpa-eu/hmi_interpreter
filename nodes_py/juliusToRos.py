@@ -58,15 +58,19 @@ def recognize(req):
         print "....................................."
         while not rospy.is_shutdown():
             data = conn.recv(4096)
-          #  print data
+            print "---data---"
+            print data
             if data.find("sentence1") >= 0:
                 data=data[data.find("sentence1")+15:data.find(" </s>")]
                 if data == "GO A HEAD":
                     data = "GO AHEAD"
                 elif data == "GOLEFT":
                     data = "GO LEFT"
+                print "-a-a-a-data-a-a-a-"
+                print data
                 msg.data = data
                 pub.publish(msg)
+    return "false"
 
 def recognizer_server():
     rospy.init_node('julius_starter')
