@@ -46,7 +46,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey.object_size.data = goal[2]
             propkey.object_num.data = "null"
             propkey.flag.data = goal[3]
-            if goal[3] == "true" and openEase != "no-elem":
+            if goal[3] == "true" and openEase != "no-elem" and goal != "there":
                 propkey.object.data = openEase
             propkey.pointing_gesture.position.x = pose.position.x
             propkey.pointing_gesture.position.y = pose.position.y
@@ -76,7 +76,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey.object_size.data = goal1[2]
             propkey.object_num.data = "null"
             propkey.flag.data = goal1[3]
-            if goal1[3] == "true" and openEase != "no-elem":
+            if goal1[3] == "true" and openEase != "no-elem" and goal != "there":
                 propkey.object.data = openEase
             propkey.pointing_gesture.position.x = pose.position.x
             propkey.pointing_gesture.position.y = pose.position.y
@@ -95,7 +95,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey.object_size.data = goal2[1]
             propkey.object_num.data = "null"
             propkey.flag.data = goal2[2]
-            if goal2[2] == "true" and openEase != "no-elem":
+            if goal2[2] == "true" and openEase != "no-elem" and goal != "there":
                 propkey.object.data = openEase
             propkey.pointing_gesture.position.x = pose.position.x
             propkey.pointing_gesture.position.y = pose.position.y
@@ -128,7 +128,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey.object_size.data = goal1[2]
             propkey.object_num.data = "null"
             propkey.flag.data = goal1[3]
-            if goal1[3] == "true" and openEase != "no-elem":
+            if goal1[3] == "true" and openEase != "no-elem" and goal != "there":
                 propkey.object.data = openEase
             propkey.pointing_gesture.position.x = pose.position.x
             propkey.pointing_gesture.position.y = pose.position.y
@@ -157,7 +157,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey.object_size.data = goal3[2]
             propkey.object_num.data = "null"
             propkey.flag.data = goal3[3]
-            if goal3[3] == "true" and openEase != "no-elem":
+            if goal3[3] == "true" and openEase != "no-elem" and goal != "there":
                 propkey.object.data = openEase
             propkey.pointing_gesture.x = pose.position.x
             propkey.pointing_gesture.y = pose.position.y
@@ -171,7 +171,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey.object_size.data = goal2[1]
             propkey.object_num.data = "null"
             propkey.flag.data = goal2[2]
-            if goal2[2] == "true" and openEase != "no-elem":
+            if goal2[2] == "true" and openEase != "no-elem" and goal != "there":
                 propkey.object.data = openEase
             propkey.pointing_gesture.position.x = pose.position.x
             propkey.pointing_gesture.position.y = pose.position.y
@@ -203,7 +203,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey.object_size.data = goal2[2]
             propkey.object_num.data = "null"
             propkey.flag.data = goal2[3]
-            if goal2[3] == "true" and openEase != "no-elem":
+            if goal2[3] == "true" and openEase != "no-elem" and goal != "there":
                 propkey.object.data = openEase
             propkey.pointing_gesture.position.x = pose.position.x
             propkey.pointing_gesture.position.y = pose.position.y
@@ -237,7 +237,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey2.object_size.data = goal1[2]
             propkey2.object_num.data = "null"
             propkey2.flag.data = goal1[3]
-            if goal1[3] == "true" and openEase != "no-elem":
+            if goal1[3] == "true" and openEase != "no-elem" and goal != "there":
                 propkey.object.data = openEase
             propkey.pointing_gesture.position.x = pose.position.x
             propkey.pointing_gesture.position.y = pose.position.y
@@ -258,7 +258,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey2.object_size.data = goal4[1]
             propkey2.object_num.data = "null"
             propkey2.flag.data = goal4[2]
-            if goal4[2] == "true" and openEase != "no-elem":
+            if goal4[2] == "true" and openEase != "no-elem" and goal != "there":
                 propkey.object.data = openEase
             propkey.pointing_gesture.position.x = pose.position.x
             propkey.pointing_gesture.position.y = pose.position.y

@@ -4,8 +4,8 @@
   <node name="pointing_server" pkg="hmi_interpreter" type="pointing_server.py"/>
   <node name="agent_server" pkg="hmi_interpreter" type="agent_server.py"/>
   <node name="gui" pkg="hmi_interpreter" type="gui.py"/>
-  <node name="pointing_sub_left_hand" pkg="hmi_interpreter" type="pointing_sub_left_hand.py"/>
-  <node name="pointing_sub_right_hand" pkg="hmi_interpreter" type="pointing_sub_right_hand.py"/>
+  <!--node name="pointing_sub_left_hand" pkg="hmi_interpreter" type="pointing_sub_left_hand.py"/>
+  <node name="pointing_sub_right_hand" pkg="hmi_interpreter" type="pointing_sub_right_hand.py"/-->
   <node name="main_server" pkg="hmi_interpreter" type="main_server.py"/>
   <node name="viewpoint_server" pkg="hmi_interpreter" type="viewpoint_server.py"/>
   <node name="openEase_server" pkg="hmi_interpreter" type="openEase_server.py"/>
