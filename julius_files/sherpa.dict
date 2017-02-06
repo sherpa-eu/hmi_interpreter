@@ -9,6 +9,7 @@
 7	[LEFT]	l eh f t
 7	[RIGHT]	r ay t
 8	[THERE]	dh eh r
+8	[THERE]	s eh r
 9	[LEFT]	l eh f t
 9	[RIGHT]	r ay t
 9	[BEHIND]	b iy t ay n d
@@ -40,10 +41,7 @@
 25	[OF]	ao f
 26	[INFRONT]	ih n f r aa n t
 27	[ROBOTS]	r ow b aa t
-28	[ON]	aa n
-29	[LAND]	l ae n d
-29	[TAKEOFF]	t ey k ah f
-30	[MOUNT]	m ow n t
-31	[NO]	n ow
-32	[AND]	ae n d
-33	[YOUR]	y uh r
+28	[LAND]	l ae n d
+28	[TAKEOFF]	t ey k ah f
+29	[MOUNT]	m ow n t
+30	[YOUR]	y uh r

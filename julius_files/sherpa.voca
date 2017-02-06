@@ -28,12 +28,13 @@ RIGHT      r ay t
 
 % DIRECTION_THERE
 THERE    dh eh r
+THERE     s eh r
 
 % SPATIAL_N
 LEFT       l eh f t
 RIGHT      r ay t
 BEHIND     b iy t ay n d
-AROUND    er aw n d 
+AROUND     er aw n d 
 
 % OBJECT_N
 TREE      t r iy
@@ -101,21 +102,12 @@ INFRONT    ih n f r aa n t
 % ROBOTS
 ROBOTS      r ow b aa t
 
-% ON
-ON   aa n
-
 % LAND
 LAND     l ae n d
 TAKEOFF  t ey k ah f
 
 % MOUNT
 MOUNT    m ow n t
-
-% ACTION_NO
-NO    n ow
-
-%  AND
-AND  ae n d
 
 % YOUR
 YOUR       y  uh r
