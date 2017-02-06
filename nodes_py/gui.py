@@ -112,7 +112,7 @@ def callback_thread(data,y):
    global thread1
    res = String()
    if checker == "false":
-      change_image_field()
+      # change_image_field()
       return
    else:
       if data.data != "SWITCH":
@@ -161,6 +161,9 @@ def callback_thread(data,y):
          if result.upper() == "ROBOTS":
             result = "ROBOT"
          window.delete("1.0","end-1c")
+         window.delete("2.0","end-1c")
+         window.delete("0.0","end-1c")
+         window.delete("end-1c",END)
          window.insert(INSERT,'Genius:  ','hcolor')
          window.insert(END,result.upper()+'\n','hnbcolor')
          if "MOVE" in result.upper():
@@ -203,24 +206,6 @@ def change_image_field():
       checker = "false"
       b1.config(image=off)
       thread.start_new_thread(connect_to_julius, ("false",1,))
-
-# def change_into_auto_none():
-#    global change_field
-#    global checker
-#    if change_field == "false":
-#       change_field = "true"
-#       b2.config(image=auto)
-#       checker = "false"
-#       change_image_field()
-#       thread.start_new_thread(connect_to_julius, ("true",1,))
-#       print "one"
-#    else:
-#       change_field = "false"
-#       checker = "true"
-#       change_image_field()
-#       b2.config(image=none)
-#       thread.start_new_thread(connect_to_julius, ("false",1,))
-#       print "two"
 
 def show_entry_fields():
    if len(e1.get("1.0", "end-1c")) == 0 or  len(e1.get("1.0", "end-1c")) == 1:
@@ -280,26 +265,16 @@ if __name__ == "__main__":
    dialog_label = Label(master)
    e1 = Text(master, width=45, height=2)
    
-   #package path
    rospack = rospkg.RosPack()
-   #rospack.list_pkgs() 
    path = rospack.get_path('hmi_interpreter')
    path = path+"/img"
-   #mic
    b1 = Button(master, command=change_image_field)
-  # b2 = Button(master, command=change_into_auto_none)
-   
    e1.grid(row=1, column=0, pady=4, padx=4)
    b1.grid(row=4, column=1,sticky=W, pady=4, padx=4)
-  # b2.grid(row=5, column=1,sticky=W, padx=40, pady=4)
-#   none=PhotoImage(file=path+"/none.png")
-#   b2_off = none.subsample(1,1)
-#   b2.config(image=b2_off)
+
    mi = PhotoImage(file=path+"/speaker_off.png")
    off = mi.subsample(5,5)
    b1.config(image=off)
-  # auto=PhotoImage(file=path+"/auto.png")
- #  b2_on=auto.subsample(5,5)
    mis = PhotoImage(file=path+"/speaker_on.png")
    on = mis.subsample(5,5)
    pub = rospy.Publisher('/internal/recognizer/output', String, queue_size=10)

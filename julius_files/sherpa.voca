@@ -8,7 +8,8 @@
 % ACTION_MOVE
 GO              g ow
 
-
+% AND
+AND          ae n d
 % ACTION_VISIBILITY
 LOOK            l uh k
 SEARCH          s er ch
@@ -87,9 +88,6 @@ SHOW          sh ow
 % PICTURE
 PICTURE       p ih k ch er
 
-% SWITCH
-SWITCH    s w ih ch 
-
 % COMEBACK
 COMEBACK    k ah m b ae k 
 
@@ -98,9 +96,6 @@ OF     ao f
 
 % IN_FRONT
 INFRONT    ih n f r aa n t
-
-% ROBOTS
-ROBOTS      r ow b aa t
 
 % LAND
 LAND     l ae n d

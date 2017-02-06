@@ -61,11 +61,16 @@ def recognize(req):
             print "---data---"
             print data
             if data.find("sentence1") >= 0:
+                print "teest123"
+                print data
                 data=data[data.find("sentence1")+15:data.find(" </s>")]
                 if data == "GO A HEAD":
                     data = "GO AHEAD"
                 elif data == "GOLEFT":
                     data = "GO LEFT"
+                else:
+                    data = data
+                print data
                 print "-a-a-a-data-a-a-a-"
                 print data
                 msg.data = data
