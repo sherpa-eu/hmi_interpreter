@@ -17,10 +17,21 @@ import commands
 from std_msgs.msg import String
 
 def call_client(data):
+    if "#" in data.data:
+        data = data.data.split("#")
+        data = data[1]
+        data = data.split("'")
+        data = data[0]
+    else:
+        data = data.data.split(":")
+        data = data[2]
+        data = data.split("'")
+        data = data[0]
+        
     rospy.wait_for_service("add_openEase_object")
     try: 
         add_openEase_object = rospy.ServiceProxy("add_openEase_object", text_parser)
-        resp1 = add_openEase_object(data.data)
+        resp1 = add_openEase_object(data)
         result = resp1.result
         return result
     except rospy.ServiceException, e:

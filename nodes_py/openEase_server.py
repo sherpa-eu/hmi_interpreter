@@ -22,9 +22,9 @@ def call_openEase(req):
         interest_object = req.goal
         return text_parserResponse(interest_object)
     else:
-        tmp = interest_object
-        interest_object = "no-elem"       
-        return text_parserResponse(tmp)
+        #tmp = interest_object
+        #interest_object = "no-elem"       
+        return text_parserResponse(interest_object)#tmp)
 
 def get_openEase_server():
     rospy.init_node("add_openEase_object_server")
