@@ -14,6 +14,7 @@ import sys
 desigs = ""
 pose  = ""
 pub =''
+pub_speaker = ''
 def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
     print "create_hmi_msgs"
     global desigs
@@ -355,7 +356,11 @@ def call_main_server(req):
     try:
         service_hmi_cram = rospy.ServiceProxy("service_hmi_cram",HMIDesig)
         resp2 = service_hmi_cram(desigs)
-        return resp2.result
+        tmp = resp2.result
+        
+        pub_speaker.publish("done")
+        print "main-server"
+        return tmp
         #     #return "Okay everything went well"
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
@@ -363,8 +368,10 @@ def call_main_server(req):
  
 def start_main_server():
     global pub
+    global pub_speaker
     rospy.init_node("start_main_server")
     pub = rospy.Publisher('/internal_output', Desig, queue_size=10)
+    pub_speaker = rospy.Publisher('/speaker_on', String, queue_size=10)
     #rospy.Subscriber("/recognizer/output", String, call_main_server)
     s = rospy.Service("main_server", text_parser, call_main_server)
     print "Main server is up and waiting for speech!"

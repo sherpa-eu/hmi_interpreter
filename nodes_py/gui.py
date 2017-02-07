@@ -20,6 +20,7 @@ res = ""
 checker="false"
 message="manu"
 change_field="false"
+flag="true"
 
 def connect_to_julius(test,k):
    print "connect_to_julius"
@@ -193,8 +194,9 @@ def publisher_callback(data):
 #      change_image_field()
 
 def speaker_callback(data):
-   change_field = "false"
-   change_image_field()
+   if flag == "true":
+      change_field = "false"
+      change_image_field()
 
 def change_image_field():
    global checker
@@ -208,11 +210,13 @@ def change_image_field():
       thread.start_new_thread(connect_to_julius, ("false",1,))
 
 def show_entry_fields():
+   global flag
    if len(e1.get("1.0", "end-1c")) == 0 or  len(e1.get("1.0", "end-1c")) == 1:
       window.delete("1.0", "end-1c")
       window.insert(INSERT,'Please give a command!\n','rotcolor')
       e1.delete("1.0","end-1c")
    else:
+      flag="false"
       entry_text = e1.get("1.0","end-1c")
       e1.delete("1.0","end-1c")
       result = entry_text.upper() 
@@ -239,7 +243,7 @@ def show_entry_fields():
       string.data = entry_text.upper()
       publisher = rospy.Publisher('display_text', String, queue_size=10)
       publisher.publish(result.upper())
-      if data != "NO":
+      if result != "NO":
          pub.publish(result.upper())
 
 
