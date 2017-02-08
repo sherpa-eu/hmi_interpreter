@@ -179,7 +179,7 @@ def callback_thread(data,y):
             return
          res = string.data
          thread1 = res
-         publisher = rospy.Publisher('display_text', String, queue_size=10)
+         publisher = rospy.Publisher('display_command', String, queue_size=10)
          publisher.publish(res)
          thread.start_new_thread(sleeping_time, (res,5,))
          thread.start_new_thread(compare_thread, (res,1,))
