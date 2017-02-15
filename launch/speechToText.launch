@@ -11,6 +11,6 @@
   <node name="openEase_server" pkg="hmi_interpreter" type="openEase_server.py"/>
   <node name="openEase_sub" pkg="hmi_interpreter" type="openEase_sub.py"/>
   <node name="juliusToRos" pkg="hmi_interpreter" type="juliusToRos.py"/>
-  
+   <node name="costmap_server" pkg="hmi_interpreter" type="costmap_server.py"/>
  
 </launch>

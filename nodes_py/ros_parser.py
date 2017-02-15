@@ -62,7 +62,10 @@ def parsing(res):
                 object = resume[2]
                 value = action+" "+ spatial + " null" + " " + "false" + " " +object
             elif resume[0] == "scan":
-                value = "scan"+"-"+resume[1]+"-"+resume[2]+" "+"null "+"null "+"false "+"null"
+                if resume[1] == "that":
+                    value = "scan"+"-"+resume[2]+" "+"null "+"null "+"true "+"null"
+                else:
+                    value = "scan"+"-"+resume[1]+"-"+resume[2]+" "+"null "+"null "+"false "+"null"
             else:
                 action = resume[0]
                 spatial = resume[1]

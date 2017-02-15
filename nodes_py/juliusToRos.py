@@ -76,12 +76,18 @@ def recognize(req):
                 data = "GO AHEAD"
             elif data == "GOLEFT":
                 data = "GO LEFT"
+            elif data == "GO TO HELI PAD":
+                data = "GO TO HELIPAD"
+                print "hier"
+                print data
+            elif data == "GO TO COT TA GE":
+                data = "GO TO COTTAGE"
             else:
                 data = data
                 print data
                 print "-a-a-a-data-a-a-a-"
                 print data
-                msg.data = data
+            msg.data = data
             pub.publish(msg)
     print p
     return "false"

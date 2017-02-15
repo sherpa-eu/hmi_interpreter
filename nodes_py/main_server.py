@@ -8,6 +8,7 @@ from geometry_msgs.msg import Pose
 from geometry_msgs.msg import PoseStamped
 from geometry_msgs.msg import Point
 from geometry_msgs.msg import Quaternion
+import time
 
 import sys
 
@@ -47,7 +48,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey.object_size.data = goal[2]
             propkey.object_num.data = "null"
             propkey.flag.data = goal[3]
-            if goal[3] == "true" and goal != "there":
+            if goal[3] == "true" and goal != "there" and openEase != "none":
                 propkey.object.data = openEase
             propkey.pointing_gesture.position.x = pose.position.x
             propkey.pointing_gesture.position.y = pose.position.y
@@ -77,7 +78,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey.object_size.data = goal1[2]
             propkey.object_num.data = "null"
             propkey.flag.data = goal1[3]
-            if goal1[3] == "true" and goal != "there":
+            if goal1[3] == "true" and goal != "there" and openEase != "none":
                 propkey.object.data = openEase
             propkey.pointing_gesture.position.x = pose.position.x
             propkey.pointing_gesture.position.y = pose.position.y
@@ -96,7 +97,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey.object_size.data = goal2[1]
             propkey.object_num.data = "null"
             propkey.flag.data = goal2[2]
-            if goal2[2] == "true" and goal != "there":
+            if goal2[2] == "true" and goal != "there" and openEase != "none":
                 propkey.object.data = openEase
             propkey.pointing_gesture.position.x = pose.position.x
             propkey.pointing_gesture.position.y = pose.position.y
@@ -129,7 +130,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey.object_size.data = goal1[2]
             propkey.object_num.data = "null"
             propkey.flag.data = goal1[3]
-            if goal1[3] == "true" and goal != "there":
+            if goal1[3] == "true" and goal != "there" and openEase != "none":
                 propkey.object.data = openEase
             propkey.pointing_gesture.position.x = pose.position.x
             propkey.pointing_gesture.position.y = pose.position.y
@@ -158,7 +159,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey.object_size.data = goal3[2]
             propkey.object_num.data = "null"
             propkey.flag.data = goal3[3]
-            if goal3[3] == "true" and goal != "there":
+            if goal3[3] == "true" and goal != "there" and openEase != "none":
                 propkey.object.data = openEase
             propkey.pointing_gesture.x = pose.position.x
             propkey.pointing_gesture.y = pose.position.y
@@ -172,7 +173,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey.object_size.data = goal2[1]
             propkey.object_num.data = "null"
             propkey.flag.data = goal2[2]
-            if goal2[2] == "true" and goal != "there":
+            if goal2[2] == "true" and goal != "there" and openEase != "none":
                 propkey.object.data = openEase
             propkey.pointing_gesture.position.x = pose.position.x
             propkey.pointing_gesture.position.y = pose.position.y
@@ -204,7 +205,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey.object_size.data = goal2[2]
             propkey.object_num.data = "null"
             propkey.flag.data = goal2[3]
-            if goal2[3] == "true" and goal != "there":
+            if goal2[3] == "true" and goal != "there" and openEase != "none":
                 propkey.object.data = openEase
             propkey.pointing_gesture.position.x = pose.position.x
             propkey.pointing_gesture.position.y = pose.position.y
@@ -350,14 +351,15 @@ def call_main_server(req):
         
     create_hmi_msgs(resp1.result, agent, viewpoint, posy,openEase)
     pub.publish(desigs[0])
-  
+    rate = rospy.Rate(20)
     rospy.wait_for_service("service_hmi_cram")
     result = "Did not work!"
     try:
         service_hmi_cram = rospy.ServiceProxy("service_hmi_cram",HMIDesig)
         resp2 = service_hmi_cram(desigs)
         tmp = resp2.result
-        
+  
+        time.sleep(5)
         pub_speaker.publish("done")
         print "main-server"
         return tmp

@@ -8,8 +8,7 @@
 % ACTION_MOVE
 GO              g ow
 
-% AND
-AND          ae n d
+
 % ACTION_VISIBILITY
 LOOK            l uh k
 SEARCH          s er ch
@@ -44,9 +43,29 @@ TUNNEL    t ah n ae l
 FOREST    f ao r ah s t
 LAKE      l ey k
 ROAD      r ow d
-ROCK      r aa k
-HOUSE     hh aw  s
 
+
+% SCAN_OBJECT
+BRIDGE    b r ih jh 
+TUNNEL    t ah n ae l
+LAKE      l ey k
+
+
+% COT
+COT       k ao 
+COT       k ah
+COT       k aa
+
+% TA
+TA      t ih
+TA      t eh
+TA      t ae
+
+%GE
+GE        jh
+
+%HOUSE
+HOUSE   hh aw s
 
 % OBJECT_KITE
 KITE      k ay t
@@ -78,15 +97,10 @@ STOP        s t aa p
 
 % PROP_THAT
 THAT       dh ae t
+THAT        s ae t
 
 % ACTION_TAKE_PICTURE
 TAKEPICTURE  t ey k aa p ih k ch er
-
-% ACTION_SHOW
-SHOW          sh ow
-
-% PICTURE
-PICTURE       p ih k ch er
 
 % COMEBACK
 COMEBACK    k ah m b ae k 
@@ -94,12 +108,13 @@ COMEBACK    k ah m b ae k
 % OF
 OF     ao f
 
-% IN_FRONT
-INFRONT    ih n f r aa n t
+% HELI
+HELI   hh eh l ih
+% PAD
+PAD   p ae d	
 
 % LAND
 LAND     l ae n d
-TAKEOFF  t ey k ah f
 
 % MOUNT
 MOUNT    m ow n t

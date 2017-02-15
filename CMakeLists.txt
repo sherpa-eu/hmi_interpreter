@@ -63,6 +63,7 @@ add_service_files(
    HMIDesig.srv
    pointer.srv
    call_cmd.srv
+   transform.srv
 )
 ## Generate actions in the 'action' folder
 # add_action_files(

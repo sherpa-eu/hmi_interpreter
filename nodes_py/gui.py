@@ -37,10 +37,13 @@ def get_pointer(a,s):
    listener = tf.TransformListener()
    rate = rospy.Rate(10.0)
    pose = PoseStamped()
+   listener.waitForTransform("/map", "/busy_genius/right_hand", rospy.Time(), rospy.Duration(4.0))
    while not rospy.is_shutdown():
       try:
-         (trans_right,rot_right) = listener.lookupTransform('/map', '/busy_genius/right_hand', rospy.Time(0))
-         (trans_left,rot_left) = listener.lookupTransform('/map', '/busy_genius/left_hand', rospy.Time(0))
+         now = rospy.Time.now()
+         listener.waitForTransform("/map", "/busy_genius/right_hand", now, rospy.Duration(4.0))
+         (trans_right,rot_right) = listener.lookupTransform('/map', '/busy_genius/right_hand', now)
+         (trans_left,rot_left) = listener.lookupTransform('/map', '/busy_genius/left_hand', now)
          break
       except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
          continue
@@ -179,7 +182,6 @@ def callback_thread(data,y):
             return
          res = string.data
          thread1 = res
-         publisher = rospy.Publisher('display_command', String, queue_size=10)
          publisher.publish(res)
          thread.start_new_thread(sleeping_time, (res,5,))
          thread.start_new_thread(compare_thread, (res,1,))
@@ -196,7 +198,11 @@ def publisher_callback(data):
 def speaker_callback(data):
    if flag == "true":
       change_field = "false"
+      time.sleep(3)
+      print "now change it"
       change_image_field()
+      publisher.publish("OK.Performing task!")
+      
 
 def change_image_field():
    global checker
@@ -213,8 +219,9 @@ def show_entry_fields():
    global flag
    if len(e1.get("1.0", "end-1c")) == 0 or  len(e1.get("1.0", "end-1c")) == 1:
       window.delete("1.0", "end-1c")
-      window.insert(INSERT,'Please give a command!\n','rotcolor')
+      window.insert(INSERT,'OK.Performing task!\n','rotcolor')
       e1.delete("1.0","end-1c")
+      flag ="false"
    else:
       flag="false"
       entry_text = e1.get("1.0","end-1c")
@@ -241,7 +248,6 @@ def show_entry_fields():
       result.replace("\n","")
       string = String()
       string.data = entry_text.upper()
-      publisher = rospy.Publisher('display_text', String, queue_size=10)
       publisher.publish(result.upper())
       if result != "NO":
          pub.publish(result.upper())
@@ -282,7 +288,7 @@ if __name__ == "__main__":
    mis = PhotoImage(file=path+"/speaker_on.png")
    on = mis.subsample(5,5)
    pub = rospy.Publisher('/internal/recognizer/output', String, queue_size=10)
-   
+   publisher = rospy.Publisher('display_command', String, queue_size=10)
    master.bind('<Return>',func)
    Button(master, text='Quit', font=('Arial', 12,'bold', 'italic'), foreground='#ff8000',command=master.quit).grid(row=5, column=0,sticky=W, padx=10)
    Button(master, text='Enter', font=('Arial', 12,'bold', 'italic'),command=show_entry_fields).grid(row=1, column=0, sticky=W, pady=4, padx=4)
