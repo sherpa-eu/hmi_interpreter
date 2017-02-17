@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from instructor_mission.srv import *
+from hmi_interpreter.srv import *
 import rospy
 
 speech_output = ""
