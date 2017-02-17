@@ -12,6 +12,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  sherpa_msgs
+  
 )
 
 ## System dependencies are found with CMake's conventions
@@ -54,6 +56,7 @@ add_message_files(
    Propkey.msg
    Desig.msg
    protocol_dialogue.msg
+   LogInfo.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -64,6 +67,7 @@ add_service_files(
    pointer.srv
    call_cmd.srv
    transform.srv
+   log_info.srv
 )
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -74,7 +78,7 @@ add_service_files(
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
     DEPENDENCIES
-   geometry_msgs   std_msgs 
+   geometry_msgs   std_msgs sherpa_msgs
   )
 
 
