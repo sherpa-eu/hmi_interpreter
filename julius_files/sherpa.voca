@@ -11,6 +11,8 @@ GO              g ow
 
 % ACTION_VISIBILITY
 LOOK            l uh k
+
+% ACTION_SEARCH
 SEARCH          s er ch
 
 % ACTION_SCAN
@@ -39,8 +41,6 @@ AROUND     er aw n d
 % OBJECT_N
 TREE      t r iy
 BRIDGE    b r ih jh 
-TUNNEL    t ah n ae l
-FOREST    f ao r ah s t
 LAKE      l ey k
 ROAD      r ow d
 
@@ -67,18 +67,21 @@ GE        jh
 %HOUSE
 HOUSE   hh aw s
 
-% OBJECT_KITE
+% OBJECT_ROBO
 KITE      k ay t
-
-
-% OBJECT_VICTIM
 VICTIM      v ih k t ih m
+
 
 % PROP_TO
 TO      t uw
 
 % PROP_FOR
 FOR    f ao r
+
+%CANCEL
+CANCEL   k ae n s eh l
+CANCEL   k ae n s ey l
+CANCEL   k ah n s eh l
 
 % AGENT_NAME
 RED   r eh d 
