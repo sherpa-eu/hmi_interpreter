@@ -293,7 +293,7 @@ def call_main_server(req):
         #return "Okay everything went well"
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
-
+    print "ros_parser"
     print result
     rospy.wait_for_service("add_agent_name")
     agent = "Did not work!"

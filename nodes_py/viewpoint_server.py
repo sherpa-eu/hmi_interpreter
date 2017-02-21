@@ -16,7 +16,6 @@ from std_msgs.msg import String
 
 agent="no"
 def call_viewpoint(req):
-    print "---------------------------------------------first call"
     global agent
     print req.goal
     print "Returning viewpoint: "

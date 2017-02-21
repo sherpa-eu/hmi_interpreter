@@ -61,6 +61,10 @@ def parsing(res):
                 spatial = "null"
                 object = resume[2]
                 value = action+" "+ spatial + " null" + " " + "false" + " " +object
+            elif resume[0] == "search" and resume[1] == "that":
+                action = resume[0]
+                object = resume[2]
+                value = action+" "+"null" + " null" + " " + "true" + " " +object
             elif resume[0] == "scan":
                 if resume[1] == "that":
                     value = "scan"+"-"+resume[2]+" "+"null "+"null "+"true "+"null"
@@ -102,6 +106,8 @@ def parsing(res):
                 value = action+" "+spatial+" "+"null"+" "+"false"+ " "+"null"+" 1 "+ spatial2+ " "+shape+" "+pointing+" "+object
             elif resume[3] == "to" or resume[3] == "right" or resume[3] == "left" or resume[3] == "behind" or resume[3] == "close" or resume[3] == "front" or resume[3] == "back" or resume[3] == "next":
                 value = action+" "+resume[1]+" "+"null"+" "+"false"+" "+resume[2]+" 1 "+resume[3]+ " null "+"false"+" "+resume[4]
+            elif resume[0] == "search" and resume[1] == "that" and resume[3] == "for":
+                value = action+" "+"null"+" "+"null"+" "+"true"+" "+resume[2]+" 1 "+"null"+ " null "+"false"+" "+resume[4]
         elif len(resume) == 6: #Go to big tree next rock or Go to tree next big rock
             action=resume[0]
             spatial = resume[1]

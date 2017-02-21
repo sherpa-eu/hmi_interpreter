@@ -40,7 +40,7 @@ def get_pointer(a,s):
    listener.waitForTransform("/map", "/busy_genius/right_hand", rospy.Time(), rospy.Duration(4.0))
    while not rospy.is_shutdown():
       try:
-         now = rospy.Time.now()
+         now = rospy.Time(0)
          listener.waitForTransform("/map", "/busy_genius/right_hand", now, rospy.Duration(4.0))
          (trans_right,rot_right) = listener.lookupTransform('/map', '/busy_genius/right_hand', now)
          (trans_left,rot_left) = listener.lookupTransform('/map', '/busy_genius/left_hand', now)
@@ -219,7 +219,7 @@ def show_entry_fields():
    global flag
    if len(e1.get("1.0", "end-1c")) == 0 or  len(e1.get("1.0", "end-1c")) == 1:
       window.delete("1.0", "end-1c")
-      window.insert(INSERT,'OK.Performing task!\n','rotcolor')
+      window.insert(INSERT,'Please, give a command!\n','rotcolor')
       e1.delete("1.0","end-1c")
       flag ="false"
    else:
