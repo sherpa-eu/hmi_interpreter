@@ -80,6 +80,8 @@ def recognize(req):
                 data = "GO TO HELIPAD"
                 print "hier"
                 print data
+            elif data == "LAND AT HELI PAD":
+                data = "LAND AT HELIPAD"
             elif data == "GO TO COT TA GE":
                 data = "GO TO COTTAGE"
             else:

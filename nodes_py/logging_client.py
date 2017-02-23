@@ -11,25 +11,27 @@ import time
 import actionlib
 import string
 
+agent00=""
 
 rospy.init_node('hmi_logging_server_py') 
 client = actionlib.SimpleActionClient('/ue_semlog/LogEvent',sherpa_msgs.msg.LogEventAction)
 print "ROS Node started"
 
 def logging_cmd(req):
+    global agent00
     print "modu"
     msg = LoggedRDFEntry()    
 
     msgs = []
     print "modu1"
     if req.goal.agent == "blue_wasp":
-        agent="SherpaWaspBlue_ILQN"
+        agent00="SherpaWaspBlue_ILQN"
     elif req.goal.agent == "donkey":
-        agent="SherpaDonkey_ETJM"
+        agent00="SherpaDonkey_ETJM"
     elif req.goal.agent == "red_wasp":
-        agent="SherpaWaspRed_H9cB"
+        agent00="SherpaWaspRed_H9cB"
     elif req.goal.agent == "hawk":
-        agent="SherpaHawk_POdy"
+        agent00="SherpaHawk_POdy"
     print "modu3"
     
     print "teeest123"
@@ -63,7 +65,7 @@ def logging_cmd(req):
     msgs.append(msg)
     msg = LoggedRDFEntry()
     msg.property_name="knowrob:infoCommunicatedTo"
-    msg.rdf_resource="http://knowrob.org/kb/unreal_log.owl#"+agent
+    msg.rdf_resource="http://knowrob.org/kb/unreal_log.owl#"+agent00
     msg.use_resource=True
     msgs.append(msg)
     msg = LoggedRDFEntry()  

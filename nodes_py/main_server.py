@@ -9,13 +9,14 @@ from geometry_msgs.msg import PoseStamped
 from geometry_msgs.msg import Point
 from geometry_msgs.msg import Quaternion
 import time
-
+from hmi_interpreter.msg import LogInfo
 import sys
 
 desigs = ""
 pose  = ""
 pub =''
 pub_speaker = ''
+agent00 = ""
 def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
     print "create_hmi_msgs"
     global desigs
@@ -278,6 +279,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
    # print desigs
     
 def call_main_server(req):
+    global agent00
     # create client for ros_parser
     print "call_main_server"
     print req.goal
@@ -306,6 +308,24 @@ def call_main_server(req):
         #return "Okay everything went well"
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
+
+    # agent00 = agent
+    # rospy.wait_for_service("start_bg_logging")
+    # bg = "Did not work!"
+    # print agent00
+    # try:
+    #     start_bg_logging = rospy.ServiceProxy("start_bg_logging",log_info)
+    #     goal = LogInfo()
+    #     goal.timer=str(rospy.Time.now())
+    #     goal.agent=agent00
+    #     goal.cmd=req.goal
+    #     resp3 = start_bg_logging(goal)
+    #     bg = resp3.result
+    #     #create_hmi_msgs(resp1.result)
+    #     # GENERATE the CRAM CLIENT
+    #     #return "Okay everything went well"
+    # except rospy.ServiceException, e:
+    #     print"Service call failed: %s"%e
 
     rospy.wait_for_service("add_viewpoint")
     viewpoint = "Did not work!"

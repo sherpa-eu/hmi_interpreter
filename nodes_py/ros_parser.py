@@ -18,6 +18,8 @@ def parsing(res):
         if len(resume) == 1:
             if resume[0] == "stop":
                 value = resume[0] + " null " + "null" + " " + "false" + " " +"null"
+            elif resume[0] == "charge":
+                value = resume[0] + " null " + "null" + " " + "false" + " " +"null"
             elif resume[0] == "follow-me":
                 value = resume[0]+" "+ "null" + " null" + " " + "false" + " " +"null"
             elif resume[0] == "go-there" or resume[0] == "move-there":
@@ -70,6 +72,8 @@ def parsing(res):
                     value = "scan"+"-"+resume[2]+" "+"null "+"null "+"true "+"null"
                 else:
                     value = "scan"+"-"+resume[1]+"-"+resume[2]+" "+"null "+"null "+"false "+"null"
+            elif resume[0] == "land" and resume[1] == "at":
+                value = resume[0] +" at "+"null "+ "false "+resume[2]
             else:
                 action = resume[0]
                 spatial = resume[1]
