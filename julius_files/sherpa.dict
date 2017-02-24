@@ -15,6 +15,7 @@
 9	[LAKE]	l ey k
 9	[ROAD]	r ow d
 10	[ENTITY]	eh n t eh
+10	[ENTITY]	eh n t ih
 11	[LAKE]	l ey k
 12	[COT]	k ao
 12	[COT]	k ah
@@ -49,3 +50,5 @@
 32	[CHARGE]	ch aa r ch
 33	[AT]	ae d
 33	[AT]	ae t
+34	[IN]	eh n
+35	[FRONT]	f r ah n t
