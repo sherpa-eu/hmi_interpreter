@@ -21,13 +21,6 @@ SCAN            s k eh n
 % AREA
 AREA            eh r iy aa
 
-% MOVE
-MOVE            m uw v
-
-% SPATIAL_FOUR
-LEFT       l eh f t
-RIGHT      r ay t
-
 % DIRECTION_THERE
 THERE    dh eh r
 THERE     s eh r
@@ -39,15 +32,15 @@ BEHIND     b iy t ay n d
 AROUND     er aw n d 
 
 % OBJECT_N
-TREE      t r iy
 BRIDGE    b r ih jh 
 LAKE      l ey k
 ROAD      r ow d
 
+% OBJECT
+ENTITY   eh n t eh 
+ENTITY   eh n t ih 
 
-% SCAN_OBJECT
-BRIDGE    b r ih jh 
-TUNNEL    t ah n ae l
+% LAKE
 LAKE      l ey k
 
 
@@ -67,7 +60,7 @@ GE        jh
 %HOUSE
 HOUSE   hh aw s
 
-% OBJECT_ROBO
+% OBJECT_ROBOSHERLOCK
 KITE      k ay t
 VICTIM      v ih k t ih m
 
@@ -121,9 +114,6 @@ LAND     l ae n d
 
 % MOUNT
 MOUNT    m ow n t
-
-% YOUR
-YOUR       y  uh r
 
 % CHARGE
 CHARGE    ch aa r ch
