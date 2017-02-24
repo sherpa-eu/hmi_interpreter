@@ -10,7 +10,8 @@ def parsing(res):
     global value
     result = res.split(" ")
     value = ""
-
+    print "res "
+    print res
     new_result = res.split(" and ")
     if len(new_result) == 1:
         resume = new_result[0].split(" ")
@@ -86,7 +87,15 @@ def parsing(res):
         elif len(resume) == 4:
             action = resume[0]
             spatial = resume[1]
-            if resume[2] == "to" or resume[2] == "right" or resume[2] == "left" or resume[2] == "behind" or resume[2] == "close" or resume[2] == "front" or resume[2] == "back" or resume[2] == "next":
+            print "erstes"
+            if resume[2] == "red":
+                wasp="red_wasp"
+                value = action + " "+ spatial+ " "+ "null"+" "+"false"+ " "+wasp
+            elif resume[2] == "blue": 
+                print "erstes"
+                wasp="blue_wasp"
+                value = action + " "+ spatial+ " "+ "null"+" "+"false"+ " "+wasp 
+            elif resume[2] == "to" or resume[2] == "right" or resume[2] == "left" or resume[2] == "behind" or resume[2] == "close" or resume[2] == "front" or resume[2] == "back" or resume[2] == "next":
                 spatial2 = resume[2]
                 object = resume[3]
                 value = action + " "+ spatial+ " "+ "null"+" "+"false"+" null"+" 1 "+spatial2+ " "+"null"+" "+"false"+" "+object
@@ -204,7 +213,11 @@ def parsing(res):
         elif len(resume) == 4:
             action = resume[0]
             spatial = resume[1]
-            if resume[2] == "to" or resume[2] == "right" or resume[2] == "left" or resume[2] == "behind" or resume[2] == "close" or resume[2] == "front" or resume[2] == "back" or resume[2] == "next":
+            print "zweites"
+            if resume[3] == "red" or resume[3] == "blue": 
+                print "zweites .."
+                value = action + " "+ spatial+ " "+ "null"+" "+"false"+ " "+resume[3]+"_wasp" 
+            elif resume[2] == "to" or resume[2] == "right" or resume[2] == "left" or resume[2] == "behind" or resume[2] == "close" or resume[2] == "front" or resume[2] == "back" or resume[2] == "next":
                 spatial2 = resume[2]
                 object = resume[3]
                 value = action + " "+ spatial+ " "+ "null"+" "+"false"+" null"+" 1 "+spatial2+ " "+"null"+" "+"false"+" "+object
@@ -319,7 +332,11 @@ def parsing(res):
         elif len(resume) == 4:
             action = resume[0]
             spatial = resume[1]
-            if resume[2] == "to" or resume[2] == "right" or resume[2] == "left" or resume[2] == "behind" or resume[2] == "close" or resume[2] == "front" or resume[2] == "back" or resume[2] == "next":
+            print "drittes "
+            if resume[3] == "red" or resume[3] == "blue": 
+                print "drittes .."
+                value = action + " "+ spatial+ " "+ "null"+" "+"false"+ " "+resume[3]+"_wasp" 
+            elif resume[2] == "to" or resume[2] == "right" or resume[2] == "left" or resume[2] == "behind" or resume[2] == "close" or resume[2] == "front" or resume[2] == "back" or resume[2] == "next":
                 spatial2 = resume[2]
                 object = resume[3]
                 value = value_1+" 0 "+action + " "+ spatial+ " "+ "null"+" "+"false"+" null"+" 1 "+spatial2+ " "+"null"+" "+"false"+" "+object
