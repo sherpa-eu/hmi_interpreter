@@ -309,23 +309,23 @@ def call_main_server(req):
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
 
-    # agent00 = agent
-    # rospy.wait_for_service("start_bg_logging")
-    # bg = "Did not work!"
-    # print agent00
-    # try:
-    #     start_bg_logging = rospy.ServiceProxy("start_bg_logging",log_info)
-    #     goal = LogInfo()
-    #     goal.timer=str(rospy.Time.now())
-    #     goal.agent=agent00
-    #     goal.cmd=req.goal
-    #     resp3 = start_bg_logging(goal)
-    #     bg = resp3.result
-    #     #create_hmi_msgs(resp1.result)
-    #     # GENERATE the CRAM CLIENT
-    #     #return "Okay everything went well"
-    # except rospy.ServiceException, e:
-    #     print"Service call failed: %s"%e
+    agent00 = agent
+    if rospy.wait_for_service("start_bg_logging"):
+        bg = "Did not work!"
+        print agent00
+        try:
+            start_bg_logging = rospy.ServiceProxy("start_bg_logging",log_info)
+            goal = LogInfo()
+            goal.timer=str(rospy.Time.now())
+            goal.agent=agent00
+            goal.cmd=req.goal
+            resp3 = start_bg_logging(goal)
+            bg = resp3.result
+            #create_hmi_msgs(resp1.result)
+            # GENERATE the CRAM CLIENT
+            #return "Okay everything went well"
+        except rospy.ServiceException, e:
+            print"Service call failed: %s"%e
 
     rospy.wait_for_service("add_viewpoint")
     viewpoint = "Did not work!"

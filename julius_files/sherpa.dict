@@ -3,52 +3,50 @@
 2	[GO]	g ow
 3	[LOOK]	l uh k
 4	[SEARCH]	s er ch
-5	[SCAN]	s k eh n
-6	[AREA]	eh r iy aa
-7	[THERE]	dh eh r
-7	[THERE]	s eh r
-8	[LEFT]	l eh f t
-8	[RIGHT]	r ay t
-8	[BEHIND]	b iy t ay n d
-8	[AROUND]	er aw n d
-9	[BRIDGE]	b r ih jh
-9	[LAKE]	l ey k
-9	[ROAD]	r ow d
-10	[ENTITY]	eh n t eh
-10	[ENTITY]	eh n t ih
-11	[LAKE]	l ey k
-12	[COT]	k ao
-12	[COT]	k ah
-12	[COT]	k aa
-13	[TA]	t ih
-13	[TA]	t eh
-13	[TA]	t ae
-14	[GE]	jh
-15	[HOUSE]	hh aw s
-16	[KITE]	k ay t
-16	[VICTIM]	v ih k t ih m
-17	[TO]	t uw
-18	[FOR]	f ao r
-19	[CANCEL]	k ae n s eh l
-19	[CANCEL]	k ae n s ey l
-19	[CANCEL]	k ah n s eh l
-20	[RED]	r eh d
-20	[BLUE]	b l uw
-21	[DONKEY]	d ah n k ey
-21	[HAWK]	hh ao k
-22	[WASP]	w aa s p
-23	[STOP]	s t aa p
-24	[THAT]	dh ae t
-24	[THAT]	s ae t
-25	[TAKEPICTURE]	t ey k aa p ih k ch er
-26	[COMEBACK]	k ah m b ae k
-27	[OF]	ao f
-28	[HELI]	hh eh l ih
-29	[PAD]	p ae d
-30	[LAND]	l ae n d
-31	[MOUNT]	m ow n t
-32	[CHARGE]	ch aa r ch
-33	[AT]	ae d
-33	[AT]	ae t
-34	[IN]	eh n
-35	[FRONT]	f r ah n t
+5	[AREA]	eh r iy aa
+6	[THERE]	dh eh r
+6	[THERE]	s eh r
+7	[LEFT]	l eh f t
+7	[RIGHT]	r ay t
+7	[BEHIND]	b iy t ay n d
+7	[AROUND]	er aw n d
+8	[BRIDGE]	b r ih jh
+8	[LAKE]	l ey k
+8	[ROAD]	r ow d
+9	[ENTITY]	eh n t eh
+9	[ENTITY]	eh n t ih
+10	[COT]	k ao
+10	[COT]	k ah
+10	[COT]	k aa
+11	[TA]	t ih
+11	[TA]	t eh
+11	[TA]	t ae
+12	[GE]	jh
+13	[HOUSE]	hh aw s
+14	[KITE]	k ay t
+14	[VICTIM]	v ih k t ih m
+15	[TO]	t uw
+16	[FOR]	f ao r
+17	[CANCEL]	k ae n s eh l
+17	[CANCEL]	k ae n s ey l
+17	[CANCEL]	k ah n s eh l
+18	[RED]	r eh d
+18	[BLUE]	b l uw
+19	[DONKEY]	d ah n k ey
+19	[HAWK]	hh ao k
+20	[WASP]	w aa s p
+21	[STOP]	s t aa p
+22	[THAT]	dh ae t
+22	[THAT]	s ae t
+23	[TAKEPICTURE]	t ey k aa p ih k ch er
+24	[COMEBACK]	k ah m b ae k
+25	[OF]	ao f
+26	[HELI]	hh eh l ih
+27	[PAD]	p ae d
+28	[LAND]	l ae n d
+29	[MOUNT]	m ow n t
+30	[CHARGE]	ch aa r ch
+31	[AT]	ae d
+31	[AT]	ae t
+32	[IN]	eh n
+33	[FRONT]	f r ah n t

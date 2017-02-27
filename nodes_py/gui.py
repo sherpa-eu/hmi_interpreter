@@ -180,6 +180,9 @@ def callback_thread(data,y):
          if result.upper() == "HAWK" or result.upper() == "RED WASP" or result.upper() == "BLUE WASP" or result.upper() == "DONKEY" or result.upper() == "ROBOT": 
             pub.publish(result.upper())
             return
+         if result.upper() == "CANCEL":
+            pub.publish(result.upper())
+            return
          res = string.data
          thread1 = res
          publisher.publish(res)

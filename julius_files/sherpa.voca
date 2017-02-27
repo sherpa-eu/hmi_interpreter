@@ -15,9 +15,6 @@ LOOK            l uh k
 % ACTION_SEARCH
 SEARCH          s er ch
 
-% ACTION_SCAN
-SCAN            s k eh n
-
 % AREA
 AREA            eh r iy aa
 
@@ -40,8 +37,6 @@ ROAD      r ow d
 ENTITY   eh n t eh 
 ENTITY   eh n t ih 
 
-% LAKE
-LAKE      l ey k
 
 
 % COT

@@ -1,0 +1,4 @@
+string timer
+string agent
+string cmd
+sherpa_msgs/LoggedRDFEntry[] rdf_entries
