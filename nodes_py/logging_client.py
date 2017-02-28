@@ -15,13 +15,14 @@ agent00=""
 
 rospy.init_node('hmi_logging_server_py') 
 client = actionlib.SimpleActionClient('/ue_semlog/LogEvent',sherpa_msgs.msg.LogEventAction)
+
 print "ROS Node started"
 
 def logging_cmd(req):
     global agent00
     print "modu"
     msg = LoggedRDFEntry()    
-
+    print "maman"
     msgs = []
     print "modu1"
     if req.goal.agent == "blue_wasp":
@@ -32,42 +33,44 @@ def logging_cmd(req):
         agent00="SherpaWaspRed_H9cB"
     elif req.goal.agent == "hawk":
         agent00="SherpaHawk_POdy"
-    print "modu3"
-    
-    print "teeest123"
     
     num =''.join(random.sample((string.ascii_uppercase+string.digits),6))
     name="http://knowrob.org/kb/unreal_log.owl#Communicating"#_"+num
-    name_id_flag=randint(0,9)
+    name_id_flag=0 #randint(0,9)
     types="http://knowrob.org/kb/knowrob.owl#Communicating"
     now = req.goal.timer
-    end = rospy.Time.now()
-    print "und"
-    print end
+    end2 = rospy.Time.from_sec(time.time()) #rospy.Time.now()
+    t = end2.to_sec()
+    end = t
     msg.property_name="knowrob:startTime"
     msg.rdf_resource="http://knowrob.org/kb/unreal_log.owl#timepoint_"+now
     msg.use_resource=True
     msgs.append(msg)
+
     msg = LoggedRDFEntry()
     msg.property_name="knowrob:endTime"
     msg.rdf_resource="http://knowrob.org/kb/unreal_log.owl#timepoint_"+str(end)
     msg.use_resource=True
     msgs.append(msg)
+
     msg = LoggedRDFEntry()
     msg.property_name="knowrob:communicationToken"
     msg.rdf_datatype="http://www.w3.org/2001/XMLSchema#string"
     msg.value=req.goal.cmd
     msgs.append(msg)
+
     msg = LoggedRDFEntry()
     msg.property_name="knowrob:communicatorOfInfo"
-    msg.rdf_resource="http://knowrob.org/kb/unreal_log.owl#BusyGenius_2PCw9"
+    msg.rdf_resource="http://knowrob.org/kb/knowrob.owl#BusyGenius_2PCw9"
     msg.use_resource=True
     msgs.append(msg)
+
     msg = LoggedRDFEntry()
     msg.property_name="knowrob:infoCommunicatedTo"
-    msg.rdf_resource="http://knowrob.org/kb/unreal_log.owl#"+agent00
+    msg.rdf_resource="http://knowrob.org/kb/knowrob.owl#"+agent00
     msg.use_resource=True
     msgs.append(msg)
+
     msg = LoggedRDFEntry()  
     #goal = sherpa_msgs.msg.MoveToGoal(pose)
     goal = sherpa_msgs.msg.LogEventGoal(name, name_id_flag, types, msgs)
