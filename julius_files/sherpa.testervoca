@@ -15,10 +15,29 @@ SEARCH          s er ch
 THERE    dh eh r
 THERE     s eh r
 
+% SPATIAL_N
+LEFT       l eh f t
+RIGHT      r ay t
+BEHIND     b iy t ay n d
+AROUND     er aw n d 
+
 % OBJECT_N
-BRIDGE     b r ih jh 
-LAKE       l ey k
-AREA       eh r iy aa
+BRIDGE    b r ih jh 
+LAKE      l ey k
+AREA            eh r iy aa
+
+% COT
+COT       k ao 
+COT       k ah
+COT       k aa
+
+% TA
+TA      t ih
+TA      t eh
+TA      t ae
+
+%GE
+GE        jh
 
 % OBJECT_ROBOSHERLOCK
 KITE      k ay t
@@ -55,9 +74,8 @@ THAT        s ae t
 % ACTION_TAKE_PICTURE
 TAKEPICTURE  t ey k aa p ih k ch er
 
-%AT 
-AT    ae d
-AT    ae t
+% OF
+OF     ao f
 
 % HELI
 HELI   hh eh l ih
@@ -70,11 +88,12 @@ LAND     l ae n d
 % CHARGE
 CHARGE    ch aa r ch
 
-%FOR
-FOR  f ao r
+%AT 
+AT    ae d
+AT    ae t
 
-%UN
-UN   ah n 
+%IN
+IN   eh n
 
-%MOUNT
-MOUNT  m aw n t
+%FRONT
+FRONT    f r ah n t
