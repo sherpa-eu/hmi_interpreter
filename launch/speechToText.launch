@@ -10,7 +10,7 @@
   <node name="viewpoint_server" pkg="hmi_interpreter" type="viewpoint_server.py"/>
   <node name="openEase_server" pkg="hmi_interpreter" type="openEase_server.py"/>
   <node name="openEase_sub" pkg="hmi_interpreter" type="openEase_sub.py"/>
-  <node name="juliusToRos" pkg="hmi_interpreter" type="juliusToRos.py"/>
+  <!--node name="juliusToRos" pkg="hmi_interpreter" type="juliusToRos.py"/-->
    <node name="costmap_server" pkg="hmi_interpreter" type="costmap_server.py"/>
-  <node name="logging_client" pkg="hmi_interpreter" type="logging_client.py"/>
+  <!--node name="logging_client" pkg="hmi_interpreter" type="logging_client.py"/-->
 </launch>
