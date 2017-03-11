@@ -59,6 +59,11 @@ def parsing(res):
                 spatial = "null"
                 object = resume[2]
                 value = action+" "+ spatial + " null" + " " + "false" + " " +object
+            elif resume[0] == "unmount":
+                if resume[1] == "red":
+                    value = "unmount "+"null "+"null "+ "false "+ "red_wasp"
+                elif resume[1] == "blue":
+                    value = "unmount "+"null "+"null "+ "false "+ "blue_wasp" 
             elif resume[0] == "search" and resume[1] == "for":
                 action = resume[0]+"-for"
                 spatial = "null"

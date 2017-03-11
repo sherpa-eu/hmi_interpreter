@@ -21,6 +21,7 @@ checker="false"
 message="manu"
 change_field="false"
 flag="true"
+v = ""
 
 def connect_to_julius(test,k):
    print "connect_to_julius"
@@ -74,25 +75,45 @@ def get_pointer(a,s):
       return result
    except rospy.ServiceException, e:
       print "Service call failed: %s"%e
-       
+      
+ 
+def ShowChoice():
+   window.delete("1.0", "end-1c")
+   e1.delete("1.0","end-1c")
+   if v.get() == 1:
+      pub.publish("red wasp")
+   elif v.get() == 2:
+      pub.publish("blue wasp")
+   elif v.get() == 3:
+      pub.publish("hawk")
+   elif v.get() == 4:
+      pub.publish("donkey")
+   return
+
 def compare_thread(data,var):
    global thread1
    global thread2
    if thread1 != thread2:
       print "waiting"
    else:
-      if data != "NO":
+      print "data"
+      print data != "CANCEL"
+      print data
+      if data != "CANCEL":
          thread1 = "1"
          thread2 = "2"
          string = String()
          string.data = data
          print data
+         print "string"
          print string
          change_image_field()
          pub.publish(string)
       else:
+         print "kjdkjsakdaj"
          thread1 = ""
          thread2 = "2"
+         print "sjdiasjdisajdisajdoisa"
      # client_sending(res.capitalize())
 
 def sleeping_time(res, delay):
@@ -114,6 +135,7 @@ def func(event):
 def callback_thread(data,y):
    global res 
    global thread1
+   global get_agent
    res = String()
    if checker == "false":
       # change_image_field()
@@ -158,6 +180,13 @@ def callback_thread(data,y):
                result ="MOUNT RED_WASP"
             elif result == "MOUNT BLUE WASP":
                result="MOUNT BLUE_WASP"
+            elif result == "SEARCH THAT LAKE":
+               return
+            elif result == "FOR KITE":
+               result = "SEARCH THAT LAKE FOR KITE"
+            elif result == "FOR VICTIM":
+               result = "SEARCH THAT LAKE FOR VICTIM"
+               
          string = String()
          print "result"
          print result
@@ -178,11 +207,22 @@ def callback_thread(data,y):
          elif result=="GO THERE" or "THERE" in result:
             thread.start_new_thread(get_pointer, (string.data,5,))
          if result.upper() == "HAWK" or result.upper() == "RED WASP" or result.upper() == "BLUE WASP" or result.upper() == "DONKEY" or result.upper() == "ROBOT": 
+            if result.lower() == "red wasp":
+               get_agent = 1
+               v.set(1)
+            elif result.lower() == "blue wasp":
+               get_agent = 2
+               v.set(2)
+            elif result.lower() == "hawk":
+               get_agent = 3
+               v.set(3)
+            elif result.lower() == "donkey":
+               get_agent = 4
+               v.set(4)
             pub.publish(result.upper())
             return
-         if result.upper() == "CANCEL":
-            pub.publish(result.upper())
-            return
+         
+           # pub.publish(result.upper())
          res = string.data
          thread1 = res
          publisher.publish(res)
@@ -248,6 +288,14 @@ def show_entry_fields():
          thread.start_new_thread(get_pointer, (res,5,))
       if result == "ROBOTS":
          result = "ROBOT"
+      if result.lower() == "red wasp":
+         v.set(1)
+      elif result.lower() == "blue wasp":
+         v.set(2)
+      elif result.lower() == "hawk":
+         v.set(3)
+      elif result.lower() == "donkey":
+         v.set(4)
       result.replace("\n","")
       string = String()
       string.data = entry_text.upper()
@@ -261,7 +309,8 @@ if __name__ == "__main__":
    rospy.init_node('gui_node', anonymous=True)
    master = Tk()
    master.title("HMI Dialogue Interface")
-   window = Text(master, height=5, width=70)
+   v = IntVar()
+   window = Text(master, height=7, width=70)
    window.tag_configure('big', font=('Verdana',20,'bold'))
    scroll = Scrollbar(master, command=window.yview)
    window.tag_configure('big', font=('Verdana',20,'bold'))
@@ -277,7 +326,7 @@ if __name__ == "__main__":
    
    dialog_label = Label(master)
    e1 = Text(master, width=45, height=2)
-   
+   window.insert(INSERT,'Please, choose an agent!\n','rotcolor')
    rospack = rospkg.RosPack()
    path = rospack.get_path('hmi_interpreter')
    path = path+"/img"
@@ -295,6 +344,11 @@ if __name__ == "__main__":
    master.bind('<Return>',func)
    Button(master, text='Quit', font=('Arial', 12,'bold', 'italic'), foreground='#ff8000',command=master.quit).grid(row=5, column=0,sticky=W, padx=10)
    Button(master, text='Enter', font=('Arial', 12,'bold', 'italic'),command=show_entry_fields).grid(row=1, column=0, sticky=W, pady=4, padx=4)
+
+   r1 = Radiobutton(master, text="RED WASP",padx=10, variable=v, value=1,command=ShowChoice).grid(row=6, column=1,sticky=W, pady=4, padx=4)
+   r2 = Radiobutton(master, text="BLUE WASP",padx=0, variable=v, value=2, command=ShowChoice).grid(row=7, column=1,sticky=W, pady=4, padx=4) 
+   r3 = Radiobutton(master, text="HAWK",padx=0, variable=v, value=3, command=ShowChoice).grid(row=8, column=1,sticky=W, pady=4, padx=4)
+   r4 = Radiobutton(master, text="DONKEY",padx=0, variable=v, value=4, command=ShowChoice).grid(row=9, column=1,sticky=W, pady=4, padx=4) 
    rospy.Subscriber("recognizer/output", String, publisher_callback)
    rospy.Subscriber("/speaker_on", String, speaker_callback)
    mainloop( )

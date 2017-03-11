@@ -24,16 +24,13 @@ def call_agent_name(req):
     if req.goal != "get":
         agent = req.goal
         print "agent123: "
-        print agent
-        if agent == "ROBOTS" or agent == "robots":
-            agent = "robot"
         return text_parserResponse(agent)
     else:
-        print "agent456: "
-        print agent
-        tmp = agent
-        agent = "robot"       
-        return text_parserResponse(tmp)
+        # print "agent456: "
+        # print agent
+        # tmp = agent
+        # agent = "robot"       
+        return text_parserResponse(agent)
 
 def get_agent_server():
     rospy.init_node("add_agent_server")

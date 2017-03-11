@@ -27,13 +27,10 @@ def callJulius(port):
     s.settimeout(10)
     s.connect(('127.0.0.1', port))
     s.settimeout(None)
-    print "POOOOOOOOO"
-    print p
     p = Popen(['padsp','julius', '-C',rospack.get_path('hmi_interpreter')+'/julius_files/sherpa.jconf','-input','mic'], stdout= s, stderr= s)
 
 
 def call_my_julius(req):
-    print "----------------------------------------------------- call_my_julius"
     #if req.goal == "true":
     req.goal = "true"
     recognize(req.goal)
@@ -58,7 +55,6 @@ def recognize(req):
         port = s.getsockname()[1]
         print port
         s.listen(1)
-        print "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagaaaain"
         p = multiprocessing.Process(target=callJulius, args=(port,))
         p.start()
         conn, addr = s.accept()
@@ -84,6 +80,22 @@ def recognize(req):
                 data = "LAND AT HELIPAD"
             elif data == "GO TO COT TA GE":
                 data = "GO TO COTTAGE"
+            elif data == "SEARCH THAT LAKE VICTIM":
+                data = "SEARCH THAT LAKE FOR VICTIM"
+            elif data == "SEARCH THAT LAKE KITE":
+                data = "SEARCH THAT LAKE FOR KITE"
+            elif data == "SEARCH THAT BRIDGE VICTIM":
+                data = "SEARCH THAT BRIDGE FOR VICTIM"
+            elif data == "SEARCH THAT BRIDGE KITE":
+                data = "SEARCH THAT BRIDGE FOR KITE"
+            elif data == "SEARCH THAT AREA VICTIM":
+                data = "SEARCH THAT AREA FOR VICTIM"
+            elif data == "SEARCH THAT AREA KITE":
+                data = "SEARCH THAT AREA FOR KITE"
+            elif data == "UN MOUNT RED WASP":
+                data = "UNMOUNT RED WASP"
+            elif data == "UN MOUNT BLUE WASP":
+                data = "UNMOUNT BLUE WASP"
             else:
                 data = data
                 print data
