@@ -22,6 +22,7 @@ message="manu"
 change_field="false"
 flag="true"
 v = ""
+entered="false"
 
 def connect_to_julius(test,k):
    print "connect_to_julius"
@@ -78,6 +79,7 @@ def get_pointer(a,s):
       
  
 def ShowChoice():
+   global entered
    b1.config(image=off)
    window.delete("1.0", "end-1c")
    e1.delete("1.0","end-1c")
@@ -87,66 +89,93 @@ def ShowChoice():
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
       pub.publish(result)
+      entered = "true"
    elif v.get() == 2:
       pub.publish("hawk")
       result = "STOP"
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
       pub.publish(result)
+      entered = "true"
    elif v.get() == 3:
       pub.publish("hawk")
       result = "SEARCH THAT LAKE FOR KITE"
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
       pub.publish(result)
+      entered = "true"
    elif v.get() == 4:
       pub.publish("hawk")
       result = "GO TO HELIPAD"
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
       pub.publish(result)
+      entered = "true"
    elif v.get() == 5:
       pub.publish("red wasp")
       result = "SEARCH THAT BRIDGE FOR VICTIM"
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
       pub.publish(result)
+      entered = "true"
    elif v.get() == 6:
       pub.publish("blue wasp")
       result = "SEARCH THAT BRIDGE FOR VICTIM"
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
       pub.publish(result)
+      entered = "true"
    elif v.get() == 7:
       pub.publish("donkey")
       result = "GO TO VICTIM"
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
       pub.publish(result)
+      entered = "true"
    elif v.get() == 8: 
       pub.publish("blue wasp")
       result = "GO TO VICTIM"
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
       pub.publish(result)
+      entered = "true"
    elif v.get() == 9:
-      pub.publish("donkey")
-      result = "MOUNT RED_WASP"
+      pub.publish("red wasp")
+      result = "CHARGE"
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
       pub.publish(result)
+      entered = "true"
    elif v.get() == 10:
       pub.publish("blue wasp")
       result = "TAKE PICTURE"
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
       pub.publish(result)
+      entered = "true"
    elif v.get() == 11:
-      pub.publish("donkey")
-      result = "MOUNT BLUE_WASP"
+      pub.publish("blue wasp")
+      result = "CHARGE"
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
       pub.publish(result)
+      entered = "true"
+   elif v.get() == 12:
+      pub.publish("donkey")
+      result = "UNMOUNT RED WASP"
+      rule = "UNMOUNT RED WASP"
+      window.insert(INSERT,'Genius:  ','hcolor')
+      window.insert(END,rule+'\n','hnbcolor')
+      pub.publish(result)
+      entered = "true"
+   elif v.get() == 13:
+      pub.publish("donkey")
+      result = "UNMOUNT BLUE WASP"
+      rule = "UNMOUNT BLUE WASP"
+      window.insert(INSERT,'Genius:  ','hcolor')
+      window.insert(END,rule+'\n','hnbcolor')
+      pub.publish(result)
+      entered = "true"
    b1.config(image=off)
   # print result
    return
@@ -295,6 +324,11 @@ def callback_thread(data,y):
 def publisher_callback(data):
    thread.start_new_thread(callback_thread, (data, 1,))    
    
+def displayer_callback(data):
+   window.delete("1.0", "end-1c")
+   window.insert(INSERT,data.data,'rotcolor')
+   e1.delete("1.0","end-1c")
+   
 #def speaker_callback(data):
 #   if change_field == "true":
 #      change_image_field()
@@ -310,11 +344,11 @@ def speaker_callback(data):
 
 def change_image_field():
    global checker
-   if checker == "false":
+   if checker == "false" and entered == "false":
       checker = "true"
       b1.config(image=on)
       thread.start_new_thread(connect_to_julius, ("true",1,))
-   else:
+   elif checker == "true" and entered == "false":
       checker = "false"
       b1.config(image=off)
       thread.start_new_thread(connect_to_julius, ("false",1,))
@@ -407,21 +441,24 @@ if __name__ == "__main__":
    Button(master, text='Enter', font=('Arial', 12,'bold', 'italic'),command=show_entry_fields).grid(row=1, column=0, sticky=W, pady=4, padx=4)
    r1 = Radiobutton(master, text="optional: HAWK, GO THERE (need controllers) ",padx=10, variable=v, value=1,command=ShowChoice).grid(row=6, column=0,sticky=W, pady=5, padx=5)
    r2 = Radiobutton(master, text="HAWK, STOP ",padx=10, variable=v, value=2,command=ShowChoice).grid(row=7, column=0,sticky=W, pady=5, padx=5)
-   r3 = Radiobutton(master, text="HAWK, SEARCH THAT LAKE FOR KITE (click on openease) ",padx=10, variable=v, value=3,command=ShowChoice).grid(row=8, column=0,sticky=W, pady=5, padx=5)
+   r3 = Radiobutton(master, text="HAWK, SEARCH THAT LAKE FOR KITE (use controllers or click on openease) ",padx=10, variable=v, value=3,command=ShowChoice).grid(row=8, column=0,sticky=W, pady=5, padx=5)
    r4 = Radiobutton(master, text="HAWK, LAND ON HELIPAD",padx=0, variable=v, value=4, command=ShowChoice).grid(row=9, column=0,sticky=W, pady=5, padx=5) 
-   r5 = Radiobutton(master, text="RED WASP, SEARCH THAT BRIDGE FOR VICTIM (click on openease)",padx=0, variable=v, value=5, command=ShowChoice).grid(row=10, column=0,sticky=W, pady=5, padx=5)
-   r6 = Radiobutton(master, text="BLUE WASP, SEARCH THAT BRIDGE FOR VICTIM (click on openease)",padx=0, variable=v, value=6, command=ShowChoice).grid(row=11, column=0,sticky=W, pady=5, padx=5) 
-   r7 = Radiobutton(master, text="DONKEY, GO TO VICTIM",padx=0, variable=v, value=7, command=ShowChoice).grid(row=12, column=0,sticky=W, pady=5, padx=5) 
-   r8 = Radiobutton(master, text="BLUE WASP, GO TO VICTIM",padx=0, variable=v, value=8, command=ShowChoice).grid(row=13, column=0,sticky=W, pady=5, padx=5) 
-   r9 = Radiobutton(master, text="DONKEY, MOUNT RED WASP",padx=0, variable=v, value=9, command=ShowChoice).grid(row=14, column=0,sticky=W, pady=5, padx=5)
-   r10 = Radiobutton(master, text="BLUE WASP, TAKE PICTURE",padx=0, variable=v, value=10, command=ShowChoice).grid(row=15, column=0,sticky=W, pady=5, padx=5)
-   r11 = Radiobutton(master, text="DONKEY, MOUNT BLUE WASP",padx=0, variable=v, value=11, command=ShowChoice).grid(row=16, column=0,sticky=W, pady=5, padx=5)
+   r12 = Radiobutton(master, text="DONKEY, UNMOUNT RED WASP (if mounted)",padx=0, variable=v, value=12, command=ShowChoice).grid(row=10, column=0,sticky=W, pady=5, padx=5)
+   r13 = Radiobutton(master, text="DONKEY, UNMOUNT BLUE WASP (if mounted)",padx=0, variable=v, value=13, command=ShowChoice).grid(row=11, column=0,sticky=W, pady=5, padx=5)
+   r5 = Radiobutton(master, text="RED WASP, SEARCH THAT BRIDGE FOR VICTIM (click on openease)",padx=0, variable=v, value=5, command=ShowChoice).grid(row=12, column=0,sticky=W, pady=5, padx=5)
+   r6 = Radiobutton(master, text="BLUE WASP, SEARCH THAT BRIDGE FOR VICTIM (click on openease)",padx=0, variable=v, value=6, command=ShowChoice).grid(row=13, column=0,sticky=W, pady=5, padx=5) 
+   r7 = Radiobutton(master, text="DONKEY, GO TO VICTIM",padx=0, variable=v, value=7, command=ShowChoice).grid(row=14, column=0,sticky=W, pady=5, padx=5) 
+   r8 = Radiobutton(master, text="BLUE WASP, GO TO VICTIM",padx=0, variable=v, value=8, command=ShowChoice).grid(row=15, column=0,sticky=W, pady=5, padx=5) 
+   r9 = Radiobutton(master, text="RED WASP, CHARGE",padx=0, variable=v, value=9, command=ShowChoice).grid(row=16, column=0,sticky=W, pady=5, padx=5)
+   r10 = Radiobutton(master, text="BLUE WASP, TAKE PICTURE",padx=0, variable=v, value=10, command=ShowChoice).grid(row=17, column=0,sticky=W, pady=5, padx=5)
+   r11 = Radiobutton(master, text="BLUE WASP, CHARGE",padx=0, variable=v, value=11, command=ShowChoice).grid(row=18, column=0,sticky=W, pady=5, padx=5)
 #   r1 = Radiobutton(master, text="RED WASP ",padx=10, variable=v, value=1,command=ShowChoice).grid(row=6, column=1,sticky=W, pady=4, padx=4)
 #   r2 = Radiobutton(master, text="BLUE WASP",padx=0, variable=v, value=2, command=ShowChoice).grid(row=7, column=1,sticky=W, pady=4, padx=4) 
 #   r3 = Radiobutton(master, text="HAWK",padx=0, variable=v, value=3, command=ShowChoice).grid(row=8, column=1,sticky=W, pady=4, padx=4)
 #   r4 = Radiobutton(master, text="DONKEY",padx=0, variable=v, value=4, command=ShowChoice).grid(row=9, column=1,sticky=W, pady=4, padx=4) 
    rospy.Subscriber("recognizer/output", String, publisher_callback)
    rospy.Subscriber("/speaker_on", String, speaker_callback)
+   rospy.Subscriber("/display_command",String, displayer_callback)
    mainloop( )
    #rospy.spin()
    

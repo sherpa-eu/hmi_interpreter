@@ -31,11 +31,15 @@ from std_msgs.msg import String
 speech_output = ""
 
 def call_main_server(data):
+     print "wait for"
      rospy.wait_for_service("main_server")
+     print "why"
      try: 
           main_server = rospy.ServiceProxy("main_server", text_parser)
           resp1 = main_server(speech_output)
           result = resp1.result
+          print result
+          print "----"
           return result
      except rospy.ServiceException, e:
           print "Service call failed: %s"%e
@@ -57,6 +61,7 @@ def add_viewpoint(viewpoint):
      try: 
           add_viewpoint = rospy.ServiceProxy("add_viewpoint", text_parser)
           resp1 = add_viewpoint(viewpoint)
+          return resp1.result
      except rospy.ServiceException, e:
           print "Service call failed: %s"%e
           
@@ -173,6 +178,7 @@ def subscriberCB(data):
           speech_output = speech_output_1 +"and "+speech_output
                                                             
      if speech_output != "":
+          print "call_main_server"
           result = call_main_server(speech_output)
           
      

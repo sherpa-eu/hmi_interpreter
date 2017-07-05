@@ -17,6 +17,9 @@ pose  = ""
 pub =''
 pub_speaker = ''
 agent00 = ""
+saver=""
+publisher=''
+
 def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
     print "create_hmi_msgs"
     global desigs
@@ -278,16 +281,16 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
     
    # print desigs
     
-def call_main_server(req):
+
+
+def call_second_server(req):
     global agent00
-    # create client for ros_parser
-    print "call_main_server"
-    print req.goal
+    print "call_second_server"
     rospy.wait_for_service("ros_parser")
     result = "Did not work!"
     try:
         ros_parser = rospy.ServiceProxy("ros_parser",text_parser)
-        resp1 = ros_parser(req.goal)
+        resp1 = ros_parser(req)
         #print "teeest"
         result = resp1.result
         # CREATE POSE CLIENT      
@@ -321,7 +324,7 @@ def call_main_server(req):
     #     end = t
     #     goal.timer=str(end)
     #     goal.agent=agent00
-    #     goal.cmd=req.goal
+    #     goal.cmd=req
     #     resp3 = start_bg_logging(goal)
     #     bg = resp3.result
     #     create_hmi_msgs(resp1.result)
@@ -391,13 +394,55 @@ def call_main_server(req):
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
 
+def call_main_server(req):
+    global saver
+    if req.goal == "search that lake" or req.goal == "search that bridge" or req.goal == "search that lake for kite" or req.goal == "search that bridge for victim":
+        saver = req.goal
+        print "instruction"
+        rospy.wait_for_service("context")
+        context_goal = "Did not work!"
+        try:
+            print "tester123"
+            context = rospy.ServiceProxy("context",text_parser)
+            resp1 = context(req.goal)
+            context_goal = resp1.result
+        except rospy.ServiceException, e:
+            print"Service call failed: %s"%e
+        print "tester456"
+        print context_goal
+        print "req.goal"
+        print req.goal
+        if context_goal == "NO": 
+            if req.goal == "search that lake" or req.goal == "search that lake for kite":
+                call_second_server("search that lake for kite")
+            elif req.goal == "search that bridge" or req.goal == "search that bridge for victim":
+                call_second_server("search that bridge for victim")
+        elif context_goal == "YES": 
+            if req.goal == "search that lake" or req.goal == "search that lake for kite":
+                publisher.publish("Kite already found. Keep searching, yes or no?")
+                print "publisher"
+                return "nix"
+            elif req.goal == "search that bridge" or req.goal == "search that bridge for victim":
+                    print "publisher"
+                    return "nix"
+        
+    if req.goal == "yes":
+        if saver == "search that lake" or saver == "search that lake for kite":
+            call_second_server("search that lake for kite")
+        elif saver == "search that bridge" or saver == "search that bridge for victim":
+            call_second_server("search that bridge for victim")
+    else:
+        return nix
+        
  
 def start_main_server():
     global pub
     global pub_speaker
+    global publisher
     rospy.init_node("start_main_server")
     pub = rospy.Publisher('/internal_output', Desig, queue_size=10)
     pub_speaker = rospy.Publisher('/speaker_on', String, queue_size=10)
+    publisher = rospy.Publisher('display_command', String, queue_size=10)
     #rospy.Subscriber("/recognizer/output", String, call_main_server)
     s = rospy.Service("main_server", text_parser, call_main_server)
     print "Main server is up and waiting for speech!"

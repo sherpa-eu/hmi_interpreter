@@ -55,6 +55,7 @@ add_message_files(
    FILES
    Propkey.msg
    Desig.msg
+   STOREDesig.msg
    protocol_dialogue.msg
    LogInfo.msg
 )
@@ -64,6 +65,7 @@ add_service_files(
    FILES
    text_parser.srv
    HMIDesig.srv
+   HMISTOREDesig.srv
    pointer.srv
    call_cmd.srv
    transform.srv
