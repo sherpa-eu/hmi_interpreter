@@ -98,6 +98,10 @@ def subscriberCB(data):
                               speech_output = speech[0]+" "+speech[2]
                          else:
                               speech_output = speech_output + " " + speech[2]
+                         print speech
+                         if speech[0] == "take" and speech[1] ==  "picture" and speech[2] != "":
+                              speech_output = "take picture of "+speech[2]
+                              print "here is the third"
                          if len(speech) >= 4:
                               speech_output = speech_output + " "+ speech[3]
                          if len(speech) >= 5:

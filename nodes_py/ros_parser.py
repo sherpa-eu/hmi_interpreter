@@ -108,7 +108,8 @@ def parsing(res):
                 value = action + " "+ spatial+ " "+ resume[2]+" "+"false "+resume[3]               
             elif resume[2] == "that":
                 value = action + " "+ spatial+ " "+ "null"+" "+"true "+resume[3]
-
+            elif "take" == resume[0] and "picture" == resume[1] and "of" == resume[2]:
+                value = "take-picture" +" null"+" null"+" false "+resume[3]               
         elif len(resume) == 5:
             action = resume[0]
             spatial = resume[1]

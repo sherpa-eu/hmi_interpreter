@@ -2,9 +2,8 @@
  
 from hmi_interpreter.srv import *
 from hmi_interpreter.msg import *
-
-import rospy
 from json_prolog import json_prolog
+import rospy
  
 result=''
 
@@ -13,19 +12,29 @@ def detecting(sentence):
     prolog = json_prolog.Prolog()
     if sentence == "victim":
         query = prolog.query("current_object_pose('http://knowrob.org/kb/unreal_log.owl#SherpaVictim_VAZg',A)")
-    else:
+        for solution in query.solutions():
+            print 'Found solution. A = %s' % (solution['A'])
+            s = solution['A']
+        query.finish()
+        if s[0] == 0 and s[1] == 0 and s[2] == 0:
+            result = "NO"
+        else:
+            result = "YES"
+    elif sentence == "kite" or sentence == "hangglider":
         query = prolog.query("current_object_pose('http://knowrob.org/kb/unreal_log.owl#SherpaHangGlider_rjI4',A)")
-    for solution in query.solutions():
-        print 'Found solution. A = %s' % (solution['A'])
-        s = solution['A']
-    query.finish()
-    if s[0] == 0 and s[1] == 0 and s[2] == 0:
-        result = "NO"
+        for solution in query.solutions():
+            print 'Found solution. A = %s' % (solution['A'])
+            s = solution['A']
+        query.finish()
+        if s[0] == 0 and s[1] == 0 and s[2] == 0:
+            result = "NO"
+        else:
+            result = "YES"   
     else:
-        result = "YES"
+        print "Object not detected"
 
 def call_detector(req):
-    print "checking detection"
+    print "Calling detector"
     detecting(req.goal)
     speech_output = result
     return text_parserResponse(speech_output)

@@ -19,15 +19,16 @@ pub_speaker = ''
 agent00 = ""
 saver=""
 publisher=''
+prev_command=""
 
 def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
-    print "create_hmi_msgs"
+   # print "create_hmi_msgs"
     global desigs
-    print "agent"
-    print agent
-    print goal
-    print "pose"
-    print pose
+  #  print "agent"
+  #  print agent
+  #  print goal
+  #  print "pose"
+  #  print pose
     desig = Desig()
     desigs = []
     goal = goal.split(" 0 ")
@@ -285,6 +286,7 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
 
 def call_second_server(req):
     global agent00
+    print req
     print "call_second_server"
     rospy.wait_for_service("ros_parser")
     result = "Did not work!"
@@ -298,8 +300,8 @@ def call_second_server(req):
         #return "Okay everything went well"
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
-    print "ros_parser"
-    print result
+   # print "ros_parser"
+   # print result
     rospy.wait_for_service("add_agent_name")
     agent = "Did not work!"
     try:
@@ -349,14 +351,14 @@ def call_second_server(req):
     pose = "Did not work!"
     try:
         pointing_server = rospy.ServiceProxy("pointing_server",pointer)
-        print "pointing"
+       # print "pointing"
         string = String()
         posy = PoseStamped()
         string.data = "get"
-        print "posy"
-        print posy
+       # print "posy"
+       # print posy
         resp2 = pointing_server(string,posy)
-        print resp2.result
+       # print resp2.result
         posy = resp2.result
         #create_hmi_msgs(resp1.result)
         # GENERATE the CRAM CLIENT
@@ -378,61 +380,200 @@ def call_second_server(req):
     create_hmi_msgs(resp1.result, agent, viewpoint, posy,openEase)
     pub.publish(desigs[0])
     rate = rospy.Rate(20)
-    print desigs[0]
+    #print desigs[0]
     rospy.wait_for_service("service_hmi_cram")
     result = "Did not work!"
     try:
         service_hmi_cram = rospy.ServiceProxy("service_hmi_cram",HMIDesig)
         resp2 = service_hmi_cram(desigs)
         tmp = resp2.result
-  
+        
         time.sleep(5)
         pub_speaker.publish("done")
-        print "main-server"
+        # print "main-server"
+        # print tmp
         return tmp
-        #     #return "Okay everything went well"
+        #return "Okay everything went well"
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
 
-def call_main_server(req):
-    global saver
-    if req.goal == "search that lake" or req.goal == "search that bridge" or req.goal == "search that lake for kite" or req.goal == "search that bridge for victim":
-        saver = req.goal
-        print "instruction"
-        rospy.wait_for_service("context")
-        context_goal = "Did not work!"
+
+def checking_agent(value):
+    # Checking is assigned agent is capable
+    print "checking agent"
+    print value
+    if "kite" in value:
+        rospy.wait_for_service("acms_checker")
+        serv_checker = "Did not work!"
         try:
-            print "tester123"
-            context = rospy.ServiceProxy("context",text_parser)
-            resp1 = context(req.goal)
-            context_goal = resp1.result
+            acms_checker = rospy.ServiceProxy("acms_checker",text_parser)
+            resp1 = acms_checker(value)
+            return resp1.result
         except rospy.ServiceException, e:
             print"Service call failed: %s"%e
-        print "tester456"
-        print context_goal
-        print "req.goal"
-        print req.goal
-        if context_goal == "NO": 
-            if req.goal == "search that lake" or req.goal == "search that lake for kite":
-                call_second_server("search that lake for kite")
-            elif req.goal == "search that bridge" or req.goal == "search that bridge for victim":
-                call_second_server("search that bridge for victim")
-        elif context_goal == "YES": 
-            if req.goal == "search that lake" or req.goal == "search that lake for kite":
-                publisher.publish("Kite already found. Keep searching, yes or no?")
-                print "publisher"
-                return "nix"
-            elif req.goal == "search that bridge" or req.goal == "search that bridge for victim":
-                    print "publisher"
-                    return "nix"
-        
-    if req.goal == "yes":
-        if saver == "search that lake" or saver == "search that lake for kite":
-            call_second_server("search that lake for kite")
-        elif saver == "search that bridge" or saver == "search that bridge for victim":
-            call_second_server("search that bridge for victim")
+    elif "victim" in value:
+        rospy.wait_for_service("acms_checker")
+        serv_checker = "Did not work!"
+        try:
+            acms_checker = rospy.ServiceProxy("acms_checker",text_parser)
+            resp1 = acms_checker(value)
+            return resp1.result
+        except rospy.ServiceException, e:
+            print"Service call failed: %s"%e
     else:
-        return nix
+        return "NOCOMMAND"
+def check_yes_no_command (value,prev):
+    print "check yes no command"
+    print value
+    print prev
+    if value == "yes" and prev != "" and prev != "yes" and prev != "no":
+        publisher.publish(prev)
+        call_second_server(prev)
+        # if command is yes but prev command not given
+    elif value == "yes" and prev == "":
+        publisher.publish("Please repeat your instruction!")
+        return "nix"
+        # of command is No
+    elif value == "no":
+        publisher.publish("Waiting for new instruction.")
+        return "nix"
+
+def check_search_command (value, prev):
+    print "check search command"
+    if "victim" in value:
+        print "check search command456"
+        rospy.wait_for_service("detector")
+        detector_goal = "Did not work!"
+        try:
+            detector = rospy.ServiceProxy("detector",text_parser)
+            resp1 = detector("victim")
+            detector_goal = resp1.result
+        except rospy.ServiceException, e:
+            print"Service call failed: %s"%e
+      
+        if detector_goal == "YES":
+            publisher.publish("Victim already found. Continue searching, yes or no?")
+            return "nix"
+        else:
+            call_second_server(value)
+    elif "kite" in value:
+        print "check search command123"
+        rospy.wait_for_service("detector")
+        detector_goal = "Did not work!"
+        try:
+            detector = rospy.ServiceProxy("detector",text_parser)
+            resp1 = detector("kite")
+            detector_goal = resp1.result
+        except rospy.ServiceException, e:
+            print"Service call failed: %s"%e
+      
+        if detector_goal == "YES":
+            publisher.publish("Kite already found. Continue searching, yes or no?")
+            return "nix"
+        else:
+            call_second_server(value)
+    else:
+        if prev != "" and prev != "yes" and prev != "no":
+                if "victim" in prev:
+                    rospy.wait_for_service("detector")
+                    detector_goal = "Did not work!"
+                    try:
+                        print "testedadr123789"
+                        detector = rospy.ServiceProxy("detector",text_parser)
+                        resp1 = detector("victim")
+                        detector_goal = resp1.result
+                    except rospy.ServiceException, e:
+                        print"Service call failed: %s"%e
+                    if detector_goal == "YES":
+                        publisher.publish("Victim already found. Continue searching, yes or no?")
+                        return "nix"
+                    else:
+                        call_second_server(value+" for victim")
+                # check of prev command includes kite
+                elif "kite" in prev:
+                    rospy.wait_for_service("detector")
+                    detector_goal = "Did not work!"
+                    try:
+                        print "testedadr123789"
+                        detector = rospy.ServiceProxy("detector",text_parser)
+                        resp1 = detector("kite")
+                        detector_goal = resp1.result
+                    except rospy.ServiceException, e:
+                        print"Service call failed: %s"%e
+                    if detector_goal == "YES":
+                        publisher.publish("Kite already found. Continue searching, yes or no?")
+                        return "nix"
+                    else:
+                        call_second_server(value+" for kite")
+        else:
+            publisher.publish("Please give a new instruction!")
+            return "nix"
+
+def check_other_cmds(value, prev):
+    print "check other cmds"
+    if "victim" in value:
+        rospy.wait_for_service("detector")
+        detected = "Did not work!"
+        try:
+            detector = rospy.ServiceProxy("detector",text_parser)
+            resp1 = detector("victim")
+            detected = resp1.result
+        except rospy.ServiceException, e:
+            print"Service call failed: %s"%e
+        if detected == "YES":
+            publisher.publish(value)
+            call_second_server(value)
+        else:
+            publisher.publish("Victim not found yet!")
+            return "nix"
+    elif "kite" in value:
+        rospy.wait_for_service("detector")
+        detected = "Did not work!"
+        try:
+            #  print "tsssssssssssssssssssesteradsad123"
+            detector = rospy.ServiceProxy("detector",text_parser)
+            resp1 = detector("kite")
+            #prev = req.goal
+            detected = resp1.result
+        except rospy.ServiceException, e:
+            print"Service call failed: %s"%e
+ 
+        if detected == "YES":
+            publisher.publish(value)
+            call_second_server(value)
+        else:
+            publisher.publish("Kite not found yet!")
+            return "nix"
+            
+def call_main_server(req):
+    global saver
+    global prev_command
+    print "call main server"
+    serv_checker = checking_agent(req.goal)
+    print serv_checker
+    # if agent not capable
+    if serv_checker == "NIENTE":
+        return "Waiting!"
+    elif serv_checker == "BRAVO" or serv_checker == "NOCOMMAND":
+        # if continue command- yes and prev_command is assigned and not yes
+        if req.goal == "yes" or req.goal == "no":
+            check_yes_no_command(req.goal, prev_command)
+        elif "search" in req.goal and "victim" in req.goal:
+            prev_command = req.goal
+            check_search_command(req.goal, "")
+        elif "search" in req.goal and "kite" in req.goal:
+            prev_command = req.goal
+            check_search_command(req.goal, "")
+        elif "search" in req.goal:
+            check_search_command(req.goal, prev_command)
+        elif "victim" in req.goal or "kite" in req.goal:
+            check_other_cmds(req.goal, "")
+        else:
+            publisher.publish(req.goal)
+            call_second_server(req.goal)
+    else:
+        return "did not work"
+            
         
  
 def start_main_server():

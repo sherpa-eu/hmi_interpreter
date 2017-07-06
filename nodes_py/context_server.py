@@ -8,7 +8,7 @@ result=''
   
 def contexting(sentence):
     global result
-    if sentence == "search that lake" or "search that lake for kite":
+    if sentence == "search that lake for kite" or sentence == "search that bridge for kite":
         rospy.wait_for_service("detector")
         result = "Did not work!"
         try:
@@ -19,7 +19,7 @@ def contexting(sentence):
             print"Service call failed: %s"%e
             # look for kite, already detected?
             # look for victim, already detected?
-    elif sentence == "search that bridge" or "search that bridge for victim":
+    else:
         rospy.wait_for_service("detector")
         result = "Did not work!"
         try:
@@ -28,12 +28,6 @@ def contexting(sentence):
             result = resp2.result
         except rospy.ServiceException, e:
             print"Service call failed: %s"%e
-    elif sentence == "no":
-        result = "NIL"
-    elif sentence == "yes":
-        result = "YIL"
-        # look for kite, already detected?
-        # look for victim, already detected?
 
 def call_checker(req):
     print "Checking for Storing Value"
