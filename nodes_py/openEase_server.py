@@ -15,7 +15,6 @@ import commands
 from std_msgs.msg import String
 
 interest_object="none"
-
 def call_openEase(req):
     global interest_object
     if req.goal != "get":

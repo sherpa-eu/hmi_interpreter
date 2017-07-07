@@ -20,17 +20,21 @@ agent00 = ""
 saver=""
 publisher=''
 prev_command=""
+hmidesig =""
 
 def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
    # print "create_hmi_msgs"
     global desigs
+    global hmidesig
   #  print "agent"
   #  print agent
   #  print goal
   #  print "pose"
   #  print pose
     desig = Desig()
+    storedesig = STOREDesig()
     desigs = []
+    hmidesig = []
     goal = goal.split(" 0 ")
     propkey = Propkey()
     propkey2 = Propkey()
@@ -40,13 +44,18 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
         goal = goal[0].split(" 1 ")
         if len(goal) == 1:                                 #Go to tree
             goal = goal[0].split(" ")
+            storedesig.action_type.data = goal[0]
             desig.action_type.data = goal[0]
+            storedesig.actor.data = agent
             desig.actor.data = agent
+            storedesig.instructor.data = "busy_genius"
             desig.instructor.data = "busy_genius"
             if viewpoint == "yes":
                 desig.viewpoint.data = agent
+                storedesig.viewpoint.data = agent
             else:
                 desig.viewpoint.data = "busy_genius"
+                storedesig.viewpoint.data = "busy_genius"
             propkey.object_relation.data = goal[1]
             propkey.object.data = goal[4]
             propkey.object_color.data = "null"
@@ -66,17 +75,23 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkeys.append(propkey)
             propkey = Propkey()
             desig.propkeys = propkeys
+            storedesig.propkeys = propkeys
             desigs.append(desig)
+            hmidesig.append(storedesig)
         else:
             goal1 = goal[0].split(" ")                    #Go to tree to rock
+            storedesig.action_type.data = goal1[0]
             desig.action_type.data = goal1[0]
+            storedesig.actor.data = agent
             desig.actor.data = agent
+            storedesig.instructor.data = "busy_genius"
             desig.instructor.data = "busy_genius"
             if viewpoint == "yes":
                 desig.viewpoint.data = agent
+                storedesig.viewpoint.data = agent
             else:
                 desig.viewpoint.data = "busy_genius"
-          
+                storedesig.viewpoint.data = "busy_genius"
             propkey.object_relation.data = goal1[1]
             propkey.object.data = goal1[4]
             propkey.object_color.data = "null"
@@ -115,20 +130,27 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey = Propkey()
             propkeys.reverse()
             desig.propkeys = propkeys
+            storedesig.propkeys = propkeys
             desigs.append(desig)
+            hmidesig.append(storedesig)
             desig = Desig()
+            storedesig = STOREDesig()
     else:   
         goal1 = goal[0].split(" 1 ")
         if len(goal1) == 1:  
             goal1 = goal1[0].split(" ")                                 #Go to tree
             desig.action_type.data = goal1[0]
+            storedesig.action_type.data = goal1[0]
             desig.actor.data = agent
+            storedesig.actor.data = agent
             desig.instructor.data = "busy_genius"
+            storedesig.instructor.data = "busy_genius"
             if viewpoint == "yes":
                 desig.viewpoint.data = agent
+                storedesig.viewpoint.data = agent
             else:
                 desig.viewpoint.data = "busy_genius"
-        
+                storedesig.viewpoint.data = "busy_genius"
             propkey.object_relation.data = goal1[1]
             propkey.object.data = goal1[4]
             propkey.object_color.data = "null"
@@ -146,17 +168,26 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkey.pointing_gesture.orientation.w = pose.orientation.w
             propkeys.append(propkey)
             desig.propkeys = propkeys
+            storedesig.propkeys = propkeys
             desigs.append(desig)
+            hmidesig.append(storedesig)
             desig = Desig()
+            storedesig = STOREDesig()
         else:
             goal3 = goal1[0].split(" ")                                             #Go right to tree
             desig.action_type.data = goal3[0]
+            storedesig.action_type.data = goal3[0]
             desig.actor.data = agent
+            storedesig.actor.data = agent
             desig.instructor.data = "busy_genius"
+            storedesig.instructor.data = "busy_genius"
             if viewpoint == "yes":
                 desig.viewpoint.data = agent
+                storedesig.viewpoint.data = agent
+
             else:
                 desig.viewpoint.data = "busy_genius"
+                storedesig.viewpoint.data = "busy_genius"
          
             propkey.object_relation.data = goal3[1]
             propkey.object.data = goal3[4]
@@ -190,19 +221,27 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkeys.append(propkey)
             propkeys.reverse()
             desig.propkeys = propkeys
+            storedesig.propkeys = propkeys
             desigs.append(desig)
+            hmidesig.append(storedesig)
             desig = Desig()
+            storedesig = STOREDesig()
 
         goal2 = goal[1].split(" 1 ")
         if len(goal2) == 1:                                                    #take-picture
             goal2 = goal2[0].split(" ")
             desig.action_type.data = goal2[0]
+            storedesig.action_type.data = goal2[0]
             desig.actor.data = agent
+            storedesig.actor.data = agent
             desig.instructor.data = "busy_genius"
+            storedesig.instructor.data = "busy_genius"
             if viewpoint == "yes":
                 desig.viewpoint.data = agent
+                storedesig.viewpoint.data = agent
             else:
                 desig.viewpoint.data = "busy_genius"
+                storedesig.viewpoint.data = "busy_genius"
             propkey = Propkey()
             propkey.object_relation.data = goal2[1]
             propkey.object.data = goal2[4]
@@ -222,22 +261,31 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkeys = []
             propkeys.append(propkey)
             desig.propkeys = propkeys
+            storedesig.propkeys = propkeys
             desigs.append(desig)
+            hmidesig.append(storedesig)
             desig = Desig()
+            storedesig = STOREDesig()
             propkeys = []
         else:                                                              #take picture to rock
             goal1 = goal2[0].split(" ")
             desig = Desig()
+            storedesig = STOREDesig()
             propkey = Propkey()
             propkey2 = Propkey()
             propkeys = []
             desig.action_type.data = goal1[0]
+            storedesig.action_type.data = goal1[0]
             desig.actor.data = agent
+            storedesig.actor.data = agent
             desig.instructor.data = "busy_genius"
+            storedesig.instructor.data = "busy_genius"
             if viewpoint == "yes":
                 desig.viewpoint.data = agent
+                storedesig.viewpoint.data = agent
             else:
                 desig.viewpoint.data = "busy_genius"
+                storedesig.viewpoint.data = "busy_genius"
             propkey2.object_relation.data = goal1[1]
             propkey2.object.data = goal1[4]
             propkey2.object_color.data = "null"
@@ -277,12 +325,25 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
             propkeys.append(propkey2)
             propkeys.reverse()
             desig.propkeys = propkeys
+            storedesig.propkeys= propkeys
             desigs.append(desig)
+            hmidesig.append(storedesig)
             desig = Desig()
+            storedesig = STOREDesig()
     
    # print desigs
     
-
+def go_into_collector(hmidesig):
+    print hmidesig
+    rospy.wait_for_service("cmd_collector")
+    serv_result = "Did not work!"
+    print serv_result
+    try:
+        cmd_collector = rospy.ServiceProxy("cmd_collector", HMISTOREDesig)
+        resp3 = cmd_collector(hmidesig)
+        return resp3.result
+    except rospy.ServiceException, e:
+        print"Service call failed: %s"%e
 
 def call_second_server(req):
     global agent00
@@ -381,8 +442,9 @@ def call_second_server(req):
     pub.publish(desigs[0])
     rate = rospy.Rate(20)
     #print desigs[0]
+    go_into_collector(hmidesig)
+
     rospy.wait_for_service("service_hmi_cram")
-    result = "Did not work!"
     try:
         service_hmi_cram = rospy.ServiceProxy("service_hmi_cram",HMIDesig)
         resp2 = service_hmi_cram(desigs)
@@ -412,6 +474,15 @@ def checking_agent(value):
         except rospy.ServiceException, e:
             print"Service call failed: %s"%e
     elif "victim" in value:
+        rospy.wait_for_service("acms_checker")
+        serv_checker = "Did not work!"
+        try:
+            acms_checker = rospy.ServiceProxy("acms_checker",text_parser)
+            resp1 = acms_checker(value)
+            return resp1.result
+        except rospy.ServiceException, e:
+            print"Service call failed: %s"%e
+    elif "picture":
         rospy.wait_for_service("acms_checker")
         serv_checker = "Did not work!"
         try:

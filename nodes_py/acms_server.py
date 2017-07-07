@@ -91,6 +91,7 @@ def check_detected(value):
     else:
         return "NO"
 
+# TODO: SHPW PICTURE
 
 def agent_system(sentence):
     global tmp
