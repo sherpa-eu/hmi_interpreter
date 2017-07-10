@@ -19,26 +19,26 @@ def detection_call(value):
         print"Service call failed: %s"%e
 
 
-def storing(sentence):
+def storing(sentencer):
     global stack
     global result
     desig = Desig()
-    sentence = sentence[0]
+    sentence = sentencer[0]
     if sentence.checker.data == "get":
+        if not stack:
+            return "empty list"
         res = stack.pop()
         stack.append(res)
         result=res
-        return result
+        return "Done"
     elif sentence.checker.data == "checked":
+        if not stack:
+            return "empty list"
         res = stack.pop()
         stack.append(res)
         result=res
-        print res
         if res.action_type.data == "take-picture" and res.actor.data == "blue_wasp":
             val = detection_call("victim")
-            print "Ok let's be a bit proactive"
-            print "val"
-            print val
             if val == "YES":
                 desig = Desig()
                 desigs = []
@@ -54,15 +54,12 @@ def storing(sentence):
                 desig.propkeys = propkeys
                 stack.append(desig)
                 desigs.append(desig)
-                print "cram"
-                print desigs[0]
-                rospy.wait_for_service("service_hmi_cram")
+                rospy.wait_for_service("service_proactivity")
                 result = "Did not work!"
                 try:
-                    service_hmi_cram = rospy.ServiceProxy("service_hmi_cram",HMIDesig)
-                    resp2 = service_hmi_cram(desigs)
+                    service_proactivity = rospy.ServiceProxy("service_proactivity",HMIDesig)
+                    resp2 = service_proactivity(desigs)
                     tmp = resp2.result
-                    print tmp
                     return tmp
                 except rospy.ServiceException, e:
                     print"Service call failed: %s"%e
@@ -72,20 +69,20 @@ def storing(sentence):
         else:
             return "Okay no proactive behavior"
     else:
-     desig.action_type.data = sentence.action_type.data
-     desig.actor.data = sentence.actor.data
-     desig.instructor.data= sentence.instructor.data
-     desig.viewpoint.data= sentence.viewpoint.data
-     desig.propkeys = sentence.propkeys
-     result = desig
-     stack.append(desig)
-     return result
+        desig.action_type.data = sentence.action_type.data
+        desig.actor.data = sentence.actor.data
+        desig.instructor.data= sentence.instructor.data
+        desig.viewpoint.data= sentence.viewpoint.data
+        desig.propkeys = sentence.propkeys
+        result = desig
+        stack.append(desig)
+        return "Done"
      
 
 def call_collector(req):
     print "Checking for Storing Value"
-    storing(req.desigs)
-    speech_output = result
+    speech_output = storing(req.desigs)
+    #speech_output = result
     return HMISTOREDesigResponse(speech_output)
 
 

@@ -15,6 +15,7 @@ def contexting(sentence):
             detector = rospy.ServiceProxy("detector",text_parser)
             resp2 = detector("kite")
             result = resp2.result
+            return result
         except rospy.ServiceException, e:
             print"Service call failed: %s"%e
             # look for kite, already detected?
@@ -26,13 +27,14 @@ def contexting(sentence):
             detector = rospy.ServiceProxy("detector",text_parser)
             resp2 = detector("victim")
             result = resp2.result
+            return result
         except rospy.ServiceException, e:
             print"Service call failed: %s"%e
 
 def call_checker(req):
     print "Checking for Storing Value"
-    contexting(req.goal)
-    speech_output = result
+    speech_output = contexting(req.goal)
+    #speech_output = result
     return text_parserResponse(speech_output)
 
 

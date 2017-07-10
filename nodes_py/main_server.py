@@ -23,14 +23,8 @@ prev_command=""
 hmidesig =""
 
 def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
-   # print "create_hmi_msgs"
     global desigs
     global hmidesig
-  #  print "agent"
-  #  print agent
-  #  print goal
-  #  print "pose"
-  #  print pose
     desig = Desig()
     storedesig = STOREDesig()
     desigs = []
@@ -334,10 +328,8 @@ def create_hmi_msgs(goal, agent, viewpoint, pose, openEase):
    # print desigs
     
 def go_into_collector(hmidesig):
-    print hmidesig
     rospy.wait_for_service("cmd_collector")
-    serv_result = "Did not work!"
-    print serv_result
+    serv_result = "Did not work cmd_collector!"
     try:
         cmd_collector = rospy.ServiceProxy("cmd_collector", HMISTOREDesig)
         resp3 = cmd_collector(hmidesig)
@@ -347,31 +339,22 @@ def go_into_collector(hmidesig):
 
 def call_second_server(req):
     global agent00
-    print req
     print "call_second_server"
     rospy.wait_for_service("ros_parser")
     result = "Did not work!"
     try:
         ros_parser = rospy.ServiceProxy("ros_parser",text_parser)
         resp1 = ros_parser(req)
-        #print "teeest"
         result = resp1.result
-        # CREATE POSE CLIENT      
-        # GENERATE the CRAM CLIENT
-        #return "Okay everything went well"
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
-   # print "ros_parser"
-   # print result
+    
     rospy.wait_for_service("add_agent_name")
     agent = "Did not work!"
     try:
         add_agent_name = rospy.ServiceProxy("add_agent_name",text_parser)
         resp2 = add_agent_name("get")
         agent = resp2.result
-        #create_hmi_msgs(resp1.result)
-        # GENERATE the CRAM CLIENT
-        #return "Okay everything went well"
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
 
@@ -402,9 +385,6 @@ def call_second_server(req):
         add_viewpoint = rospy.ServiceProxy("add_viewpoint",text_parser)
         resp2 = add_viewpoint("get")
         viewpoint = resp2.result
-        #create_hmi_msgs(resp1.result)
-        # GENERATE the CRAM CLIENT
-        #return "Okay everything went well"
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
 
@@ -412,18 +392,11 @@ def call_second_server(req):
     pose = "Did not work!"
     try:
         pointing_server = rospy.ServiceProxy("pointing_server",pointer)
-       # print "pointing"
         string = String()
         posy = PoseStamped()
         string.data = "get"
-       # print "posy"
-       # print posy
         resp2 = pointing_server(string,posy)
-       # print resp2.result
         posy = resp2.result
-        #create_hmi_msgs(resp1.result)
-        # GENERATE the CRAM CLIENT
-        #return "Okay everything went well"
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
     
@@ -441,9 +414,7 @@ def call_second_server(req):
     create_hmi_msgs(resp1.result, agent, viewpoint, posy,openEase)
     pub.publish(desigs[0])
     rate = rospy.Rate(20)
-    #print desigs[0]
-    go_into_collector(hmidesig)
-
+    valy = go_into_collector(hmidesig)
     rospy.wait_for_service("service_hmi_cram")
     try:
         service_hmi_cram = rospy.ServiceProxy("service_hmi_cram",HMIDesig)
@@ -452,18 +423,13 @@ def call_second_server(req):
         
         time.sleep(5)
         pub_speaker.publish("done")
-        # print "main-server"
-        # print tmp
         return tmp
-        #return "Okay everything went well"
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
 
 
 def checking_agent(value):
-    # Checking is assigned agent is capable
     print "checking agent"
-    print value
     if "kite" in value:
         rospy.wait_for_service("acms_checker")
         serv_checker = "Did not work!"
@@ -495,8 +461,6 @@ def checking_agent(value):
         return "NOCOMMAND"
 def check_yes_no_command (value,prev):
     print "check yes no command"
-    print value
-    print prev
     if value == "yes" and prev != "" and prev != "yes" and prev != "no":
         publisher.publish(prev)
         call_second_server(prev)
@@ -512,7 +476,6 @@ def check_yes_no_command (value,prev):
 def check_search_command (value, prev):
     print "check search command"
     if "victim" in value:
-        print "check search command456"
         rospy.wait_for_service("detector")
         detector_goal = "Did not work!"
         try:
@@ -528,7 +491,6 @@ def check_search_command (value, prev):
         else:
             call_second_server(value)
     elif "kite" in value:
-        print "check search command123"
         rospy.wait_for_service("detector")
         detector_goal = "Did not work!"
         try:
@@ -581,7 +543,6 @@ def check_search_command (value, prev):
             return "nix"
 
 def check_other_cmds(value, prev):
-    print "check other cmds"
     if "victim" in value:
         rospy.wait_for_service("detector")
         detected = "Did not work!"
@@ -621,7 +582,6 @@ def call_main_server(req):
     global prev_command
     print "call main server"
     serv_checker = checking_agent(req.goal)
-    print serv_checker
     # if agent not capable
     if serv_checker == "NIENTE":
         return "Waiting!"

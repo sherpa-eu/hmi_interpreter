@@ -38,8 +38,6 @@ def call_main_server(data):
           main_server = rospy.ServiceProxy("main_server", text_parser)
           resp1 = main_server(speech_output)
           result = resp1.result
-          print result
-          print "----"
           return result
      except rospy.ServiceException, e:
           print "Service call failed: %s"%e
@@ -82,7 +80,7 @@ def subscriberCB(data):
           if speech[0] == "red" or speech[0] == "blue":
                agent = add_agent_method(speech[0]+"_wasp")
           elif speech[0] == "hawk" or speech[0] == "donkey" or speech[0] == "robot":
-               add_agent_method(speech[0])
+              val = add_agent_method(speech[0])
           else:
                speech_output = speech[0]
                if len(speech) >= 2:
@@ -92,7 +90,7 @@ def subscriberCB(data):
                          speech_output = speech_output + " " + speech[1]
                     if len(speech) >= 3:
                          if speech[2] == "your":
-                              add_viewpoint("yes")# get agent-name-server
+                              val = add_viewpoint("yes")# get agent-name-server
                               speech_input = re.sub(' your ', ' ', speech_input)
                               speech = speech_input.split(' ')
                               speech_output = speech[0]+" "+speech[2]
@@ -118,7 +116,7 @@ def subscriberCB(data):
                if speech[0] == "red" or speech[0] == "blue":
                     agent = add_agent_method(speech[0]+"-wasp")
                elif speech[0] == "hawk" or speech[0] == "donkey" or speech[0] == "robot":
-                    add_agent_method(speech[0])
+                    val = add_agent_method(speech[0])
                else:
                     speech_output = speech[0]
                if len(speech) >= 2:
@@ -128,7 +126,7 @@ def subscriberCB(data):
                          speech_output = speech_output + " " + speech[1]
                if len(speech) >= 3:
                     if speech[2] == "your":
-                         add_viewpoint("yes")# get agent-name-server
+                         val =  add_viewpoint("yes")# get agent-name-server
                          speech_input = re.sub(' your ', ' ', speech_input)
                          speech = speech_input.split(' ')
                          speech_output = speech[0]+" "+speech[2]
@@ -152,7 +150,7 @@ def subscriberCB(data):
                if speech[0] == "red" or speech[0] == "blue":
                     agent = add_agent_method(speech[0]+"-wasp")
                elif speech[0] == "hawk" or speech[0] == "donkey" or speech[0] == "robot":
-                    add_agent_method(speech[0])
+                    val = add_agent_method(speech[0])
                else:
                     speech_output = speech[0]
                if len(speech) >= 2:
@@ -162,7 +160,7 @@ def subscriberCB(data):
                          speech_output = speech_output + " " + speech[1]
                if len(speech) >= 3:
                     if speech[2] == "your":
-                         add_viewpoint("yes")# get agent-name-server
+                         val = add_viewpoint("yes")# get agent-name-server
                          speech_input = re.sub(' your ', ' ', speech_input)
                          speech = speech_input.split(' ')
                          speech_output = speech[0]+" "+speech[2]
