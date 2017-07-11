@@ -38,7 +38,11 @@ def storing(sentencer):
         stack.append(res)
         result=res
         if res.action_type.data == "take-picture" and res.actor.data == "blue_wasp":
-            val = detection_call("victim")
+         #   print  res.propkeys[0].object.data
+            if res.propkeys[0].object.data == "kite":
+                val = detection_call("kite")
+            else:
+                val = detection_call("victim")
             if val == "YES":
                 desig = Desig()
                 desigs = []
@@ -46,10 +50,10 @@ def storing(sentencer):
                 propkeys = []
                 desig.action_type.data = "go"
                 desig.actor.data = "donkey"
-                desig.instructor.data = "busy_genius"
+                desig.instructor.data = "ACMS"
                 desig.viewpoint.data = "busy_genius"
                 propkey.object_relation.data = "to"
-                propkey.object.data = "victim"
+                propkey.object.data = res.propkeys[0].object.data
                 propkeys.append(propkey)
                 desig.propkeys = propkeys
                 stack.append(desig)
