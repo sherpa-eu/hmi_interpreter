@@ -61,9 +61,13 @@ def logging_cmd(req):
 
     msg = LoggedRDFEntry()
     msg.property_name="knowrob:communicatorOfInfo"
-    msg.rdf_resource="http://knowrob.org/kb/unreal_log.owl#BusyGenius_2PCw9"
+    if commander == "busy_genius":
+        msg.rdf_resource="http://knowrob.org/kb/unreal_log.owl#BusyGenius_2PCw9"
+    else:
+        msg.rdf_resource="http://knowrob.org/kb/unreal_log.owl#ACMS"
     msg.use_resource=True
     msgs.append(msg)
+    
 
     msg = LoggedRDFEntry()
     msg.property_name="knowrob:infoCommunicatedTo"

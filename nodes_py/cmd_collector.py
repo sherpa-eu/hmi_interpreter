@@ -8,6 +8,26 @@ stack=[]
 result=''
   
 
+def function_to_log(agent, command):
+    rospy.wait_for_service("start_bg_logging")
+    bg = "Did not work!"
+    try:
+        start_bg_logging = rospy.ServiceProxy("start_bg_logging",log_info)
+        goal = LogInfo()
+        end2 = rospy.Time.from_sec(time.time()) rospy.Time.now()
+        t = end2.to_sec()
+        end = t
+        goal.timer=str(end)
+        goal.agent=agent
+        goal.cmd= command
+        goal.commander= "ACMS"
+        resp3 = start_bg_logging(goal)
+        return resp3.result
+        #     GENERATE the CRAM CLIENT
+        #     return "Okay everything went well"
+    except rospy.ServiceException, e:
+        print"Service call failed: %s"%e
+
 def detection_call(value):
     rospy.wait_for_service("detector")
     result = "Did not work!"
@@ -58,6 +78,8 @@ def storing(sentencer):
                 desig.propkeys = propkeys
                 stack.append(desig)
                 desigs.append(desig)
+                schetring = "go to " + val
+                log = function_to_log("donkey", schetring)
                 rospy.wait_for_service("service_proactivity")
                 result = "Did not work!"
                 try:
