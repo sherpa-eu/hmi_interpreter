@@ -3,7 +3,8 @@
 from hmi_interpreter.srv import *
 from hmi_interpreter.msg import *
 import rospy
-
+import time
+import sys
 stack=[]
 result=''
   
@@ -14,7 +15,7 @@ def function_to_log(agent, command):
     try:
         start_bg_logging = rospy.ServiceProxy("start_bg_logging",log_info)
         goal = LogInfo()
-        end2 = rospy.Time.from_sec(time.time()) rospy.Time.now()
+        end2 = rospy.Time.from_sec(time.time()) #rospy.Time.now()
         t = end2.to_sec()
         end = t
         goal.timer=str(end)
@@ -27,7 +28,7 @@ def function_to_log(agent, command):
         #     return "Okay everything went well"
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
-
+        
 def detection_call(value):
     rospy.wait_for_service("detector")
     result = "Did not work!"
@@ -39,6 +40,13 @@ def detection_call(value):
         print"Service call failed: %s"%e
 
 
+def cmdlistForDonkey(tmp):
+    while len(tmp) > 0:
+        res = tmp.pop()
+        if res.actor.data == "donkey":
+            return "1"
+    return "0"
+    
 def storing(sentencer):
     global stack
     global result
@@ -61,9 +69,14 @@ def storing(sentencer):
          #   print  res.propkeys[0].object.data
             if res.propkeys[0].object.data == "kite":
                 val = detection_call("kite")
-            else:
+            elif res.propkeys[0].object.data == "victim":
                 val = detection_call("victim")
-            if val == "YES":
+            else:
+                val = "NONE"
+
+            tmp = stack
+            checking = cmdlistForDonkey(tmp)
+            if val == "YES" and checking == "0":
                 desig = Desig()
                 desigs = []
                 propkey = Propkey()
@@ -79,6 +92,32 @@ def storing(sentencer):
                 stack.append(desig)
                 desigs.append(desig)
                 schetring = "go to " + val
+                log = function_to_log("donkey", schetring)
+                rospy.wait_for_service("service_proactivity")
+                result = "Did not work!"
+                try:
+                    service_proactivity = rospy.ServiceProxy("service_proactivity",HMIDesig)
+                    resp2 = service_proactivity(desigs)
+                    tmp = resp2.result
+                    return tmp
+                except rospy.ServiceException, e:
+                    print"Service call failed: %s"%e
+            elif res.propkeys[0].object.data == "null" and checking == "0":
+                desig = Desig()
+                desigs = []
+                propkey = Propkey()
+                propkeys = []
+                desig.action_type.data = "go"
+                desig.actor.data = "donkey"
+                desig.instructor.data = "ACMS"
+                desig.viewpoint.data = "busy_genius"
+                propkey.object_relation.data = "to"
+                propkey.object.data = "kite"
+                propkeys.append(propkey)
+                desig.propkeys = propkeys
+                stack.append(desig)
+                desigs.append(desig)
+                schetring = "go to kite"
                 log = function_to_log("donkey", schetring)
                 rospy.wait_for_service("service_proactivity")
                 result = "Did not work!"

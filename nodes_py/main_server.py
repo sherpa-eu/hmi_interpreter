@@ -365,7 +365,7 @@ def call_second_server(req):
     try:
         start_bg_logging = rospy.ServiceProxy("start_bg_logging",log_info)
         goal = LogInfo()
-        end2 = rospy.Time.from_sec(time.time()) rospy.Time.now()
+        end2 = rospy.Time.from_sec(time.time()) # rospy.Time.now()
         t = end2.to_sec()
         end = t
         goal.timer=str(end)
