@@ -16,8 +16,9 @@
   <node name="acms_server" pkg="hmi_interpreter" type="acms_server.py"/>
   <node name="cmd_collector" pkg="hmi_interpreter" type="cmd_collector.py"/>
   <node name="cmd_collector_subscriber" pkg="hmi_interpreter" type="cmd_collector_subscriber.py"/>
-   <!--node name="juliusToRos" pkg="hmi_interpreter" type="juliusToRos.py"/-->
-   <!--node name="logging_client" pkg="hmi_interpreter" type="logging_client.py"/-->
+  <!--node name="juliusToRos" pkg="hmi_interpreter" type="juliusToRos.py"/-->
+  <node name="logging_client" pkg="hmi_interpreter" type="logging_client.py"/>
+  <node name="all_timepoints_sub" pkg="hmi_interpreter" type="all_timepoints_sub.py"/>
    <!--node name="pointing_sub_left_hand" pkg="hmi_interpreter" type="pointing_sub_left_hand.py"/-->
    <!--node name="pointing_sub_right_hand" pkg="hmi_interpreter" type="pointing_sub_right_hand.py"/-->
 </launch>
