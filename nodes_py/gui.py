@@ -401,7 +401,11 @@ def show_entry_fields():
 
 
 if __name__ == "__main__":
+   pubtimepoint = rospy.Publisher("/all_timepoints", String, queue_size=10)
    rospy.init_node('gui_node', anonymous=True)
+   value = String()
+   value.data = ""
+   pubtimepoint.publish(value)
    master = Tk()
    master.title("HMI Dialogue Interface")
    v = IntVar()
