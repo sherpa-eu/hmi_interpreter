@@ -51,7 +51,11 @@ def storing(sentencer):
     global stack
     global result
     desig = Desig()
+    print "sentencer"
+    print sentencer
     sentence = sentencer[0]
+    print "sentence"
+    print sentence
     if sentence.checker.data == "get":
         if not stack:
             return "empty list"
@@ -66,7 +70,8 @@ def storing(sentencer):
         stack.append(res)
         result=res
         if res.action_type.data == "take-picture" and res.actor.data == "blue_wasp":
-         #   print  res.propkeys[0].object.data
+            print "go into checker"
+            #   print  res.propkeys[0].object.data
             if res.propkeys[0].object.data == "kite":
                 val = detection_call("kite")
             elif res.propkeys[0].object.data == "victim":
@@ -92,7 +97,7 @@ def storing(sentencer):
                 stack.append(desig)
                 desigs.append(desig)
                 schetring = "go to " + val
-                log = function_to_log("donkey", schetring)
+                #log = function_to_log("donkey", schetring)
                 rospy.wait_for_service("service_proactivity")
                 result = "Did not work!"
                 try:
@@ -118,7 +123,7 @@ def storing(sentencer):
                 stack.append(desig)
                 desigs.append(desig)
                 schetring = "go to kite"
-                log = function_to_log("donkey", schetring)
+                #log = function_to_log("donkey", schetring)
                 rospy.wait_for_service("service_proactivity")
                 result = "Did not work!"
                 try:
@@ -148,6 +153,7 @@ def call_collector(req):
     print "Checking for Storing Value"
     speech_output = storing(req.desigs)
     #speech_output = result
+    print speech_output
     return HMISTOREDesigResponse(speech_output)
 
 

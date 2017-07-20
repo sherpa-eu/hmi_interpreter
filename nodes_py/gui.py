@@ -403,7 +403,7 @@ def show_entry_fields():
 
 
 if __name__ == "__main__":
-   pubtimepoint = rospy.Publisher("/all_timepoints", String, queue_size=10)
+   pubtimepoint = rospy.Publisher("/all_timepoints_sub", String, queue_size=10)
    rospy.init_node('gui_node', anonymous=True)
    value = String()
    value.data = ""

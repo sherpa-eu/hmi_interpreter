@@ -342,6 +342,7 @@ def call_second_server(req):
     print "call_second_server"
     rospy.wait_for_service("ros_parser")
     result = "Did not work!"
+    print "waiting for parsr"
     try:
         ros_parser = rospy.ServiceProxy("ros_parser",text_parser)
         resp1 = ros_parser(req)
@@ -351,6 +352,7 @@ def call_second_server(req):
     
     rospy.wait_for_service("add_agent_name")
     agent = "Did not work!"
+    print "waiting for agent name"
     try:
         add_agent_name = rospy.ServiceProxy("add_agent_name",text_parser)
         resp2 = add_agent_name("get")
@@ -359,29 +361,31 @@ def call_second_server(req):
         print"Service call failed: %s"%e
 
     agent00 = agent
-    rospy.wait_for_service("start_bg_logging")
-    bg = "Did not work!"
-    print agent00
-    try:
-        start_bg_logging = rospy.ServiceProxy("start_bg_logging",log_info)
-        goal = LogInfo()
-        end2 = rospy.Time.from_sec(time.time()) # rospy.Time.now()
-        t = end2.to_sec()
-        end = t
-        goal.timer=str(end)
-        goal.agent=agent00
-        goal.cmd=req
-        goal.commander = "busy_genius"
-        resp3 = start_bg_logging(goal)
-        bg = resp3.result
-        ##     create_hmi_msgs(resp1.result)
-        ##     GENERATE the CRAM CLIENT
-        ##     return "Okay everything went well"
-     except rospy.ServiceException, e:
-         print"Service call failed: %s"%e
+    # rospy.wait_for_service("start_bg_logging")
+    # bg = "Did not work!"
+    # print agent00
+    # print "waiting for logging"
+    # try:
+    #     start_bg_logging = rospy.ServiceProxy("start_bg_logging",log_info)
+    #     goal = LogInfo()
+    #     end2 = rospy.Time.from_sec(time.time()) # rospy.Time.now()
+    #     t = end2.to_sec()
+    #     end = t
+    #     goal.timer=str(end)
+    #     goal.agent=agent00
+    #     goal.cmd=req
+    #     goal.commander = "busy_genius"
+    #     resp3 = start_bg_logging(goal)
+    #     bg = resp3.result
+    #     ##     create_hmi_msgs(resp1.result)
+    #     ##     GENERATE the CRAM CLIENT
+    #     ##     return "Okay everything went well"
+    # except rospy.ServiceException, e:
+    #     print"Service call failed: %s"%e
         
     rospy.wait_for_service("add_viewpoint")
     viewpoint = "Did not work!"
+    print "waiting for viewpoint"
     try:
         add_viewpoint = rospy.ServiceProxy("add_viewpoint",text_parser)
         resp2 = add_viewpoint("get")
@@ -391,6 +395,7 @@ def call_second_server(req):
 
     rospy.wait_for_service("pointing_server")
     pose = "Did not work!"
+    print "waiting for pointing server"
     try:
         pointing_server = rospy.ServiceProxy("pointing_server",pointer)
         string = String()
@@ -403,6 +408,7 @@ def call_second_server(req):
     
     rospy.wait_for_service("add_openEase_object")
     pose = "Did not work!"
+    print "openease object"
     try:
         add_openEase_object = rospy.ServiceProxy("add_openEase_object",text_parser)
         string = String()
@@ -411,12 +417,14 @@ def call_second_server(req):
         openEase = resp2.result
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
-        
+  
+    print "go into create desigs method"
     create_hmi_msgs(resp1.result, agent, viewpoint, posy,openEase)
     pub.publish(desigs[0])
     rate = rospy.Rate(20)
     valy = go_into_collector(hmidesig)
     rospy.wait_for_service("service_hmi_cram")
+    print "waiting for cram service"
     try:
         service_hmi_cram = rospy.ServiceProxy("service_hmi_cram",HMIDesig)
         resp2 = service_hmi_cram(desigs)
@@ -460,6 +468,7 @@ def checking_agent(value):
             print"Service call failed: %s"%e
     else:
         return "NOCOMMAND"
+
 def check_yes_no_command (value,prev):
     print "check yes no command"
     if value == "yes" and prev != "" and prev != "yes" and prev != "no":
@@ -584,6 +593,8 @@ def call_main_server(req):
     print "call main server"
     serv_checker = checking_agent(req.goal)
     # if agent not capable
+    print "checking the agent with: "
+    print serv_checker
     if serv_checker == "NIENTE":
         return "Waiting!"
     elif serv_checker == "BRAVO" or serv_checker == "NOCOMMAND":

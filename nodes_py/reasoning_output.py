@@ -4,6 +4,8 @@ from hmi_interpreter.srv import *
 from hmi_interpreter.msg import *
 import rospy
 import time
+import rospkg
+from subprocess import Popen
 import sys
 import os, sys
 import os.path
@@ -11,22 +13,23 @@ import random
 from std_msgs.msg import String
 import math
 import tf
-import rospkg
 import time
 from visualization_msgs.msg import *
 from interactive_markers.interactive_marker_server import *
 
-inFile="areas_scanned.owl"
+inFile="reasoning_output.owl"
 opener=''
+rospack=''
 rospack = rospkg.RosPack()
-path =  rospack.get_path('hmi_interpreter')+'/nodes_py'+'/logfiles'
+path = rospack.get_path('hmi_interpreter')+'/nodes_py'+'/logfiles'
 
 
-def log_timepoints():
+def call_reasoner(req):
     global opener
+    print req
+    tata = req.goal
     with open(path+"/"+inFile,'r') as i:
         lines = i.readlines()
-    print log_timepoints
     outFile = inFile
     end2 = rospy.Time.from_sec(time.time()) #rospy.Time.now()
     t = end2.to_sec()
@@ -35,59 +38,30 @@ def log_timepoints():
     with open(path+"/"+outFile,'w') as o:
         for line in lines:
             if line == "</rdf:RDF>\n":
-                o.write("<owl:NamedIndividual rdf:about=\"http://knowrob.org/kb/knowrob.owl#timepoint_"+value+"\">\n"
+                val = str(random.getrandbits(32))
+                val2 = str(random.getrandbits(64))
+                o.write("<owl:NamedIndividual rdf:about=\"http://knowrob.org/kb/unreal_log.owl#Advising_"+val+"\">\n"
+                        "<rdf:type rdf:resource=\"http://knowrob.org/kb/knowrob.owl#Advising\"/>\n"
+                        "<knowrob:containsInformation rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">"+tata+"</knowrob:containsInformation>\n"
+                        "</owl:NamedIndividual>\n"
+                        "<owl:NamedIndividual rdf:about=\"http://knowrob.org/kb/unreal_log.owl#Communicating_"+val2+"0TH1\">\n"
+                        "<rdf:type rdf:resource=\"http://knowrob.org/kb/knowrob.owl#Communicating\"/>\n"
+                        "<knowrob:startTime rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#timepoint_"+value+"\"/>\n"
+                        "<knowrob:endTime rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#timepoint_"+value+"\"/>\n"
+                        "<knowrob:communicationToken rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#Advsing_"+val+"\"/>\n"
+                        "</owl:NamedIndividual>\n"
+                    	"<owl:NamedIndividual rdf:about=\"http://knowrob.org/kb/knowrob.owl#timepoint_"+value+"\">\n"
                         "<rdf:type rdf:resource=\"&knowrob;TimePoint\"/>\n"
-                        "</owl:NamedIndividual>\n"+line)
+                        "</owl:NamedIndividual>\n\n"+line)
             else:
                 o.write(line)
-    
-def visualizeMarker(array):
-    print "visualizemarker"
-    publisher = rospy.Publisher("/visualization_marker_array",MarkerArray,queue_size=10)
-  #  rospy.init_node("simple_marker",anonymous=True)
-    cubes = MarkerArray()
-    marker = Marker()
-    marker.header.frame_id = "/map"
-    marker.header.stamp = rospy.Time.now()
-    marker.id = random.getrandbits(16)
-    marker.type = marker.CUBE
-    marker.action = marker.ADD
-    marker.pose.position.x = array[0]
-    marker.pose.position.y = array[1]
-    marker.pose.position.z = array[2]
-    marker.scale.x = 6.0
-    marker.scale.y = 6.0
-    marker.scale.z = 3.0
-    marker.color.r = 1.0
-    marker.color.g = 0.0
-    marker.color.b = 0.0
-    marker.color.a = 0.7
-    cubes.markers.append(marker)
-    publisher.publish(cubes)
-   
 
-
-def callCB(req):
-    print "callCB"
-    listener = tf.TransformListener()
-    rate = rospy.Rate(50.0)
-   # index = 0
-    while not rospy.is_shutdown():
-        log_timepoints()
-        print "sleep"
-       # index = index+1
-        rospy.sleep(1)
-
-
-
-
-
+    return text_parserResponse("reasoning_output stored")
 
 def create_file():
     global opener
     global inFile
     global path
-    print "createFile"
     if os.path.exists(path):
         print "directory already exist"
     else:
@@ -95,7 +69,7 @@ def create_file():
     
     if os.path.isfile(path+"/"+inFile):
         value= random.getrandbits(16)
-        inFile="areas_scanned_"+str(value)+".owl"
+        inFile="reasoning_output_"+str(value)+".owl"
 
     opener = open(path+"/"+inFile,'w')
     opener.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
@@ -130,12 +104,13 @@ def create_file():
                  "</rdf:RDF>\n")
     opener.close()
 
-def cram_scanned():
+
+def main_output():
     create_file()
-    rospy.init_node("cram_scanned")
-    rospy.Subscriber("/all_timepoints_sub", String, callCB)
-    print "AllTimepoints is ready to log timepoints"
+    rospy.init_node("reasoning_output_node")
+    s = rospy.Service("store_reasoning_output", text_parser, call_reasoner)
+    print "Wait for reasoning output to log it"
     rospy.spin()
 
 if __name__== "__main__":
-    cram_scanned()
+    main_output()

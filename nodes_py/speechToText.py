@@ -65,6 +65,8 @@ def add_viewpoint(viewpoint):
           
 def subscriberCB(data):
      global speech_output
+     print "subscriber of speechToText: "
+     print data
      speech_input = data.data
      speech_input = speech_input.lower()
      speech_input = re.sub('next to', 'next', speech_input)
