@@ -27,10 +27,10 @@ def callJulius(port):
     s.settimeout(10)
     s.connect(('127.0.0.1', port))
     s.settimeout(None)
-    p = Popen(['padsp','julius', '-C',rospack.get_path('hmi_interpreter')+'/julius_files/sherpa.jconf','-input','mic'], stdout= s, stderr= s)
-
+    p = Popen(['julius', '-C',rospack.get_path('hmi_interpreter')+'/julius_files/sherpa.jconf','-input','mic'], stdout= s, stderr= s)
 
 def call_my_julius(req):
+    print "call my julius "
     #if req.goal == "true":
     req.goal = "true"
     recognize(req.goal)
@@ -113,6 +113,7 @@ def recognizer_server():
  
 
 if __name__ == '__main__':
+    print "start main julius "
     rospack = rospkg.RosPack()
     path = rospack.get_path('hmi_interpreter')
     recognizer_server()

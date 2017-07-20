@@ -9,7 +9,7 @@
 -input mic    			                     # live microphone
 -v sherpa.dict			                     # word dictionary
 -dfa sherpa.dfa	                                     # specify DFA and dictionary separately
--input mic
+#-input mic
 -h /usr/share/julius-voxforge/acoustic/hmmdefs       # acoustic HMM (ascii or Julius binary)
 -hlist /usr/share/julius-voxforge/acoustic/tiedlist  # HMMList to map logical phone to physical
 -lv 4000

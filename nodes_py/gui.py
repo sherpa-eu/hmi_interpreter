@@ -346,7 +346,9 @@ def change_image_field():
    global checker
    if checker == "false" and entered == "false":
       checker = "true"
-      b1.config(image=on)
+      b1.config(image=on) 
+      window.delete("1.0", "end-1c")
+      window.insert(INSERT,'Please, give a command!\n','rotcolor')
       thread.start_new_thread(connect_to_julius, ("true",1,))
    elif checker == "true" and entered == "false":
       checker = "false"

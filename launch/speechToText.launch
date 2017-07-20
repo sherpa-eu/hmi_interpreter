@@ -21,4 +21,5 @@
   <node name="all_timepoints_sub" pkg="hmi_interpreter" type="all_timepoints_sub.py"/>
    <!--node name="pointing_sub_left_hand" pkg="hmi_interpreter" type="pointing_sub_left_hand.py"/-->
    <!--node name="pointing_sub_right_hand" pkg="hmi_interpreter" type="pointing_sub_right_hand.py"/-->
+
 </launch>
