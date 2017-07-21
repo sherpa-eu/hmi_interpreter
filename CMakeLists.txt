@@ -70,6 +70,7 @@ add_service_files(
    call_cmd.srv
    transform.srv
    log_info.srv
+   reasoning_algo.srv
 )
 ## Generate actions in the 'action' folder
 # add_action_files(

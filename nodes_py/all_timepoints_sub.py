@@ -16,7 +16,7 @@ import time
 from visualization_msgs.msg import *
 from interactive_markers.interactive_marker_server import *
 
-inFile="areas_scanned.owl"
+inFile="all_timepoints.owl"
 opener=''
 rospack = rospkg.RosPack()
 path =  rospack.get_path('hmi_interpreter')+'/nodes_py'+'/logfiles'
@@ -77,7 +77,7 @@ def callCB(req):
         log_timepoints()
         print "sleep"
        # index = index+1
-        rospy.sleep(1)
+       #  rospy.sleep(1)
 
 
 
@@ -96,7 +96,7 @@ def create_file():
     
     if os.path.isfile(path+"/"+inFile):
         value= random.getrandbits(16)
-        inFile="areas_scanned_"+str(value)+".owl"
+        inFile="all_timepoints_"+str(value)+".owl"
 
     opener = open(path+"/"+inFile,'w')
     opener.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"

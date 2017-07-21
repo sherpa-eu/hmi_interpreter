@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE rdf:RDF[
+<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns">
+<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema">
+<!ENTITY owl "http://www.w3.org/2002/07/owl">
+<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+<!ENTITY knowrob "http://knowrob.org/kb/knowrob.owl#">
+<!ENTITY log "http://knowrob.org/kb/unreal_log.owl#">
+<!ENTITY u-map "http://knowrob.org/kb/u_map.owl#">
+]>
+
+<rdf:RDF xmlns:computable="http://knowrob.org/kb/computable.owl#" xmlns:swrl="http://www.w3.org/2003/11/swrl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:knowrob="http://knowrob.org/kb/knowrob.owl#" xmlns:u-map="http://knowrob.org/kb/u_map.owl#" xml:base="http://knowrob.org/kb/u_map.owl#">
+
+<!--Ontologies-->
+<owl:Ontology rdf:about="http://knowrob.org/kb/unreal_log.owl">
+<owl:imports rdf:resource="package://knowrob_common/owl/knowrob.owl"/>
+<!--owl:imports rdf:resource="package://knowrob_common/owl/sherpa.owl"/-->
+</owl:Ontology>
+
+<!--Property Definitions-->
+<owl:ObjectProperty rdf:about="&knowrob;taskContext"/>
+<owl:ObjectProperty rdf:about="&knowrob;taskSuccess"/>
+<owl:ObjectProperty rdf:about="&knowrob;startTime"/>
+<owl:ObjectProperty rdf:about="&knowrob;endTime"/>
+<owl:ObjectProperty rdf:about="&knowrob;experiment"/>
+<owl:ObjectProperty rdf:about="&knowrob;objectInCommand"/>
+<owl:ObjectProperty rdf:about="&knowrob;selectedObject"/>
+<owl:ObjectProperty rdf:about="&knowrob;selectedFinalObject"/>
+<owl:ObjectProperty rdf:about="&knowrob;selectedObject"/>
+
+<!--Class Definitions-->
+<owl:Class rdf:about="&knowrob;CRAMAction"/>
+<owl:Class rdf:about="&knowrob;ObjectReasoning">
+<rdfs:subClassOf rdf:resource="http://knowrob.org/kb/knowrob.owl#CRAMAction"/>
+</owl:Class>
+
+<!--Event Individuals-->
+<owl:NamedIndividual rdf:about="&log;timepoint_0.0">
+<rdf:type rdf:resource="&knowrob;TimePoint"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_1505213581">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hallo</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651494.54"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651494.54"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#Gehts"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#Wie"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_2861458445">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651542.96"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651542.96"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_421308740">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_150IF</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651542.97"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651542.97"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_226383531">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651543.0"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651543.0"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_3199995230">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Helipad_6Rv1W</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651569.41"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651569.41"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#helipad"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_2939962112">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Helipad_6Rv1W</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651569.43"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651569.43"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#all"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#helipad"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_3476719744">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651594.85"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651594.85"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_1549289794">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_150IF</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651594.86"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651594.86"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_3690938548">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651595.13"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651595.13"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_2010698887">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651637.43"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651637.43"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_3815630698">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_150IF</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651637.44"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651637.44"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_3774159843">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651637.45"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651637.45"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_3909507662">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651665.0"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651665.0"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_1197755188">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_150IF</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651665.01"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651665.01"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_725979675">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651665.02"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651665.02"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_1859705451">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651709.68"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651709.68"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_3375292580">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_150IF</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651709.69"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651709.69"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_1180881560">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651709.69"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651709.69"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_2845817374">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651838.72"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651838.72"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_2597541847">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_150IF</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651838.73"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651838.73"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_3935700006">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651838.74"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651838.74"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_4029890507">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651849.44"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651849.44"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#next"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_1186105535">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651849.44"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651849.44"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#next"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_949411410">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Helipad_6Rv1W</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651860.29"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651860.29"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#helipad"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_3967462624">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Helipad_6Rv1W</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651860.31"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500651860.31"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#all"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#helipad"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_3580449830">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Helipad_6Rv1W</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500652022.78"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500652022.78"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#helipad"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_3069471583">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Helipad_6Rv1W</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500652022.8"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500652022.8"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#all"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#helipad"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_2516301196">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Helipad_6Rv1W</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500652022.83"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500652022.83"/>
+<knowrob:selectedFinalObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#Helipad_6Rv1W"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#Helipad"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_1356381658">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500652032.84"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500652032.84"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_2164720516">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_150IF</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500652032.85"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500652032.85"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_2646086840">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500652032.87"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500652032.87"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#infront"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_3424311030">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500652043.9"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500652043.9"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#next"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://knowrob.org/kb/unreal_log.owl#ObjectReasoning_2943678757">
+<rdf:type rdf:resource="http://knowrob.org/kb/knowrob.owl#ObjectReasoning"/>
+<knowrob:containsInformation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FrozenLake_rFdy</knowrob:containsInformation>
+<knowrob:startTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500652043.9"/>
+<knowrob:endTime rdf:resource="http://knowrob.org/kb/unreal_log.owl#timepoint_1500652043.9"/>
+<knowrob:selectedObject rdf:resource="http://knowrob.org/kb/unreal_log.owl#next"/>
+<knowrob:objectInCommand rdf:resource="http://knowrob.org/kb/unreal_log.owl#lake"/>
+</owl:NamedIndividual>
+</rdf:RDF>
