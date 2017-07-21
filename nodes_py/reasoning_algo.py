@@ -50,7 +50,7 @@ def call_reasoner(req):
                             "<knowrob:endTime rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#timepoint_"+value+"\"/>\n"
                             "<knowrob:selectedFinalObject rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#"+wert+"\"/>\n"
                             "<knowrob:setViewpoint rdf:resource=\"http://knowrob.org/kb/unreal.log#"+viewpoint+"\">\n"
-                            "<knowrob:objectInCommand rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#"+sel+"\"/>\n"
+                            "<knowrob:entityInCommand rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#"+sel+"\"/>\n"
                             "</owl:NamedIndividual>\n\n"+line)
                 elif pos == "infront":
                     val = str(random.getrandbits(32))
@@ -62,7 +62,7 @@ def call_reasoner(req):
                             "<knowrob:endTime rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#timepoint_"+value+"\"/>\n"
                             "<knowrob:selectedObject rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#"+pos+"\"/>\n"
                             "<knowrob:setViewpoint rdf:resource=\"http://knowrob.org/kb/unreal.log#"+viewpoint+"\">\n"
-                            "<knowrob:objectInCommand rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#"+sel+"\"/>\n"
+                            "<knowrob:entityInCommand rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#"+sel+"\"/>\n"
                             "</owl:NamedIndividual>\n\n"+line)
                 elif pos == "all":
                     val = str(random.getrandbits(32))
@@ -74,7 +74,7 @@ def call_reasoner(req):
                             "<knowrob:endTime rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#timepoint_"+value+"\"/>\n"
                             "<knowrob:selectedObject rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#"+pos+"\"/>\n"
                             "<knowrob:setViewpoint rdf:resource=\"http://knowrob.org/kb/unreal.log#"+viewpoint+"\">\n"
-                            "<knowrob:objectInCommand rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#"+sel+"\"/>\n"
+                            "<knowrob:entityInCommand rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#"+sel+"\"/>\n"
                             "</owl:NamedIndividual>\n\n"+line)
                 else:
                     val = str(random.getrandbits(32))
@@ -86,7 +86,7 @@ def call_reasoner(req):
                             "<knowrob:endTime rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#timepoint_"+value+"\"/>\n"
                             "<knowrob:selectedObject rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#"+pos+"\"/>\n"
                             "<knowrob:setViewpoint rdf:resource=\"http://knowrob.org/kb/unreal.log#"+viewpoint+"\">\n"
-                            "<knowrob:objectInCommand rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#"+sel+"\"/>\n"
+                            "<knowrob:entityInCommand rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#"+sel+"\"/>\n"
                             "</owl:NamedIndividual>\n\n"+line)
 
 
@@ -131,7 +131,7 @@ def create_file():
                  "<owl:ObjectProperty rdf:about=\"&knowrob;startTime\"/>\n"
                  "<owl:ObjectProperty rdf:about=\"&knowrob;endTime\"/>\n"
                  "<owl:ObjectProperty rdf:about=\"&knowrob;experiment\"/>\n"
-                 "<owl:ObjectProperty rdf:about=\"&knowrob;objectInCommand\"/>\n"
+                 "<owl:ObjectProperty rdf:about=\"&knowrob;entityInCommand\"/>\n"
                  "<owl:ObjectProperty rdf:about=\"&knowrob;selectedObject\"/>\n"
                  "<owl:ObjectProperty rdf:about=\"&knowrob;selectedFinalObject\"/>\n"
                  "<owl:ObjectProperty rdf:about=\"&knowrob;selectedObject\"/>\n\n"
