@@ -1,5 +1,6 @@
 string data
 string selected
 string position
+string viewpoint
 ---
 string result
