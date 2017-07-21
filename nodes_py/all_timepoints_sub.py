@@ -24,6 +24,7 @@ path =  rospack.get_path('hmi_interpreter')+'/nodes_py'+'/logfiles'
 
 def log_timepoints():
     global opener
+    print log_timepoints
     with open(path+"/"+inFile,'r') as i:
         lines = i.readlines()
     print log_timepoints
