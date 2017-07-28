@@ -132,7 +132,7 @@ def ShowChoice():
       entered = "true"
    elif v.get() == 7:
       pub.publish("donkey")
-      result = "GO TO VICTIM"
+      result = "GO TO KITE"
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
       pub.publish(result)
@@ -463,7 +463,7 @@ if __name__ == "__main__":
    r13 = Radiobutton(master, text="DONKEY, UNMOUNT BLUE WASP (if mounted)",padx=0, variable=v, value=13, command=ShowChoice).grid(row=11, column=0,sticky=W, pady=5, padx=5)
    r5 = Radiobutton(master, text="RED WASP, SEARCH THAT BRIDGE FOR VICTIM (click on openease)",padx=0, variable=v, value=5, command=ShowChoice).grid(row=12, column=0,sticky=W, pady=5, padx=5)
    r6 = Radiobutton(master, text="BLUE WASP, SEARCH THAT BRIDGE FOR VICTIM (click on openease)",padx=0, variable=v, value=6, command=ShowChoice).grid(row=13, column=0,sticky=W, pady=5, padx=5) 
-   r7 = Radiobutton(master, text="DONKEY, GO TO VICTIM",padx=0, variable=v, value=7, command=ShowChoice).grid(row=14, column=0,sticky=W, pady=5, padx=5) 
+   r7 = Radiobutton(master, text="DONKEY, GO TO KITE",padx=0, variable=v, value=7, command=ShowChoice).grid(row=14, column=0,sticky=W, pady=5, padx=5) 
    r8 = Radiobutton(master, text="BLUE WASP, GO TO VICTIM",padx=0, variable=v, value=8, command=ShowChoice).grid(row=15, column=0,sticky=W, pady=5, padx=5) 
    r9 = Radiobutton(master, text="RED WASP, CHARGE",padx=0, variable=v, value=9, command=ShowChoice).grid(row=16, column=0,sticky=W, pady=5, padx=5)
    r10 = Radiobutton(master, text="BLUE WASP, TAKE PICTURE",padx=0, variable=v, value=10, command=ShowChoice).grid(row=17, column=0,sticky=W, pady=5, padx=5)

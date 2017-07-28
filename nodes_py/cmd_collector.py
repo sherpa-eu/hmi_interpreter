@@ -5,6 +5,7 @@ from hmi_interpreter.msg import *
 import rospy
 import time
 import sys
+from std_msgs.msg import *
 stack=[]
 result=''
   
@@ -124,6 +125,23 @@ def storing(sentencer):
                 desigs.append(desig)
                 schetring = "go to kite"
                 #log = function_to_log("donkey", schetring)
+                cmd = String()
+                cmd.data = schetring
+                executable = String()
+                executable.data = "yes"
+                agency = String()
+                agency.data = "donkey"
+                objName = String()
+                rospy.wait_for_service("logging_detection")
+                detect = "Did not work!"
+                
+                try:
+                    logging_detection = rospy.ServiceProxy("logging_detection", logging_detector)
+                    response = logging_detection(cmd, executable, agency,objName, objName, objName, objName)
+                    detect = response.result
+                except rospy.ServiceException, e:
+                    print"Service call failed: %s"%e  
+               
                 rospy.wait_for_service("service_proactivity")
                 result = "Did not work!"
                 try:

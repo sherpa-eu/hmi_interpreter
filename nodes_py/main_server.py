@@ -630,9 +630,11 @@ def check_other_cmds(value, prev):
             print"Service call failed: %s"%e
         if detected == "YES":
             publisher.publish(value)
+            call_transparency_logging(value, "yes","", "victim", "yes")
             call_second_server(value)
         else:
             publisher.publish("Victim not found yet!")
+            call_transparency_logging(value, "no","", "victim", "no")
             return "nix"
     elif "kite" in value:
         rospy.wait_for_service("detector")
@@ -648,9 +650,11 @@ def check_other_cmds(value, prev):
  
         if detected == "YES":
             publisher.publish(value)
+            call_transparency_logging(value, "yes","", "kite", "yes")
             call_second_server(value)
         else:
             publisher.publish("Kite not found yet!")
+            call_transparency_logging(value, "no","", "kite", "no")
             return "nix"
             
 def call_main_server(req):
