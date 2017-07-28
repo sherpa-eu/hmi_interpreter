@@ -71,6 +71,7 @@ add_service_files(
    transform.srv
    log_info.srv
    reasoning_algo.srv
+   logging_detector.srv
 )
 ## Generate actions in the 'action' folder
 # add_action_files(

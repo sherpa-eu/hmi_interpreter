@@ -79,8 +79,6 @@ def callGesture(req):
                             "<knowrob:clickOnObject rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">"+act+"</knowrob:clickOnObject>\n"
                             "<knowrob:startTime rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#timepoint_"+value+"\"/>\n"
                             "<knowrob:endTime rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#timepoint_"+value+"\"/>\n"
-                            "<knowrob:quaternion rdf:datatype=\"&xsd;string\">"+str(pointer.pose.orientation.x)+" "+str(pointer.pose.orientation.y)+" "+str(pointer.pose.orientation.z)+" "+str(pointer.pose.orientation.w)+"</knowrob:quaternion>\n"
-                            "<knowrob:translation rdf:datatype=\"&xsd;string\">"+str(pointer.pose.position.x)+" "+str(pointer.pose.position.y)+" "+str(pointer.pose.position.z)+"</knowrob:translation>\n"
                             "</owl:NamedIndividual>\n\n"+line)
             else:
                 o.write(line)

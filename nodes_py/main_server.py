@@ -34,19 +34,19 @@ def call_transparency_logging(cmd, executable, agent, objName, found):
         except rospy.ServiceException, e:
             print"Service call failed: %s"%e
     
-
+    print "here"
 
     hascap = ''
     needcap = ''
-    if agent == "blue-wasp" or agent == "blue wasp" or agent == "hawk":
+    if agent == "blue-wasp" or agent == "blue wasp" or agent == "blue_wasp" or agent == "hawk":
         hascap = 'http://knowrob.org/kb/srdl2-comp.owl#ColorCamera'
-    elif agent == "red-wasp" or agent == "red wasp":
+    elif agent == "red-wasp" or agent == "red wasp" or agent == "red_wasp":
         hascap = 'http://knowrob.org/kb/knowrob.owl#Beacon'
         needcap = 'http://knowrob.org/kb/srdl2-comp.owl#ColorCamera'
     elif agent == "donkey":
         hascap = 'http://knowrob.org/kb/knowrob.owl#ChargingBattery'
         needcap = 'http://knowrob.org/kb/srdl2-comp.owl#ColorCamera'
-
+        
     command = String()
     command.data = cmd
     executability = String()
@@ -59,14 +59,14 @@ def call_transparency_logging(cmd, executable, agent, objName, found):
     giveCap.data = hascap
     objectName = String()
     objectName.data = objName
-    foundObj = String
+    foundObj = String()
     foundObj.data = found
 
     rospy.wait_for_service("logging_detection")
     serv_result = "Did not work logging detection!"
     try:
         logging_detection = rospy.ServiceProxy("logging_detection", logging_detector)
-        resp3 = logging_detection(cmd, executability, agency, needCap, giveCap, objectName, foundObj)
+        resp3 = logging_detection(command, executability, agency, needCap, giveCap, objectName, foundObj)
         return resp3.result
     except rospy.ServiceException, e:
         print"Service call failed: %s"%e
@@ -471,8 +471,11 @@ def call_second_server(req):
         print"Service call failed: %s"%e
   
     print "go into create desigs method"
+    print req
+    print agent
     call_transparency_logging(req, "yes",agent,"", "")
     create_hmi_msgs(resp1.result, agent, viewpoint, posy,openEase)
+    print agent
     pub.publish(desigs[0])
     rate = rospy.Rate(20)
     valy = go_into_collector(hmidesig)
@@ -524,13 +527,13 @@ def checking_agent(value):
 
 def check_yes_no_command (value,prev):
     print "check yes no command"
-    if "victim" in prev:
-        pvalue = "victim"
-    elif "kite" in prev:
-        pvalue = "kite"
+    # if "victim" in prev:
+    #     pvalue = "victim"
+    # elif "kite" in prev:
+    #     pvalue = "kite"
     if value == "yes" and prev != "" and prev != "yes" and prev != "no":
         publisher.publish(prev)
-        call_transparency_logging(prev, "no","", pvalue, "yes")
+      #  call_transparency_logging(prev, "no","", pvalue, "yes")
         call_second_server(prev)
         # if command is yes but prev command not given
     elif value == "yes" and prev == "":
@@ -539,7 +542,7 @@ def check_yes_no_command (value,prev):
         # of command is No
     elif value == "no":
         publisher.publish("Waiting for new instruction.")
-        call_transparency_logging(prev, "no","", pvalue, "yes")
+       # call_transparency_logging(prev, "no","", pvalue, "yes")
         return "nix"
 
 def check_search_command (value, prev):
@@ -607,7 +610,7 @@ def check_search_command (value, prev):
                         print"Service call failed: %s"%e
                     if detector_goal == "YES":
                         publisher.publish("Kite already found. Continue searching, yes or no?")
-                        call_transparency_logging(prev, "no","", "victim", "yes")
+                        call_transparency_logging(prev, "no","", "kite", "yes")
                         return "nix"
                     else:
                         call_second_server(value+" for kite")

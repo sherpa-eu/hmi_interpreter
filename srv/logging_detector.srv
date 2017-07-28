@@ -1,0 +1,9 @@
+std_msgs/String command
+std_msgs/String executable
+std_msgs/String agentname
+std_msgs/String neededCap
+std_msgs/String givenCap
+std_msgs/String neededObj
+std_msgs/String foundObj
+---
+std_msgs/String result

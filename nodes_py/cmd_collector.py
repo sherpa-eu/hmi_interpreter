@@ -43,7 +43,7 @@ def detection_call(value):
 def cmdlistForDonkey(tmp):
     while len(tmp) > 0:
         res = tmp.pop()
-        if res.actor.data == "donkey":
+        if res.actor.data == "donkey" and res.action_type.data == "go":
             return "1"
     return "0"
     

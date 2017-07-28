@@ -43,12 +43,14 @@ def get_pointer(a,s):
    while not rospy.is_shutdown():
       try:
          now = rospy.Time(0)
+         print "get_pointer"
          listener.waitForTransform("/map", "/busy_genius/right_hand", now, rospy.Duration(4.0))
          (trans_right,rot_right) = listener.lookupTransform('/map', '/busy_genius/right_hand', now)
          (trans_left,rot_left) = listener.lookupTransform('/map', '/busy_genius/left_hand', now)
          break
       except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
          continue
+   print "here we go"
    if trans_right[2] >= trans_left[2]:
       pose.pose.position.x = trans_right[0]
       pose.pose.position.y = trans_right[1]
@@ -88,6 +90,9 @@ def ShowChoice():
       result = "GO THERE"
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
+      thread.start_new_thread(get_pointer, (result,0,))
+      time.sleep(2)
+      #get_pointer("a","s")
       pub.publish(result)
       entered = "true"
    elif v.get() == 2:
@@ -295,6 +300,8 @@ def callback_thread(data,y):
             result = "GO"+result[1]
             string.data = result
          elif result=="GO THERE" or "THERE" in result:
+            print result
+            print "get pointer function"
             thread.start_new_thread(get_pointer, (string.data,5,))
          if result.upper() == "HAWK" or result.upper() == "RED WASP" or result.upper() == "BLUE WASP" or result.upper() == "DONKEY" or result.upper() == "ROBOT": 
             if result.lower() == "red wasp":
@@ -382,6 +389,8 @@ def show_entry_fields():
       window.insert(END,result+'\n','hnbcolor')
       print "teest"
       if result == "GO THERE" or "THERE" in result:
+         print result
+         print "get pointer function"
          thread.start_new_thread(get_pointer, (res,5,))
       if result == "ROBOTS":
          result = "ROBOT"
