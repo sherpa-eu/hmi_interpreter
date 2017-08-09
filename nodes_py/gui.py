@@ -111,7 +111,7 @@ def ShowChoice():
       entered = "true"
    elif v.get() == 4:
       pub.publish("hawk")
-      result = "GO TO HELIPAD"
+      result = "LAND ON HELIPAD"
       window.insert(INSERT,'Genius:  ','hcolor')
       window.insert(END,result+'\n','hnbcolor')
       pub.publish(result)
