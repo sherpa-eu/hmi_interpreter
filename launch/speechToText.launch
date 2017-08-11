@@ -22,6 +22,9 @@
   <node name="reasoning_algo" pkg="hmi_interpreter" type="reasoning_algo.py"/>
   <node name="pointing_sub_left_hand" pkg="hmi_interpreter" type="pointing_sub_left_hand.py"/>
   <node name="pointing_sub_right_hand" pkg="hmi_interpreter" type="pointing_sub_right_hand.py"/>
+  <node name="store_image" pkg="hmi_interpreter" type="store_image"/>
+  <node name="store_img_subscriber" pkg="hmi_interpreter" type="store_img_subscriber.py"/>
+
   <!--node name="juliusToRos" pkg="hmi_interpreter" type="juliusToRos.py"/-->
   <!--node name="context_server" pkg="hmi_interpreter" type="context_server.py"/-->
 </launch>

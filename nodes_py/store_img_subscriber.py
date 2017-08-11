@@ -23,7 +23,6 @@ opener=''
 
 def call_image_storing(kette):
     global opener
-    
     name = kette
 
     with open(log_path+"/"+inFile,'r') as i:
@@ -33,7 +32,9 @@ def call_image_storing(kette):
     t = end2.to_sec()
     end = t
     value = str(t)
-  
+    std = String()
+    std.data = name
+    pub.publish(std)
     with open(log_path+"/"+outFile,'w') as o:
         for line in lines:
             if line == "</rdf:RDF>\n":
@@ -138,13 +139,12 @@ def create_file():
 
     
 
-def main():
+
+if __name__ =='__main__':
     rospy.init_node('store_imgs')
+    create_file()
     wait_for_topic = "/internal/recognizer/output"
+    pub = rospy.Publisher('hmi_store_images', String, queue_size=10)
     rospy.Subscriber(wait_for_topic,String,call_callback)
     rospy.spin()
 
-
-if __name__ =='__main__':
-    create_file()
-    main()
