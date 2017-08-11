@@ -55,6 +55,7 @@ def callDetection(req):
                             "</owl:NamedIndividual>\n\n"+line)
                 elif executable == "niente":
                     o.write("<knowrob:taskExecutable rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">"+"no"+"</knowrob:taskExecutable>\n"
+                            "<knowrob:checkReason rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#Capabilities\"/>\n"
                             "<knowrob:hasCap rdf:resource=\""+givenCap+"\"/>\n"
                             "<knowrob:needCap rdf:resource=\""+neededCap+"\"/>\n"
                             "</owl:NamedIndividual>\n\n"+line)
@@ -62,10 +63,12 @@ def callDetection(req):
                     o.write("<knowrob:taskExecutable rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">"+executable+"</knowrob:taskExecutable>\n")
                     if found == "yes":
                         o.write("<knowrob:objectName rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">"+objName+"</knowrob:objectName>\n"
+                                "<knowrob:checkReason rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#FoundObject\"/>\n"
                                 "<knowrob:objectAvailable rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">"+"object-already-found"+"</knowrob:objectAvailable>\n"
                                 "</owl:NamedIndividual>\n\n"+line)
                     else:
                         o.write("<knowrob:objectName rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">"+objName+"</knowrob:objectName>\n"
+                                "<knowrob:checkReason rdf:resource=\"http://knowrob.org/kb/unreal_log.owl#NoObjectFound\"/>\n"
                                 "<knowrob:objectAvailable rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">"+"object-not-found"+"</knowrob:objectAvailable>\n"
                                 "</owl:NamedIndividual>\n\n"+line)
             else:
@@ -114,6 +117,7 @@ def create_file():
 	"<owl:ObjectProperty rdf:about=\"&knowrob;endTime\"/>\n"
 	"<owl:ObjectProperty rdf:about=\"&knowrob;experiment\"/>\n"
         "<owl:ObjectProperty rdf:about=\"&knowrob;needCap\"/>\n"
+        "<owl:ObjectProperty rdf:about=\"&knowrob;checkReason\"/>\n"
         "<owl:ObjectProperty rdf:about=\"&knowrob;hasCap\"/>\n"
         "<owl:ObjectProperty rdf:about=\"&knowrob;availableCapability\"/>\n"
 	"<!--Class Definitions-->\n"
@@ -135,7 +139,7 @@ def log_detector():
     create_file()
     rospy.init_node("log_detector")
     s = rospy.Service("/logging_detection", logging_detector, callDetection)
-    print "Logging transparency of communicationinfrastructure"
+    print "Logging transparency of communication"
     rospy.spin()
 
 if __name__== "__main__":
