@@ -10,6 +10,7 @@ import sys
 import os, sys
 import os.path
 import random
+from hmi_interpreter.srv import *
 
 bridge = CvBridge()
 rospack = rospkg.RosPack()
@@ -63,20 +64,20 @@ def call_callback(kette):
     print("Received Command")
     indexy = 0
     indexi = 0
+    name = kette.data
+    val = str(random.getrandbits(16))
     if name == "TAKE PICTURE" or name is "FOUND KITE" or name is "FOUND VICTIM":
-        while not rospy.is_shutdown():
-            if indexy == 1:
-                while indexi < 5:
-                    rospy.Subscriber("/RoboSherlock_output_image",Image,image_callback)
-                    indexi = indexi + 1
-                    if indexi >= 4:
-                        break
-                    else:
-                        rate.sleep()
-                        rospy.spinOnce()
-                        
-                indexy = 0
-                indexi = 0
+        tmp = 'camera_image_'+val
+        rospy.wait_for_service("store_image")
+        try: 
+            store_image = rospy.ServiceProxy("store_image", text_parser)
+            resp1 = store_image(tmp)
+            result = resp1.result
+            call_image_storing(tmp+'.jpg')
+            return result
+        except rospy.ServiceException, e:
+            print "Service call failed: %s"%e
+        
 
 def create_file():
     global opener

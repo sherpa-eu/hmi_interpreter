@@ -5,7 +5,8 @@ project(hmi_interpreter)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-
+  cv_bridge
+  sensor_msgs
   message_generation
   message_runtime
   geometry_msgs
@@ -13,9 +14,10 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   sherpa_msgs
-  
+  image_transport
 )
 
+find_package(OpenCV REQUIRED)
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -116,10 +118,9 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES hmi_interpreter
- #CATKIN_DEPENDS geometry_msgs message_generation message_runtime roscpp rospy std_msgs
-#  DEPENDS system_lib
+ # INCLUDE_DIRS include
+ CATKIN_DEPENDS roscpp cv_bridge std_msgs 
+ DEPENDS OpenCV
 )
 
 ###########
@@ -131,14 +132,18 @@ catkin_package(
 # include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
+add_executable(store_image nodes_cpp/store_image.cpp)
+target_link_libraries(store_image ${catkin_LIBRARIES})
+add_dependencies(store_image hmi_interpreter_generate_messages_cpp)
 ## Declare a C++ library
 # add_library(hmi_interpreter
 #   src/${PROJECT_NAME}/hmi_interpreter.cpp
 # )
 
-## Add cmake target dependencies of the library
+ ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
 # add_dependencies(hmi_interpreter ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
